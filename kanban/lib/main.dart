@@ -31,130 +31,160 @@ class Dashboard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 8),
             width: 200, 
             height: 700,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
+            color: Color.fromARGB(255, 248, 248, 248),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Text(
-                  'Backlog',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: double.infinity,
+                  color: const Color.fromARGB(255, 167, 216, 255), 
+                  child: Text(
+                    'Backlog',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, 
+                    ),
                   ),
                 ),
               ],
             ),
+          )
           ),
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 8),
             width: 200, 
             height: 700,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
+            color: Color.fromARGB(255, 248, 248, 248),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Text(
-                  'In Development',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: double.infinity,
+                  color: const Color.fromARGB(255, 167, 216, 255), 
+                  child: Text(
+                    'In Development',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, 
+                    ),
                   ),
                 ),
               ],
             ),
+          )
           ),
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 8),
             width: 200, 
             height: 700,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
+            color: Color.fromARGB(255, 248, 248, 248),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Text(
-                  'Developed',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: double.infinity,
+                  color: const Color.fromARGB(255, 167, 216, 255), 
+                  child: Text(
+                    'Developed',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, 
+                    ),
                   ),
                 ),
               ],
             ),
+          )
           ),
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 8),
             width: 200, 
             height: 700,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
+            color: Color.fromARGB(255, 248, 248, 248),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Text(
-                  'In Test',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: double.infinity,
+                  color: const Color.fromARGB(255, 167, 216, 255), 
+                  child: Text(
+                    'In Test',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, 
+                    ),
                   ),
                 ),
               ],
             ),
+          )
           ),
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 8),
             width: 200, 
             height: 700,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
+            color: Color.fromARGB(255, 248, 248, 248),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Text(
-                  'Tested',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: double.infinity,
+                  color: const Color.fromARGB(255, 167, 216, 255), 
+                  child: Text(
+                    'Tested',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, 
+                    ),
                   ),
                 ),
               ],
             ),
+          )
           ),
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 8),
             width: 200, 
             height: 700,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
+            color: Color.fromARGB(255, 248, 248, 248),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Text(
-                  'Done',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: double.infinity,
+                  color: const Color.fromARGB(255, 167, 216, 255), 
+                  child: Text(
+                    'Done',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, 
+                    ),
                   ),
                 ),
               ],
             ),
+          )
           ),
         ],
       ),
