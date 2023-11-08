@@ -9,60 +9,63 @@ class KanBanApplication extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          shape: Border(
-            bottom: BorderSide(
-              color: Color.fromARGB(255, 241, 241, 241),
-              width: 2.0,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65),
+          child: AppBar(
+            shape: Border(
+              bottom: BorderSide(
+                color: Color.fromARGB(255, 241, 241, 241),
+                width: 2.0,
+              ),
             ),
-          ),
-          actions: <Widget>[
-            Row(
-              children: [
-                DropDown(),
-                SizedBox(width: 16), 
-                Container(
-                  padding: EdgeInsets.only(right: 970, left: 100), 
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 8),
-                  child: Text(
-                    'SPRINT 16',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 31, 108, 203),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+            actions: <Widget>[
+              Row(
+                children: [
+                  DropDown(),
+                  SizedBox(width: 16),
+                  Container(
+                    padding: EdgeInsets.only(right: 970, left: 100),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(1),
-                  child: Text(
-                    'NOVEMBER 6, 2023 ➔ NOVEMBER 17, 2023',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 14,
-                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 8),
+                          child: Text(
+                            'SPRINT 16',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 178, 214, 243),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: EdgeInsets.all(1),
+                          child: Text(
+                            'NOVEMBER 6, 2023 ⇒ NOVEMBER 17, 2023',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 98, 98, 98),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
         body: Column(
           children: [
             SizedBox(
-              height: 750, 
+              height: 750,
               child: Dashboard(),
             ),
           ],
@@ -71,6 +74,25 @@ class KanBanApplication extends StatelessWidget {
     );
   }
 }
+
+class KanbanCard extends StatelessWidget {
+  final String title;
+  final String description;
+
+  KanbanCard({required this.title, required this.description});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(description),
+      ),
+    );
+  }
+}
+
 
 
 class DropDown extends StatefulWidget {
@@ -82,6 +104,7 @@ class DropDown extends StatefulWidget {
 
 class _DropDownState extends State<DropDown> {
   String dropDownValue = 'Default';
+  String? popupMenuValue;
 
   @override
   Widget build(BuildContext context) {
@@ -89,71 +112,65 @@ class _DropDownState extends State<DropDown> {
       child: DropdownButton<String>(
         value: dropDownValue,
         icon: const Icon(Icons.menu),
-        style: const TextStyle(color: Color.fromARGB(255, 87, 87, 87)),
+        style: const TextStyle(color: Color.fromARGB(255, 98, 98, 98)),
         underline: Container(
           height: 2,
           color: Color.fromARGB(255, 90, 90, 90),
         ),
-
         onChanged: (String? newValue) {
           setState(() {
             dropDownValue = newValue!;
           });
         },
-
         items: [
           DropdownMenuItem<String>(
             value: 'Default',
             child: Text('Default'),
           ),
-
           DropdownMenuItem<String>(
             value: 'Show All',
             child: Text('Show All'),
           ),
-          
           DropdownMenuItem<String>(
+            value: '',
             child: PopupMenuButton<String>(
+              onSelected: (String value) {
+                setState(() {
+                  dropDownValue = value;
+                });
+              },
               itemBuilder: (context) {
                 return <PopupMenuEntry<String>>[
-
                   PopupMenuItem<String>(
                     value: 'Peter Roden',
                     child: Text('Peter Roden'),
                   ),
-
                   PopupMenuItem<String>(
                     value: 'Susannah Marshall',
                     child: Text('Susannah Marshall'),
                   ),
-
                   PopupMenuItem<String>(
                     value: 'Josh Sweeney',
                     child: Text('Josh Sweeney'),
                   ),
-
                   PopupMenuItem<String>(
                     value: 'Bart Wojda',
                     child: Text('Bart Wojda'),
                   ),
-
                   PopupMenuItem<String>(
                     value: 'Ashton Dunderdale',
                     child: Text('Ashton Dunderdale'),
                   ),
-
                   PopupMenuItem<String>(
                     value: 'Harrison O\'Leary',
                     child: Text('Harrison O\'Leary'),
                   ),
-                  
                   PopupMenuItem<String>(
                     value: 'Charlie Glover',
                     child: Text('Charlie Glover'),
                   ),
                 ];
               },
-
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -162,13 +179,13 @@ class _DropDownState extends State<DropDown> {
                 ],
               ),
             ),
-          )
-
+          ),
         ],
       ),
     );
   }
 }
+
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -189,7 +206,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: Color.fromARGB(255, 106, 180, 240),
+                    color: Color.fromARGB(255, 178, 214, 243),
                     padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
@@ -220,7 +237,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: Color.fromARGB(255, 55, 142, 212),
+                    color: Color.fromARGB(255, 138, 189, 243),
                     padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
@@ -251,7 +268,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: Color.fromARGB(255, 47, 119, 179),
+                    color: Color.fromARGB(255, 122, 153, 231),
                     padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
@@ -282,7 +299,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: Color.fromARGB(255, 115, 156, 189),
+                    color: Color.fromARGB(255, 168, 200, 223),
                     padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
@@ -313,7 +330,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: Color.fromARGB(255, 51, 90, 122),
+                    color: Color.fromARGB(255, 153, 162, 231),
                     padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
@@ -343,13 +360,13 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: Color.fromARGB(255, 13, 101, 173),
+                    color: Color.fromARGB(255, 181, 189, 236),
                     padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'DONE' '                                    2', // this is how it would look with a task counter
+                        'DONE                                  2', // this is how it would look with a task counter
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
@@ -368,13 +385,3 @@ class Dashboard extends StatelessWidget {
     );
   }
 }
-
-              // child: Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text('Choose User'),
-              //     Icon(Icons.arrow_drop_down),
-              //   ],
-              // ),
-
-
