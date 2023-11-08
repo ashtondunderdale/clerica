@@ -22,31 +22,32 @@ class KanBanApplication extends StatelessWidget {
                 DropDown(),
                 SizedBox(width: 16), 
                 Container(
-                  padding: EdgeInsets.only(right: 1100, left: 100), 
+                  padding: EdgeInsets.only(right: 970, left: 100), 
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 255, 255, 255),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                 Padding(
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
-                    'Sprint 16',
+                    'SPRINT 16',
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 0, 0, 0),
+                      color: Color.fromARGB(255, 31, 108, 203),
                       fontSize: 14,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(1),
                   child: Text(
-                    '06/11/2023 -> 17/11/2023',
+                    'NOVEMBER 6, 2023 ➔ NOVEMBER 17, 2023',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: const Color.fromARGB(255, 0, 0, 0),
+                      color: Color.fromARGB(255, 0, 0, 0),
                       fontSize: 14,
                     ),
                         ),
@@ -107,8 +108,8 @@ class _DropDownState extends State<DropDown> {
           ),
 
           DropdownMenuItem<String>(
-            value: 'All',
-            child: Text('All'),
+            value: 'Show All',
+            child: Text('Show All'),
           ),
           
           DropdownMenuItem<String>(
@@ -156,8 +157,8 @@ class _DropDownState extends State<DropDown> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Specific'),
-                  Icon(Icons.arrow_right_rounded),
+                  Text('Choose User'),
+                  Icon(Icons.arrow_drop_down),
                 ],
               ),
             ),
@@ -168,7 +169,6 @@ class _DropDownState extends State<DropDown> {
     );
   }
 }
-
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -182,7 +182,7 @@ class Dashboard extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             width: MediaQuery.of(context).size.width * 0.15,
-            color: Color.fromARGB(255, 248, 248, 248),
+            color: Color.fromARGB(255, 245, 245, 245),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Column(
@@ -190,14 +190,17 @@ class Dashboard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     color: Color.fromARGB(255, 106, 180, 240),
+                    padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: Text(
-                        'Backlog',
+                        'BACKLOG',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,     
+                          letterSpacing: 1,  
                         ),
                       ),
                     ),
@@ -210,7 +213,7 @@ class Dashboard extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             width: MediaQuery.of(context).size.width * 0.15,
-            color: Color.fromARGB(255, 248, 248, 248),
+            color: Color.fromARGB(255, 245, 245, 245),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Column(
@@ -218,14 +221,17 @@ class Dashboard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     color: Color.fromARGB(255, 55, 142, 212),
+                    padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: Text(
-                        'In Development',
+                        'DEVELOPING',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,     
+                          letterSpacing: 1,  
                         ),
                       ),
                     ),
@@ -238,7 +244,7 @@ class Dashboard extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             width: MediaQuery.of(context).size.width * 0.15,
-            color: Color.fromARGB(255, 248, 248, 248),
+            color: Color.fromARGB(255, 245, 245, 245),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Column(
@@ -246,14 +252,17 @@ class Dashboard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     color: Color.fromARGB(255, 47, 119, 179),
+                    padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: Text(
-                        'Developed',
+                        'DEVELOPED',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,     
+                          letterSpacing: 1,  
                         ),
                       ),
                     ),
@@ -266,7 +275,7 @@ class Dashboard extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             width: MediaQuery.of(context).size.width * 0.15,
-            color: Color.fromARGB(255, 248, 248, 248),
+            color: Color.fromARGB(255, 245, 245, 245),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Column(
@@ -274,14 +283,17 @@ class Dashboard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     color: Color.fromARGB(255, 115, 156, 189),
+                    padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: Text(
-                        'In Test',
+                        'TESTING',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,     
+                          letterSpacing: 1,                     
                         ),
                       ),
                     ),
@@ -294,7 +306,7 @@ class Dashboard extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             width: MediaQuery.of(context).size.width * 0.15,
-            color: Color.fromARGB(255, 248, 248, 248),
+            color: Color.fromARGB(255, 245, 245, 245),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Column(
@@ -302,14 +314,17 @@ class Dashboard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     color: Color.fromARGB(255, 51, 90, 122),
+                    padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: Text(
-                        'Tested',
+                        'TESTED',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,     
+                          letterSpacing: 1,  
                         ),
                       ),
                     ),
@@ -318,11 +333,10 @@ class Dashboard extends StatelessWidget {
               ),
             ),
           ),
-
-                    Container(
+            Container(
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
             width: MediaQuery.of(context).size.width * 0.15,
-            color: Color.fromARGB(255, 248, 248, 248),
+            color: Color.fromARGB(255, 245, 245, 245),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Column(
@@ -330,14 +344,17 @@ class Dashboard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     color: Color.fromARGB(255, 13, 101, 173),
+                    padding: EdgeInsets.only(left: 10), 
                     height: 40,
                     child: Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: Text(
-                        'Done',
+                        'DONE' '                                    2', // this is how it would look with a task counter
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,     
+                          letterSpacing: 1,  
                         ),
                       ),
                     ),
@@ -351,3 +368,13 @@ class Dashboard extends StatelessWidget {
     );
   }
 }
+
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text('Choose User'),
+              //     Icon(Icons.arrow_drop_down),
+              //   ],
+              // ),
+
+
