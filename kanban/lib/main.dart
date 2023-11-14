@@ -1,81 +1,84 @@
 import 'package:flutter/material.dart';
-import 'widgets/movingCard.dart';
-import 'package:kanban_application/widgets/globals.dart';
 
-import 'widgets/column.dart';
-import 'widgets/card.dart';
+import 'components/card.dart';
+import 'components/column.dart';
+import 'components/movingCard.dart';
+import 'components/globals.dart';
 
-void main() => runApp(KanbanApp());
+void main() {
+  runApp(MyApp());
+}
 
-class KanbanApp extends StatelessWidget {
-  const KanbanApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Kanban Application',
-      home: KanbanHome(title: 'Flutter Kanban'),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Flutter Kanban Home'),
     );
   }
 }
 
-class KanbanHome extends StatefulWidget {
-  const KanbanHome({super.key, required this.title});
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _KanbanHomeState createState() => _KanbanHomeState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _KanbanHomeState extends State<KanbanHome> {
-  DragTarget buildColumn(String columnName) {
+class _MyHomePageState extends State<MyHomePage> {
+  DragTarget createDragColumn(String columnName) {
     return DragTarget<KanbanCard>(
       builder: (
-        context, 
-        accepted, 
-        rejected,
-      ) {
-          bool inCurrentColumn = (movingCard == columnName && previousColumn != columnName);
-          return Column(
-            children: [
-              KanbanColumn(columnTitle: columnName,),
-              inCurrentColumn ? MovingCard() : Container(),
-              Expanded(
-                child: Container(
-                  width: 200,
-                  child: ReorderableListView(
-                    scrollDirection: Axis.vertical,
-                    onReorder: (int oldIndex, int newIndex) {
-                      setState(() {
-                        if (oldIndex < newIndex) {
-                          newIndex -=1;
-                        }
-                        final KanbanCard item = kanbanBoard[columnName]!.removeAt(oldIndex);
-                        kanbanBoard[columnName]!.insert(newIndex, item);
-                      });
-                    },
-                    children: kanbanBoard[columnName]!.reversed.toList(),
-                  ),
+          context,
+          accepted,
+          rejected,
+          ) {
+        bool isInCurrentColumn = (movingCard == columnName && previousColumn != columnName);
+        return Column(
+          children: [
+            KanbanColumnTitle(columnTitle: columnName),
+            isInCurrentColumn ? KanbanMovingCard() : Container(),
+            Expanded(
+              child: Container(
+                width: 250,
+                child: ReorderableListView(
+                  scrollDirection: Axis.vertical,
+                  onReorder: (int oldIndex, int newIndex) {
+                    setState(() {
+                      if (oldIndex < newIndex) {
+                        newIndex -= 1;
+                      }
+                      final KanbanCard item = kanbanBoard[columnName]!.removeAt(oldIndex);
+                      kanbanBoard[columnName]!.insert(newIndex, item);
+                    });
+                  },
+                  children: kanbanBoard[columnName]!.reversed.toList(),
                 ),
-              )
-            ],
-          );
-        },
-        onWillAccept: (data) {
-          setState(() {
-            movingCard = columnName;
-          });
-          return true;
-        },
-        onAccept: (KanbanCard data) {
-          setState(() {
-            var isThere = kanbanBoard[columnName]!
-            .firstWhere((element) => element.cardName == data.cardName,
-            orElse: () => KanbanCard(
-              key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-              cardName: 'NOT FOUND',
-            ));
+              ),
+            )
+          ],
+        );
+      },
+      onWillAccept: (data) {
+        setState(() {
+          movingCard = columnName;
+        });
+        return true;
+      },
+      onAccept: (KanbanCard data) {
+        setState(() {
+          var isThere = kanbanBoard[columnName]!
+              .firstWhere((element) => element.cardName == data.cardName,
+              orElse: () => KanbanCard(
+                key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
+                cardName: 'NOT FOUND',
+              ));
           if (isThere.cardName == 'NOT FOUND') {
             kanbanBoard[columnName]!.add(data);
           }
@@ -87,7 +90,7 @@ class _KanbanHomeState extends State<KanbanHome> {
       },
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,16 +98,15 @@ class _KanbanHomeState extends State<KanbanHome> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            buildColumn('BACKLOG'),
-            buildColumn('DEVELOPING'),
-            buildColumn('DEVELOPED'),
-            buildColumn('TESTING'),
-            buildColumn('TESTED'),
-            buildColumn('DONE'),
+            createDragColumn("BACKLOG"),
+            createDragColumn("DEVELOPING"),
+            createDragColumn("DEVELOPED"),
+            createDragColumn("TESTING"),
+            createDragColumn("TESTED"),
+            createDragColumn("DONE"),
           ],
         ),
       ),
     );
   }
 }
-

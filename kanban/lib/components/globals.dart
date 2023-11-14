@@ -1,38 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/widgets/card.dart';
+import 'card.dart';
 
 String previousColumn = "";
 String movingCard = "";
 
 Map<String, List<KanbanCard>> kanbanBoard = {
-  "Column 1": [
+  "BACKLOG": [
     KanbanCard(
       key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
       cardName: "Card 1",
     ),
   ],
-  "Column 2": [
+  "DEVELOPING": [
     KanbanCard(
       key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
       cardName: "Card 2",
     ),
   ],
-  "Column 3": [
+  "DEVELOPED": [
     KanbanCard(
       key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
       cardName: "Card 3",
     ),
   ],
-  "Column 4": [
+  "TESTING": [
     KanbanCard(
       key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
       cardName: "Card 4",
     ),
   ],
-  "Column 5": [
+  "TESTED": [
     KanbanCard(
       key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
       cardName: "Card 5",
+    ),
+  ],
+  "DONE": [
+    KanbanCard(
+      key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
+      cardName: "Card 6",
     ),
   ],
 };
