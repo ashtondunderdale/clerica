@@ -19,8 +19,8 @@ class KanbanCard extends StatelessWidget {
       ),
 
       feedback: SizedBox(
-        height: 60,
-        width: 250,
+        height: cardHeight,
+        width: cardWidth,
         child: Card(
           child: ListTile(
             title: Text(cardName),
@@ -29,8 +29,8 @@ class KanbanCard extends StatelessWidget {
       ),
 
       childWhenDragging: SizedBox(
-        height: 60,
-        width: 250,
+        height: cardHeight,
+        width: cardWidth,
         child: Card(
           color: Colors.grey.withOpacity(.1),
           child: ListTile(
@@ -56,8 +56,8 @@ class KanbanCard extends StatelessWidget {
       },
 
       child: SizedBox(
-        height: 60,
-        width: 250,
+        height: cardHeight,
+        width: cardWidth,
         child: Card(
           child: ListTile(
             title: Text(cardName),

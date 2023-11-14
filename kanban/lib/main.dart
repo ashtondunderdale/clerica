@@ -1,52 +1,44 @@
 import 'package:flutter/material.dart';
-
 import 'components/card.dart';
 import 'components/column.dart';
 import 'components/movingCard.dart';
 import 'components/globals.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(App());
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Kanban Application',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Kanban Home'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  MyHomePage({super.key});
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DragTarget createDragColumn(String columnName) {
+  DragTarget buildColumn(String columnName) {
     return DragTarget<KanbanCard>(
       builder: (
-          context,
-          accepted,
-          rejected,
-          ) {
+        context,
+        accepted,
+        rejected,
+      ) {
         bool isInCurrentColumn = (movingCard == columnName && previousColumn != columnName);
         return Column(
           children: [
             KanbanColumnTitle(columnTitle: columnName),
             isInCurrentColumn ? KanbanMovingCard() : Container(),
             Expanded(
-              child: Container(
-                width: 250,
+              child: SizedBox(
+                width: cardWidth,
                 child: ReorderableListView(
                   scrollDirection: Axis.vertical,
                   onReorder: (int oldIndex, int newIndex) {
@@ -61,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: kanbanBoard[columnName]!.reversed.toList(),
                 ),
               ),
-            )
+            ),
           ],
         );
       },
@@ -76,15 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
           var isThere = kanbanBoard[columnName]!
               .firstWhere((element) => element.cardName == data.cardName,
               orElse: () => KanbanCard(
-                key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-                cardName: 'NOT FOUND',
-              ));
+                    key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
+                    cardName: 'NOT FOUND',
+                  ));
           if (isThere.cardName == 'NOT FOUND') {
             kanbanBoard[columnName]!.add(data);
           }
           if (columnName != previousColumn) {
-            kanbanBoard[previousColumn]
-                ?.removeWhere((element) => element.cardName == data.cardName);
+            kanbanBoard[previousColumn]?.removeWhere((element) => element.cardName == data.cardName);
           }
         });
       },
@@ -94,16 +85,25 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'KANBAN APPLICATION',
+          style: TextStyle(
+            color: Color.fromARGB(255, 72, 72, 72),
+            fontWeight: FontWeight.bold,
+          ),
+          ),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            createDragColumn("BACKLOG"),
-            createDragColumn("DEVELOPING"),
-            createDragColumn("DEVELOPED"),
-            createDragColumn("TESTING"),
-            createDragColumn("TESTED"),
-            createDragColumn("DONE"),
+            buildColumn("BACKLOG"),
+            buildColumn("DEVELOPING"),
+            buildColumn("DEVELOPED"),
+            buildColumn("TESTING"),
+            buildColumn("TESTED"),
+            buildColumn("DONE"),
           ],
         ),
       ),

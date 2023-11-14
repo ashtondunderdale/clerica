@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'globals.dart';
 
 class KanbanMovingCard extends StatelessWidget {
   const KanbanMovingCard({
@@ -8,8 +9,8 @@ class KanbanMovingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
-      width: 250,
+      height: cardHeight,
+      width: cardWidth,
       child: Card(
         color: Color.fromARGB(255, 189, 189, 189),
         child: ListTile(

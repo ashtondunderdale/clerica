@@ -3,6 +3,9 @@ import 'card.dart';
 
 String previousColumn = "";
 String movingCard = "";
+double cardWidth = 200;
+double cardHeight = 60;
+double columnHeight = 50;
 
 Map<String, List<KanbanCard>> kanbanBoard = {
   "BACKLOG": [

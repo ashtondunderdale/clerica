@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'globals.dart';
 
 class KanbanColumnTitle extends StatelessWidget {
   const KanbanColumnTitle({
@@ -10,24 +11,54 @@ class KanbanColumnTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 50,
-        width: 200,
-        child: Card(
-          shadowColor: Colors.black,
-          elevation: 2.0,
-          child: ListTile(
-            title: Text(
-              columnTitle,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(4),
+          child: SizedBox(
+            height: columnHeight,
+            width: cardWidth,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
-              ),
+              shadowColor: Colors.black,
+              elevation: 2.0,
+              child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 255, 255, 255),
+          borderRadius: const BorderRadius.all(Radius.circular(8),
           ),
+          border: Border(
+            top: BorderSide(
+              color: Color.fromARGB(255, 124, 176, 255),
+              width: 2.5,
+            ),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 204, 204, 204).withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 2,
+            ),
+          ],
         ),
-      ),
+              child: ListTile(
+                title: Text(
+                  columnTitle,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 44, 44, 44),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+          ),
+      ],
     );
   }
 }
