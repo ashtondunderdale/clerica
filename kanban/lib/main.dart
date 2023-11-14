@@ -26,6 +26,9 @@ class KanbanHome extends StatefulWidget {
 class _KanbanHomeState extends State<KanbanHome> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Placeholder(
+      
+    );
   }
 }
+
