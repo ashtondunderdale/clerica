@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'widgets/movingCard.dart';
+
+import 'widgets/column.dart';
+import 'widgets/card.dart';
 
 void main() => runApp(KanbanApp());
 
@@ -24,10 +28,44 @@ class KanbanHome extends StatefulWidget {
 }
 
 class _KanbanHomeState extends State<KanbanHome> {
+  String previousColumn = "";
+  String movingCard = "";
+
+  DragTarget buildColumn(String columnName) {
+    return DragTarget<KanbanCard>
+    (
+      builder: (
+        BuildContext context, 
+        List<KanbanCard?> candidateData, 
+        List<dynamic> rejectedData,
+      ) {
+          bool inCurrentColumn = (movingCard == columnName && previousColumn != columnName);
+          return Column(
+            children: [
+              KanbanColumn(columnTitle: columnName,),
+              inCurrentColumn ? MovingCard() : Container(),
+            ],
+          );
+        },
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: Row(
+          children: [
+            buildColumn('BACKLOG'),
+            buildColumn('DEVELOPING'),
+            buildColumn('DEVELOPED'),
+            buildColumn('TESTING'),
+            buildColumn('TESTED'),
+            buildColumn('DONE'),
+          ],
+        ),
+      ),
     );
   }
 }
