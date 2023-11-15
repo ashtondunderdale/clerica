@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'components/card.dart';
-import 'components/column.dart';
-import 'components/movingCard.dart';
-import 'components/globals.dart';
+import 'widgets/card.dart';
+import 'widgets/column.dart';
+import 'widgets/movingCard.dart';
+import 'widgets/globals.dart';
 
 void main() => runApp(App());
 
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
             isInCurrentColumn ? KanbanMovingCard() : Container(),
             Expanded(
               child: SizedBox(
-                width: cardWidth,
+                width: MediaQuery.of(context).size.width * 0.15,
                 child: ReorderableListView(
                   scrollDirection: Axis.vertical,
                   onReorder: (int oldIndex, int newIndex) {

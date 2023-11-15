@@ -10,9 +10,9 @@ class KanbanMovingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: cardHeight,
-      width: cardWidth,
+      width: MediaQuery.of(context).size.width * 0.15,
       child: Card(
-        color: Color.fromARGB(255, 189, 189, 189),
+        color: Color.fromARGB(255, 236, 236, 236),
         child: ListTile(
           title: Text("Moving Here", style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
         ),
