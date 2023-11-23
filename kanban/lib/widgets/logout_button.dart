@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../globals.dart';
 import '../utils/navigation.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -10,7 +11,7 @@ class LogoutButton extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: FloatingActionButton(
         onPressed: () => _showLogoutConfirmationDialog(context),
-        backgroundColor: Color.fromARGB(255, 175, 195, 230),
+        backgroundColor: primaryLightBlue,
         elevation: 4.0, 
         mini: true,
         splashColor: Color.fromARGB(255, 136, 140, 207),
@@ -28,12 +29,31 @@ class LogoutButton extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            'LOGOUT',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 60, 60, 60),
-            ),
+          title: Row(
+            children: [
+              Text(
+                'LOGOUT',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 60, 60, 60),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 25,
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    'Epicor',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 198, 198, 198),
+                      fontSize: 12
+                    ),
+                    textAlign: TextAlign.left
+                  ),
+                ),
+              ),
+            ],
           ),
           content: Text(
             'Are you sure you want to log out?',

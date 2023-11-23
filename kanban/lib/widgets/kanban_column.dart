@@ -14,11 +14,19 @@ class KanbanColumn extends StatelessWidget {
         KanbanColumnTop(title: columnTitle),
 
         Padding(
-          padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: Container(
-            height: 650,
-            width: 240,
-            color: Colors.black,
+            height: 685,
+            width: 280,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+                color: Color.fromARGB(255, 245, 245, 245),
+              ),
           ),
         ),
       ],

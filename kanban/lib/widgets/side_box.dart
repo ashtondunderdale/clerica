@@ -4,9 +4,14 @@ double calculateSideBoxWidth(BuildContext context) {
   return MediaQuery.of(context).size.width / 5.5;
 }
 
-class SideBox extends StatelessWidget {
-  const SideBox({Key? key});
+class SideBox extends StatefulWidget {
+  const SideBox({Key? key}) : super(key: key);
 
+  @override
+  _SideBoxState createState() => _SideBoxState();
+}
+
+class _SideBoxState extends State<SideBox> {
   @override
   Widget build(BuildContext context) {
     double sideBoxWidth = MediaQuery.of(context).size.width / 5.5;

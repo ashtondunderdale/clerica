@@ -29,27 +29,18 @@ class KanbanView extends StatelessWidget {
           SideBar(),
           SideBox(),
           Expanded(
-            child: SingleChildScrollView(
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  6,
-                  (index) => Column(
-                    children: [
-                      if (index == 0)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: KanbanColumn(columnTitle: columnTitles[index]),
-                        )
-                      else
-                        Padding(
-                          padding: const EdgeInsets.only(),
-                          child: KanbanColumn(columnTitle: columnTitles[index]),
-                        ),
-                    ],
+              itemCount: columnTitles.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    left: index == 0 ? 10 : 0,
+                    right: index == columnTitles.length - 1 ? 10 : 0,
                   ),
-                ),
-              ),
+                  child: KanbanColumn(columnTitle: columnTitles[index]),
+                );
+              },
             ),
           ),
         ],

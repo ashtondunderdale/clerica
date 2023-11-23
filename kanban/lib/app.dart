@@ -10,7 +10,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: KanbanView(),
+      title: 'Kanban Application',
+      home: LoginView(),
     );
   }
 }
