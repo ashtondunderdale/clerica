@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 double calculateSideBoxWidth(BuildContext context) {
-  return MediaQuery.of(context).size.width / 5.5;
+  return MediaQuery.of(context).size.width / widthConstant;
 }
+
+  double widthConstant = 8;
 
 class SideBox extends StatefulWidget {
   const SideBox({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class SideBox extends StatefulWidget {
 class _SideBoxState extends State<SideBox> {
   @override
   Widget build(BuildContext context) {
-    double sideBoxWidth = MediaQuery.of(context).size.width / 5.5;
+    double sideBoxWidth = MediaQuery.of(context).size.width / widthConstant;
 
     return Padding(
       padding: const EdgeInsets.only(right: 0),

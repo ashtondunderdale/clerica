@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../globals.dart';
 import 'kanban_column_top.dart';
 
 class KanbanColumn extends StatelessWidget {
@@ -9,6 +10,13 @@ class KanbanColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double columnWidth = screenWidth / 8;
+
+    double screenHeight = MediaQuery.of(context).size.height;
+    double columnHeight = screenHeight / 1.25;
+
     return Column(
       children: [
         KanbanColumnTop(title: columnTitle),
@@ -16,8 +24,8 @@ class KanbanColumn extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: Container(
-            height: 685,
-            width: 280,
+            height: columnHeight,
+            width: columnWidth,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),

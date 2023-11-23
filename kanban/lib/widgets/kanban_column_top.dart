@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../globals.dart';
+
 class KanbanColumnTop extends StatelessWidget {
   const KanbanColumnTop({Key? key, required this.title}) : super(key: key);
 
@@ -7,6 +9,10 @@ class KanbanColumnTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double columnWidth = screenWidth / 8;
+
     return Padding(
       padding: const EdgeInsets.only(top: 70),
       child: Column(
@@ -14,7 +20,7 @@ class KanbanColumnTop extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Container(
-              width: 280,
+              width: columnWidth,
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
