@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/views/kanbanView.dart';
+import 'package:kanban_application/views/kanban_view.dart';
 
-import '../views/loginView.dart';
+import '../views/login_view.dart';
 
 void navigateToPage(BuildContext context, String pageName) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => getPage(pageName)));

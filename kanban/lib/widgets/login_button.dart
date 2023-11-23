@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../globals.dart';
+import '../utils/login_error.dart';
 import '../utils/navigation.dart';
 
 class LoginButton extends StatelessWidget {
@@ -10,7 +12,14 @@ class LoginButton extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => navigateToPage(context, 'kanbanView'),
+        onTap: () { 
+          if (usernameTextController.text == "" || passwordTextController.text == ""){
+            showFlashError(context, "Please enter a username and password");
+          }
+          else{
+          navigateToPage(context, 'kanbanView');
+          }
+        },
         child: Container(
           alignment: Alignment.center,
           width: 200,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/widgets/logout_button.dart';
 import '../globals.dart';
-import '../widgets/side_bar.dart';
 import '../widgets/side_box.dart';
 
 import 'package:flutter/material.dart';
@@ -63,14 +62,17 @@ class _KanbanAppbarState extends State<KanbanAppbar> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('User Information'),
+                            title: const Text(
+                              'USER INFO',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             content: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('Username: '),
-                                SizedBox(height: 10),
-                                Text('Role: Developer'),
+                                Text("User: ${usernameTextController.text}"), 
                               ],
                             ),
                             actions: [

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/appbar.dart';
 import '../widgets/kanban_column.dart';
-import '../widgets/kanban_column_top.dart';
 import '../widgets/logout_button.dart';
 import '../widgets/side_bar.dart';
 import '../widgets/side_box.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
+import '../globals.dart';
 import '../widgets/login_button.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  LoginView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,13 @@ class LoginView extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              colors: [
-                Color.fromARGB(222, 3, 24, 85),
-                Color.fromARGB(255, 180, 185, 255),
-                Color.fromARGB(255, 115, 192, 255),
-              ]
-            )
+                begin: Alignment.bottomLeft,
+                colors: [
+                  Color.fromARGB(222, 3, 24, 85),
+                  Color.fromARGB(255, 180, 185, 255),
+                  Color.fromARGB(255, 115, 192, 255),
+                ]
+            ),
           ),
           child: Center(
             child: Column(
@@ -36,57 +36,59 @@ class LoginView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24.0),
-                      child: SizedBox(
-                        height: 50,
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'Login with ',
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'Epicor',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24.0),
+                        child: SizedBox(
+                          height: 50,
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Login with ',
+                              style: TextStyle(
+                                color: Colors.grey,
                               ),
-                            ],
+                              children: [
+                                TextSpan(
+                                  text: 'Epicor',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
                       SizedBox(
                         width: 300,
                         child: TextField(
+                          controller: usernameTextController,
                           decoration: InputDecoration(
                             labelText: 'Username',
-                            suffixIcon: Icon(Icons.perm_identity_outlined)
+                            suffixIcon: Icon(Icons.perm_identity_outlined),
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 300,
                         child: TextField(
+                          controller: passwordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: 'Password',
-                            suffixIcon: Icon(Icons.password_outlined)
+                              labelText: 'Password',
+                              suffixIcon: Icon(Icons.password_outlined)
                           ),
                         ),
                       ),
                       SizedBox(height: 200),
                       LoginButton()
-                    ]
+                    ],
                   ),
                 )
               ],
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }
