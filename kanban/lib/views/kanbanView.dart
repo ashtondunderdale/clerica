@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'back_button.dart';
+import '../widgets/appbar.dart';
+import '../widgets/logout_button.dart';
+import '../widgets/side_bar.dart';
+import '../widgets/side_box.dart';
 
 
 class KanbanView extends StatelessWidget {
@@ -9,11 +12,16 @@ class KanbanView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: KanbanAppbar(
+
+      ),
       body: Row(
         children: [
-          LogoutButton()
+          SideBar(),
+          SideBox(),
         ],
-      )
+      ),
     );
   }
 }

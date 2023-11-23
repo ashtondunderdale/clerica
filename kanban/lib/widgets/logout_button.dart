@@ -6,9 +6,20 @@ class LogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => _showLogoutConfirmationDialog(context),
-      child: Icon(Icons.exit_to_app),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: FloatingActionButton(
+        onPressed: () => _showLogoutConfirmationDialog(context),
+        backgroundColor: Color.fromARGB(255, 175, 195, 230),
+        elevation: 4.0, 
+        mini: true,
+        splashColor: Color.fromARGB(255, 136, 140, 207),
+        child: Icon(
+          Icons.exit_to_app,
+          color: Colors.white, 
+          size: 20,
+        ),
+      ),
     );
   }
 
