@@ -8,14 +8,22 @@ import '../widgets/side_bar.dart';
 import '../widgets/side_box.dart';
 
 class KanbanView extends StatelessWidget {
-  const KanbanView({super.key});
+  KanbanView({super.key});
+
+  final List<String> columnTitles = [
+    'BACKLOG',
+    'DEVELOPING',
+    'DEVELOPED',
+    'TESTING',
+    'TESTED',
+    'DONE',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: KanbanAppbar(),
-
       body: Row(
         children: [
           SideBar(),
@@ -28,8 +36,16 @@ class KanbanView extends StatelessWidget {
                   6,
                   (index) => Column(
                     children: [
-                      KanbanColumnTop(),
-                      KanbanColumn(),
+                      if (index == 0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: KanbanColumn(columnTitle: columnTitles[index]),
+                        )
+                      else
+                        Padding(
+                          padding: const EdgeInsets.only(),
+                          child: KanbanColumn(columnTitle: columnTitles[index]),
+                        ),
                     ],
                   ),
                 ),

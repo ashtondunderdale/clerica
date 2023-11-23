@@ -12,7 +12,7 @@ class SideBox extends StatelessWidget {
     double sideBoxWidth = MediaQuery.of(context).size.width / 5.5;
 
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 0),
       child: Container(
         width: sideBoxWidth,
         height: MediaQuery.of(context).size.height,
