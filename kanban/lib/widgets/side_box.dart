@@ -11,10 +11,13 @@ class SideBox extends StatelessWidget {
   Widget build(BuildContext context) {
     double sideBoxWidth = MediaQuery.of(context).size.width / 5.5;
 
-    return Container(
-      width: sideBoxWidth,
-      height: MediaQuery.of(context).size.height,
-      color: const Color.fromARGB(255, 66, 66, 66),
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Container(
+        width: sideBoxWidth,
+        height: MediaQuery.of(context).size.height,
+        color: const Color.fromARGB(255, 66, 66, 66),
+      ),
     );
   }
 }

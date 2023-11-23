@@ -15,7 +15,8 @@ class LoginButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
+            begin: Alignment.bottomRight,
+            end: Alignment.bottomLeft,
             colors: [
               Color.fromARGB(222, 3, 24, 85),
               Color.fromARGB(255, 180, 185, 255),
