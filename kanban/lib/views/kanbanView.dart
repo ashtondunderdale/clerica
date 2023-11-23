@@ -11,7 +11,7 @@ class KanbanView extends StatelessWidget {
       body: Row(
         children: [
           FloatingActionButton(
-            onPressed: () => navigateToPage(context, 'homeView'),
+            onPressed: () => navigateToPage(context, 'loginView'),
           ),
         ],
       )

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/views/kanbanView.dart';
 
-import '../views/home.dart';
+import '../views/loginView.dart';
 
 void navigateToPage(BuildContext context, String pageName) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => getPage(pageName)));
@@ -9,9 +9,9 @@ void navigateToPage(BuildContext context, String pageName) {
 
 Widget getPage(String pageName) {
   switch (pageName) {
-    
-    case 'homeView':
-      return HomeView();
+
+    case 'loginView':
+      return LoginView();
 
     case 'kanbanView':
       return KanbanView();
