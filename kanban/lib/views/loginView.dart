@@ -37,7 +37,7 @@ class LoginView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                     Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.only(top: 24.0),
                       child: SizedBox(
                         height: 50,
                         child: RichText(
@@ -62,8 +62,8 @@ class LoginView extends StatelessWidget {
                         width: 300,
                         child: TextField(
                           decoration: InputDecoration(
-                            labelText: 'Email',
-                            suffixIcon: Icon(Icons.email_outlined)
+                            labelText: 'Username',
+                            suffixIcon: Icon(Icons.perm_identity_outlined)
                           ),
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../utils/navigation.dart';
+import 'back_button.dart';
+
 
 class KanbanView extends StatelessWidget {
   const KanbanView({super.key});
@@ -10,9 +11,7 @@ class KanbanView extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          FloatingActionButton(
-            onPressed: () => navigateToPage(context, 'loginView'),
-          ),
+          LogoutButton()
         ],
       )
     );
