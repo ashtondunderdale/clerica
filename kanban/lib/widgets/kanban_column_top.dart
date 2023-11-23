@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../globals.dart';
-
 class KanbanColumnTop extends StatelessWidget {
   const KanbanColumnTop({Key? key, required this.title}) : super(key: key);
 
@@ -23,13 +21,19 @@ class KanbanColumnTop extends StatelessWidget {
               width: columnWidth,
               height: 50,
               decoration: BoxDecoration(
+                border: Border(  
+                  top: BorderSide(
+                    color: Color.fromARGB(255, 235, 235, 235),
+                    width: 3,
+                  ),
+                ),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                 ),
-              color: Color.fromARGB(255, 175, 195, 230),
+              color: Colors.white,
               ),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -38,8 +42,9 @@ class KanbanColumnTop extends StatelessWidget {
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 97, 97, 97),
                       fontWeight: FontWeight.bold,
+                      fontSize: 12
                     ),
                     textAlign: TextAlign.start,
                   ),

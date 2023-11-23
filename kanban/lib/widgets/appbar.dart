@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/widgets/logout_button.dart';
 import '../globals.dart';
 import '../widgets/side_box.dart';
-
-import 'package:flutter/material.dart';
-import 'package:kanban_application/widgets/logout_button.dart';
+import 'logout_button.dart';
+import 'user_info_button.dart';
 
 class KanbanAppbar extends StatefulWidget implements PreferredSizeWidget {
   const KanbanAppbar({Key? key}) : super(key: key);
@@ -50,47 +48,7 @@ class _KanbanAppbarState extends State<KanbanAppbar> {
             ),
             Spacer(),
             LogoutButton(),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: IconButton(
-                    iconSize: 30,
-                    icon: Icon(Icons.account_circle_outlined),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text(
-                              'USER INFO',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            content: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text("User: ${usernameTextController.text}"), 
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Close'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
+            UserInfoButton(),
           ],
         ),
       ),
