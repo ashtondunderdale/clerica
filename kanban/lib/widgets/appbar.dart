@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../globals.dart';
 import '../widgets/side_box.dart';
 import 'logout_button.dart';
+import 'sprint_label.dart';
 import 'user_info_button.dart';
 
 class KanbanAppbar extends StatefulWidget implements PreferredSizeWidget {
@@ -46,6 +47,7 @@ class _KanbanAppbarState extends State<KanbanAppbar> {
                 ),
               ),
             ),
+            SprintLabel(),
             Spacer(),
             LogoutButton(),
             UserInfoButton(),

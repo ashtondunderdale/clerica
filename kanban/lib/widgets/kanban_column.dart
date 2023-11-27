@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/utils/kanban_card_data.dart';
 import 'kanban_card.dart';
 import 'kanban_column_top.dart';
 
@@ -12,11 +13,6 @@ class KanbanColumn extends StatefulWidget {
 }
 
 class _KanbanColumnState extends State<KanbanColumn> {
-  List<String> cardTitles = [
-    'Card 1',
-    'Card 2',
-    'Card 3',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +49,11 @@ class _KanbanColumnState extends State<KanbanColumn> {
                   if (oldIndex < newIndex) {
                     newIndex -= 1;
                   }
-                  final String item = cardTitles.removeAt(oldIndex);
-                  cardTitles.insert(newIndex, item);
+                  final String item = backlogCards.removeAt(oldIndex);
+                  backlogCards.insert(newIndex, item);
                 });
               },
-              children: cardTitles
+              children: backlogCards
                   .map((title) => ListTile(
                         key: ValueKey(title),
                         title: KanbanCard(cardTitle: title),
