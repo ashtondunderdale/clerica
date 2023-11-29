@@ -60,11 +60,31 @@ class _KanbanColumnState extends State<KanbanColumn> {
                   .map(
                     (cardData) => ListTile(
                       key: ValueKey(cardData.title),
-                      title: KanbanCard(
-                        cardTitle: cardData.title,
-                        isTask: cardData.isTask,
-                        isBug: cardData.isBug,
-                        isIssue: cardData.isIssue,
+                      title: Draggable(
+                        feedback: Material(
+                          child: SizedBox(
+                            width: 170,
+                            height: 140,
+                            child: KanbanCard(
+                              cardTitle: cardData.title,
+                              isTask: cardData.isTask,
+                              isBug: cardData.isBug,
+                              isIssue: cardData.isIssue,
+                            ),
+                          ),
+                        ),
+                        childWhenDragging: KanbanCard(
+                          cardTitle: cardData.title,
+                          isTask: cardData.isTask,
+                          isBug: cardData.isBug,
+                          isIssue: cardData.isIssue,
+                        ),
+                        child: KanbanCard(
+                          cardTitle: cardData.title,
+                          isTask: cardData.isTask,
+                          isBug: cardData.isBug,
+                          isIssue: cardData.isIssue,
+                        ),
                       ),
                     ),
                   )
