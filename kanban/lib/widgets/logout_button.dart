@@ -56,7 +56,7 @@ class LogoutButton extends StatelessWidget {
             ],
           ),
           content: Text(
-            'Are you sure you want to log out?',
+            'Confirm Logout.',
             style: TextStyle(
               color: const Color.fromARGB(221, 110, 110, 110),
             ),

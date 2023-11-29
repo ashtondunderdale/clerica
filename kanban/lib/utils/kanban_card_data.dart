@@ -1,59 +1,47 @@
-import 'package:flutter/material.dart';
+class KanbanCardData {
+  final String title;
+  final String assignee;
+  final String ownedBy;
+  final bool isTask;
+  final bool isBug;
+  final bool isIssue;
 
-List<String> backlogCards = [
-  'Card 1',
-  'Card 2',
+  KanbanCardData({
+    required this.title,
+    required this.assignee,
+    required this.ownedBy,
+    this.isTask = false,
+    this.isBug = false,
+    this.isIssue = false,
+  });
+}
+
+List<KanbanCardData> backlogCards = [
+  KanbanCardData(title: '10.1 Identify Container Names', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
+  KanbanCardData(title: '10.3 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),
 ];
 
-List<String> developingCards = [
-  'Card 1',
-  'Card 2',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-
+List<KanbanCardData> developingCards = [
+  KanbanCardData(title: '11.1 Setup Kanban Project API', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
+  KanbanCardData(title: '10.3 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isIssue: true),
 ];
 
-List<String> developedCards = [
-  'Card 1',
-  'Card 2',
+List<KanbanCardData> developedCards = [
+  KanbanCardData(title: '10.4 Centralise', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),];
+
+List<KanbanCardData> testingCards = [
+  KanbanCardData(title: '10.1 Identify Container Names', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
+  KanbanCardData(title: '10.4 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),
+  KanbanCardData(title: '10.2 Identify Container Names', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
+  KanbanCardData(title: '10.5 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),
 ];
 
-List<String> testingCards = [
-  'Card 1',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
-  'Card 3',
+List<KanbanCardData> testedCards = [
 ];
 
-List<String> testedCards = [
-  'Card 1',
-  'Card 2',
-  'Card 3',
+List<KanbanCardData> doneCards = [
 ];
 
-List<String> doneCards = [
-  'Card 1',
-  'Card 2',
-];
-
-
-List<String> validUsers = [
-  'proden',
-  'jsweeney',
-  'bwojda',
-  'adunderdale',
-  'ho\'leary',
-  "cglover",
-];
+// issues: yellow
+// bugs:   red
+// 

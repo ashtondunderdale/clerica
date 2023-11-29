@@ -4,16 +4,20 @@ import 'kanban_card.dart';
 import 'kanban_column_top.dart';
 
 class KanbanColumn extends StatefulWidget {
-  const KanbanColumn({Key? key, required this.columnTitle}) : super(key: key);
+  const KanbanColumn({
+    Key? key,
+    required this.columnTitle,
+    required this.columnCardList,
+  }) : super(key: key);
 
   final String columnTitle;
+  final List<KanbanCardData> columnCardList;
 
   @override
   _KanbanColumnState createState() => _KanbanColumnState();
 }
 
 class _KanbanColumnState extends State<KanbanColumn> {
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -26,7 +30,6 @@ class _KanbanColumnState extends State<KanbanColumn> {
       key: ValueKey<String>('column_${widget.columnTitle}'),
       children: [
         KanbanColumnTop(title: widget.columnTitle),
-
         Padding(
           key: ValueKey<String>('padding_${widget.columnTitle}'),
           padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
@@ -49,15 +52,22 @@ class _KanbanColumnState extends State<KanbanColumn> {
                   if (oldIndex < newIndex) {
                     newIndex -= 1;
                   }
-                  final String item = backlogCards.removeAt(oldIndex);
-                  backlogCards.insert(newIndex, item);
+                  final KanbanCardData item = widget.columnCardList.removeAt(oldIndex);
+                  widget.columnCardList.insert(newIndex, item);
                 });
               },
-              children: backlogCards
-                  .map((title) => ListTile(
-                        key: ValueKey(title),
-                        title: KanbanCard(cardTitle: title),
-                      ))
+              children: widget.columnCardList
+                  .map(
+                    (cardData) => ListTile(
+                      key: ValueKey(cardData.title),
+                      title: KanbanCard(
+                        cardTitle: cardData.title,
+                        isTask: cardData.isTask,
+                        isBug: cardData.isBug,
+                        isIssue: cardData.isIssue,
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           ),

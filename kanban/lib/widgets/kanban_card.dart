@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 
 class KanbanCard extends StatelessWidget {
   final String cardTitle;
+  final bool isTask;
+  final bool isBug;
+  final bool isIssue;
 
   KanbanCard({
     required this.cardTitle,
+    this.isTask = false,
+    this.isBug = false,
+    this.isIssue = false,
   });
 
   @override
@@ -15,7 +21,7 @@ class KanbanCard extends StatelessWidget {
         cardTitle,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 13
+          fontSize: 12,
         ),
       ),
       subtitle: Column(
@@ -40,33 +46,56 @@ class KanbanCard extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10),
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 4),
-                      child: Container(
-                        width: 30,
-                        height: 10,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: const Color.fromARGB(255, 187, 234, 255),
+                    if (isTask)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4),
+                        child: Tooltip(
+                          message: "task",
+                          child: Container(
+                            width: 30,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: const Color.fromARGB(255, 187, 234, 255),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    Padding( // red for if the card is a bug
-                      padding: const EdgeInsets.only(right: 4),
-                      child: Container(
-                        width: 30,
-                        height: 10,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color.fromARGB(255, 255, 168, 162),
+                    if (isBug)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4),
+                        child: Tooltip(
+                          message: "bug",
+                          child: Container(
+                            width: 30,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromARGB(255, 255, 168, 162),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    if (isIssue)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4),
+                        child: Tooltip(
+                          message: "issue",
+                          child: Container(
+                            width: 30,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromARGB(255, 183, 229, 184)
+                            ),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
