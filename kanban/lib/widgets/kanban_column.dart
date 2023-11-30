@@ -9,12 +9,10 @@ class KanbanColumn extends StatefulWidget {
     Key? key,
     required this.columnTitle,
     required this.columnCardList,
-    this.hideBugs = false,
   }) : super(key: key);
 
   final String columnTitle;
   final List<KanbanCardData> columnCardList;
-  final bool hideBugs;
 
   @override
   _KanbanColumnState createState() => _KanbanColumnState();
@@ -23,9 +21,7 @@ class KanbanColumn extends StatefulWidget {
 class _KanbanColumnState extends State<KanbanColumn> {
   void onDragItemAccepted(KanbanCardData draggedItem) {
     setState(() {
-      allCards.removeWhere((item) => item.title == draggedItem.title);
-      draggedItem.columnTitle = widget.columnTitle;
-      allCards.add(draggedItem);
+      widget.columnCardList.add(draggedItem);
     });
   }
 

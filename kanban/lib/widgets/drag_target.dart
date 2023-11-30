@@ -5,7 +5,7 @@ class CardDragTarget extends StatelessWidget {
   final Function(KanbanCardData) onDragItemAccepted;
   final List<KanbanCardData> targetList;
 
-  const CardDragTarget({
+  CardDragTarget({
     Key? key,
     required this.onDragItemAccepted,
     required this.targetList,
@@ -17,9 +17,9 @@ class CardDragTarget extends StatelessWidget {
       onWillAccept: (data) {
         return true;
       },
-    onAccept: (data) {
-      onDragItemAccepted(data as KanbanCardData);
-    },
+      onAccept: (data) {
+        onDragItemAccepted(data as KanbanCardData);
+      },
       builder: (BuildContext context, List<dynamic> candidateData, List<dynamic> rejectedData) {
         return Padding(
           padding: const EdgeInsets.only(top: 10),
@@ -38,3 +38,4 @@ class CardDragTarget extends StatelessWidget {
     );
   }
 }
+
