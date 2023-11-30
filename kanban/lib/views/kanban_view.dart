@@ -7,7 +7,7 @@ import '../widgets/side_bar.dart';
 import '../widgets/side_box.dart';
 
 class KanbanView extends StatelessWidget {
-  KanbanView({super.key});
+  KanbanView({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +19,32 @@ class KanbanView extends StatelessWidget {
           SideBar(),
           SideBox(),
           Expanded(
-            child: 
-            Row(
+            child: Row(
               children: [
-                KanbanColumn(columnTitle: "BACKLOG", columnCardList: backlogCards),
-                KanbanColumn(columnTitle: "DEVELOPING", columnCardList: developingCards),
-                KanbanColumn(columnTitle: "DEVELOPED", columnCardList: developedCards),
-                KanbanColumn(columnTitle: "TESTING", columnCardList: testingCards),
-                KanbanColumn(columnTitle: "TESTED", columnCardList: testedCards),
-                KanbanColumn(columnTitle: "DONE", columnCardList: doneCards),
+                KanbanColumn(
+                  columnTitle: "BACKLOG",
+                  columnCardList: allCards.where((card) => card.columnTitle == "BACKLOG").toList(),
+                ),
+                KanbanColumn(
+                  columnTitle: "DEVELOPING",
+                  columnCardList: allCards.where((card) => card.columnTitle == "DEVELOPING").toList(),
+                ),
+                KanbanColumn(
+                  columnTitle: "DEVELOPED",
+                  columnCardList: allCards.where((card) => card.columnTitle == "DEVELOPED").toList(),
+                ),
+                KanbanColumn(
+                  columnTitle: "TESTING",
+                  columnCardList: allCards.where((card) => card.columnTitle == "TESTING").toList(),
+                ),
+                KanbanColumn(
+                  columnTitle: "TESTED",
+                  columnCardList: allCards.where((card) => card.columnTitle == "TESTED").toList(),
+                ),
+                KanbanColumn(
+                  columnTitle: "DONE",
+                  columnCardList: allCards.where((card) => card.columnTitle == "DONE").toList(),
+                ),
               ],
             ),
           ),

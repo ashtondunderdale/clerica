@@ -5,6 +5,7 @@ class KanbanCardData {
   final bool isTask;
   final bool isBug;
   final bool isIssue;
+  String columnTitle;
 
   KanbanCardData({
     required this.title,
@@ -13,35 +14,48 @@ class KanbanCardData {
     this.isTask = false,
     this.isBug = false,
     this.isIssue = false,
+    required this.columnTitle,
   });
 }
 
-List<KanbanCardData> backlogCards = [
-  KanbanCardData(title: '10.1 Identify Container Names', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
-  KanbanCardData(title: '10.3 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),
+List<KanbanCardData> allCards = [
+  KanbanCardData(
+    title: '10.1 Identify Container Names', 
+    assignee: 'Ashton Dunderdale', 
+    ownedBy: "Ashton Dunderdale", 
+    isTask: true,
+    columnTitle: 'BACKLOG',
+  ),
+  KanbanCardData(
+    title: '10.3 Log Results', 
+    assignee: 'Ashton Dunderdale', 
+    ownedBy: "Ashton Dunderdale", 
+    isBug: true,
+    columnTitle: 'BACKLOG',
+  ),
+  KanbanCardData(
+    title: '11.1 Setup Kanban Project API', 
+    assignee: 'Ashton Dunderdale', 
+    ownedBy: "Ashton Dunderdale", 
+    isTask: true,
+    columnTitle: 'DEVELOPING',
+  ),
+  KanbanCardData(
+    title: '10.4 Centralise', 
+    assignee: 'Ashton Dunderdale', 
+    ownedBy: "Ashton Dunderdale", 
+    isBug: true,
+    columnTitle: 'DEVELOPED',
+  ),
+  KanbanCardData(
+    title: '10.2 Identify Container Names', 
+    assignee: 'Ashton Dunderdale', 
+    ownedBy: "Ashton Dunderdale", 
+    isTask: true,
+    columnTitle: 'TESTING',
+  ),
 ];
 
-List<KanbanCardData> developingCards = [
-  KanbanCardData(title: '11.1 Setup Kanban Project API', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
-  KanbanCardData(title: '10.3 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isIssue: true),
-];
-
-List<KanbanCardData> developedCards = [
-  KanbanCardData(title: '10.4 Centralise', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),];
-
-List<KanbanCardData> testingCards = [
-  KanbanCardData(title: '10.1 Identify Container Names', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
-  KanbanCardData(title: '10.4 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),
-  KanbanCardData(title: '10.2 Identify Container Names', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isTask: true),
-  KanbanCardData(title: '10.5 Log Results', assignee: 'Ashton Dunderdale', ownedBy: "Ashton Dunderdale", isBug: true),
-];
-
-List<KanbanCardData> testedCards = [
-];
-
-List<KanbanCardData> doneCards = [
-];
-
-// issues: yellow
-// bugs:   red
-// 
+List<KanbanCardData> getCardsByColumn(String columnTitle) {
+  return allCards.where((card) => card.columnTitle == columnTitle).toList();
+}
