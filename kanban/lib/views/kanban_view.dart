@@ -14,42 +14,57 @@ class KanbanView extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: KanbanAppbar(),
-      body: Row(
-        children: [
-          SideBar(),
-          SideBox(),
-          Expanded(
-            child: Row(
-              children: [
-                KanbanColumn(
-                  columnTitle: "BACKLOG",
-                  columnCardList: allCards.where((card) => card.columnTitle == "BACKLOG").toList(),
-                ),
-                KanbanColumn(
-                  columnTitle: "DEVELOPING",
-                  columnCardList: allCards.where((card) => card.columnTitle == "DEVELOPING").toList(),
-                ),
-                KanbanColumn(
-                  columnTitle: "DEVELOPED",
-                  columnCardList: allCards.where((card) => card.columnTitle == "DEVELOPED").toList(),
-                ),
-                KanbanColumn(
-                  columnTitle: "TESTING",
-                  columnCardList: allCards.where((card) => card.columnTitle == "TESTING").toList(),
-                ),
-                KanbanColumn(
-                  columnTitle: "TESTED",
-                  columnCardList: allCards.where((card) => card.columnTitle == "TESTED").toList(),
-                ),
-                KanbanColumn(
-                  columnTitle: "DONE",
-                  columnCardList: allCards.where((card) => card.columnTitle == "DONE").toList(),
-                ),
-              ],
+      body: StatefulBuilder(builder: (context, setState) {
+        return Row(
+          children: [
+            SideBar(),
+            SideBox(),
+            Expanded(
+              child: Row(
+                children: [
+                  KanbanColumn(
+                    columnTitle: "BACKLOG",
+                    columnCardList: allCards,
+                    setStateAll: setState,
+                    // columnCardList: allCards.where((card) => card.columnTitle == "BACKLOG").toList(),
+                  ),
+                  KanbanColumn(
+                    columnTitle: "DEVELOPING",
+                    columnCardList: allCards,
+                    setStateAll: setState,
+                    // columnCardList: allCards.where((card) => card.columnTitle == "DEVELOPING").toList(),
+                  ),
+                  KanbanColumn(
+                    columnTitle: "DEVELOPED",
+                    columnCardList: allCards,
+
+                    // columnCardList: allCards.where((card) => card.columnTitle == "DEVELOPED").toList(),
+                    setStateAll: setState,
+                  ),
+                  KanbanColumn(
+                    columnTitle: "TESTING",
+                    setStateAll: setState,
+                    columnCardList: allCards,
+                    // columnCardList: allCards.where((card) => card.columnTitle == "TESTING").toList(),
+                  ),
+                  KanbanColumn(
+                    columnTitle: "TESTED",
+                    setStateAll: setState,
+                    columnCardList: allCards,
+                    // columnCardList: allCards.where((card) => card.columnTitle == "TESTED").toList(),
+                  ),
+                  KanbanColumn(
+                    columnTitle: "DONE",
+                    setStateAll: setState,
+                    columnCardList: allCards,
+                    // columnCardList: allCards.where((card) => card.columnTitle == "DONE").toList(),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

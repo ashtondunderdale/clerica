@@ -5,28 +5,47 @@ import 'kanban_card.dart';
 import 'kanban_column_top.dart';
 
 class KanbanColumn extends StatefulWidget {
-  const KanbanColumn({
+  KanbanColumn({
     Key? key,
     required this.columnTitle,
     required this.columnCardList,
+    required this.setStateAll,
   }) : super(key: key);
 
   final String columnTitle;
-  final List<KanbanCardData> columnCardList;
+  List<KanbanCardData> columnCardList;
+  StateSetter setStateAll;
 
   @override
   _KanbanColumnState createState() => _KanbanColumnState();
 }
 
 class _KanbanColumnState extends State<KanbanColumn> {
-  void onDragItemAccepted(KanbanCardData draggedItem) {
+  List<KanbanCardData> allCards = [];
+
+  @override
+  void initState() {
     setState(() {
-      widget.columnCardList.add(draggedItem);
+      allCards = widget.columnCardList;
+
+      widget.columnCardList = allCards.where((card) => card.columnTitle == widget.columnTitle).toList();
     });
+    super.initState();
+  }
+
+  void onDragItemAccepted(KanbanCardData draggedItem) {
+    var item = allCards.where((element) => element == draggedItem).first;
+    item.columnTitle = widget.columnTitle;
+      // widget.columnCardList.add(draggedItem);
+      // final KanbanCardData item = widget.columnCardList.removeAt(oldIndex);
+    setState(() {});
+    widget.setStateAll(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.columnCardList = allCards.where((card) => card.columnTitle == widget.columnTitle).toList();
+    setState(() {});
     double screenWidth = MediaQuery.of(context).size.width;
     double columnWidth = screenWidth / 8;
 
