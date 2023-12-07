@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:testkanban/widgets/kanban_column.dart';
 import '../utils/data.dart';
 import '../widgets/kanban_card.dart';
+import '../widgets/kanban_column.dart';
 import '../widgets/kanban_column_top.dart';
 
 class HomeView extends StatefulWidget {
@@ -44,6 +44,29 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          for (var title in columnTitles)
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  KanbanColumnTop(title: title),
+                  Expanded(
+                    child: KanbanColumn(
+                      title: title,
+                      cardList: columnCards[title] ?? [],
+                      onCardDropped: (String newColumnTitle, KanbanCard droppedCard) {
+                        String currentColumnTitle = columnCards.entries
+                            .firstWhere((entry) => entry.value
+                            .contains(droppedCard), orElse: () => const MapEntry("", [])).key;
+                        onCardDropped(currentColumnTitle, newColumnTitle, droppedCard);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }
