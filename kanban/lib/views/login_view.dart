@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home_view.dart';
+
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
@@ -69,38 +71,31 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 120),
+                    padding: const EdgeInsets.only(top: 260),
                     child: Container(
-                      width: 160,
+                      width: 120,
                       height: 40,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 255, 255, 255),
                         borderRadius: BorderRadius.circular(8)
                       ),
-                      child: Container(
-                        width: 160,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 183, 212, 255),
-                            ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => HomeView()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                      )
-                    ),
-                  )
+                        child: Icon(
+                          Icons.login,
+                          color: const Color.fromARGB(255, 91, 91, 91),
+                          size: 18,
+                        )
+                      ),
+                    )
+                  ),
                 ],
               ),
             ),

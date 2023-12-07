@@ -42,10 +42,7 @@ class WelcomeView extends StatelessWidget {
           ),
           IconButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginView()),
-            );
+            Navigator.push(context,MaterialPageRoute(builder: (context) => LoginView()));
           },
             icon: Icon(
               Icons.arrow_upward,
