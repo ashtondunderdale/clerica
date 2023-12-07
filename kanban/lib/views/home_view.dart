@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
         children: [
           for (var title in columnTitles)
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.only(top: 12, left: 10, right: 10),
               child: Column(
                 children: [
                   KanbanColumnTop(title: title),
