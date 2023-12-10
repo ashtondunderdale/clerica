@@ -17,7 +17,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    columnCards = { for (var title in columnTitles) title : kanbanData.firstWhere((data) => data.title == title).cards };
+    columnCards = { 
+      for (var title in columnTitles) 
+        title : kanbanData.firstWhere((data) => data.title == title).cards };
   }
 
   void onCardDropped(String oldColumnTitle, String newColumnTitle, KanbanCard droppedCard) {

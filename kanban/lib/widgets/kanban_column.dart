@@ -41,7 +41,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
             children: [
               for (var card in widget.cardList)
                 Padding(
-                  key: ValueKey(card), // Key for reordering
+                  key: ValueKey(card),
                   padding: const EdgeInsets.only(bottom: 4, top: 4),
                   child: Draggable<KanbanCard>(
                     data: card,
@@ -97,9 +97,10 @@ class _KanbanColumnState extends State<KanbanColumn> {
                         padding: const EdgeInsets.all(8),
                         child: Text(
                           card.summary.toUpperCase(),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
-                            color: Color.fromARGB(255, 101, 101, 101),
+                            color: Color.fromARGB(255, 59, 59, 59),
+                            decoration: widget.title == "DONE" ? TextDecoration.lineThrough : TextDecoration.none
                           ),
                         ),
                       ),
