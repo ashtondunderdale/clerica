@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+
+import '../views/task_view.dart';
+
+class TaskViewButton extends StatelessWidget {
+  const TaskViewButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 6.6 / 5 + 10, bottom: 12),
+      child: Tooltip(
+        message: "Task View",
+        child: FloatingActionButton(
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskView())),
+          mini: true,
+          foregroundColor: Colors.grey,
+          backgroundColor: Colors.white,
+          child: Icon(Icons.format_list_bulleted),
+        ),
+      ),
+    );
+  }
+}

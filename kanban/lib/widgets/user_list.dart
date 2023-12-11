@@ -27,20 +27,20 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0, right: 24.0),
+      padding: EdgeInsets.only(bottom: 8.0, right: MediaQuery.of(context).size.width / 6.6 / 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           for (var user in users)
-            Tooltip(
-              message: user,
-              child: Stack(
-                children: [ 
-                  Padding(
-                    padding: const EdgeInsets.only(left: 6),
-                    child: Container(
-                    width: 32,
-                    height: 32,
+          Tooltip(
+            message: user,
+            child: Stack(
+              children: [ 
+                Padding(
+                  padding: const EdgeInsets.only(left: 6),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 48,
+                    height: MediaQuery.of(context).size.width / 48,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color.fromARGB(255, 223, 223, 223),
@@ -51,12 +51,12 @@ class UserList extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
-                          fontSize: 13,
+                          fontSize: MediaQuery.of(context).size.width > 1800 ? 14 : 12,
                         ),
                       ),
                     ),
-                                    ),
                   ),
+                ),
               ],
             ),
           ),

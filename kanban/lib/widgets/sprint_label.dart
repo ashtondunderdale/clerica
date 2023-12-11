@@ -24,7 +24,7 @@ class SprintLabel extends StatelessWidget {
               style: TextStyle(
                 color: const Color.fromARGB(255, 77, 77, 77),
                 fontWeight: FontWeight.bold,
-                fontSize: 12
+                fontSize: MediaQuery.of(context).size.width > 1800 ? 13 : 11,
               ),
             ),
           ),
