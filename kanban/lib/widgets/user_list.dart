@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class UserList extends StatelessWidget {
   UserList({super.key});
 
-  List<String> users = [
+  final List<String> users = [
     "Peter Roden",
     "Josh Sweeney",
     "Bart Wojda",
@@ -37,7 +37,7 @@ class UserList extends StatelessWidget {
               child: Stack(
                 children: [ 
                   Padding(
-                    padding: const EdgeInsets.only(left: 2),
+                    padding: const EdgeInsets.only(left: 6),
                     child: Container(
                     width: 32,
                     height: 32,

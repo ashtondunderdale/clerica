@@ -3,6 +3,7 @@ import '../utils/data.dart';
 import '../widgets/kanban_card.dart';
 import '../widgets/kanban_column.dart';
 import '../widgets/kanban_column_top.dart';
+import '../widgets/sprint_label.dart';
 import '../widgets/user_list.dart';
 
 class HomeView extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     columnCards = { 
       for (var title in columnTitles) 
-        title : kanbanData.firstWhere((data) => data.title == title).cards 
+        title : kanbanData.firstWhere((data) => data.title == title).cards
       };
   }
 
@@ -45,24 +46,7 @@ class _HomeViewState extends State<HomeView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24, bottom: 4),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey, width: 1)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 2, bottom: 2, left: 8, right: 8),
-                        child: Text(
-                          'SPRINT 17',
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 77, 77, 77),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  SprintLabel(),
                   UserList(),
                 ],
               ),
@@ -82,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
               padding: const EdgeInsets.only(top: 12, left: 10, right: 10),
               child: Column(
                 children: [
-                  KanbanColumnTop(title: title),
+                  KanbanColumnTop(title: title, cardAmount: columnCards[title]?.length ?? 0),
                   Expanded(
                     child: KanbanColumn(
                       title: title,

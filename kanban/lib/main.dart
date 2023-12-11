@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'views/home_view.dart';
-import 'views/test_view.dart';
-import 'views/login_view.dart';
 
 void main() => runApp(const App());
 

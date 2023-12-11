@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/widgets/kanban_column.dart';
 
 class KanbanColumnTop extends StatelessWidget {
-  const KanbanColumnTop({super.key, required this.title});
+  const KanbanColumnTop({super.key, required this.title, required this.cardAmount});
 
   final String title;
+  final int cardAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +32,32 @@ class KanbanColumnTop extends StatelessWidget {
             )
           )
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 80, 80, 80),
-              fontSize: 12
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title, 
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 80, 80, 80),
+                  fontSize: 12
+                ),
+              ),
             ),
-          ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Text(
+                cardAmount.toString(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 100, 100, 100),
+                  fontSize: 12,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

@@ -147,4 +147,8 @@ class _KanbanColumnState extends State<KanbanColumn> {
       widget.cardList.insert(newIndex, movedCard);
     });
   }
+
+  String getCardAmount(){
+    return widget.cardList.length.toString();
+  }
 }
