@@ -17,43 +17,43 @@ final List<String> columnTitles = [
 ];
 
 final List<KanbanColumnData> kanbanData = [
-  KanbanColumnData(title: columnTitles[0], cards: [
-    KanbanCard(summary: "backlog 1"),
-    KanbanCard(summary: "backlog 2")
+  KanbanColumnData(title: 'BACKLOG', cards: [
+    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),
     ]
   ),
 
-  KanbanColumnData(title: columnTitles[1], cards: [
-    KanbanCard(summary: "developing 1"),
-    KanbanCard(summary: "developing 2"),
-    KanbanCard(summary: "developing 3")
+  KanbanColumnData(title: 'DEVELOPING', cards: [
+    KanbanCard(summary: "this is another task"),
+    KanbanCard(summary: "this is a bug"),
+    KanbanCard(summary: "this is a bug"),
     ]
   ),
 
-  KanbanColumnData(title: columnTitles[2], cards: [
-    KanbanCard(summary: "developed 1")
+  KanbanColumnData(title: 'DEVELOPED', cards: [
+    KanbanCard(summary: "this is another task"),
     ]
   ),
 
-  KanbanColumnData(title: columnTitles[3], cards: [
-    KanbanCard(summary: "testing 1"),
-    KanbanCard(summary: "testing 2"),
-    KanbanCard(summary: "testing 3"),
-    KanbanCard(summary: "testing 4"),
-    KanbanCard(summary: "testing 5"),
-    KanbanCard(summary: "testing 6"),
+  KanbanColumnData(title: 'TESTING', cards: [
+    KanbanCard(summary: "this is a bug"),
+    KanbanCard(summary: "this is another task 2"),
+    KanbanCard(summary: "this is a bug"),
+    KanbanCard(summary: "this is a task with a very long name to test how well it fits on the card"),
+    KanbanCard(summary: "this is a task 2"),
+    KanbanCard(summary: "this is also a task 1"),
 
     ]
   ),
 
-  KanbanColumnData(title: columnTitles[4], cards: [
-    KanbanCard(summary: "tested 1"),
+  KanbanColumnData(title: 'TESTED', cards: [
+    KanbanCard(summary: "this is a bug"),
+    KanbanCard(summary: "task 2"),
     ]
   ),
 
-  KanbanColumnData(title: columnTitles[5], cards: [
-    KanbanCard(summary: "done 1"),
-    KanbanCard(summary: "done 2"),
+  KanbanColumnData(title: 'DONE', cards: [
+    KanbanCard(summary: "task 1"),
     ]
   ),
 ];

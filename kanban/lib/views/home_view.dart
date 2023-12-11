@@ -3,6 +3,7 @@ import '../utils/data.dart';
 import '../widgets/kanban_card.dart';
 import '../widgets/kanban_column.dart';
 import '../widgets/kanban_column_top.dart';
+import '../widgets/user_list.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key? key}) : super(key: key);
@@ -19,7 +20,8 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     columnCards = { 
       for (var title in columnTitles) 
-        title : kanbanData.firstWhere((data) => data.title == title).cards };
+        title : kanbanData.firstWhere((data) => data.title == title).cards 
+      };
   }
 
   void onCardDropped(String oldColumnTitle, String newColumnTitle, KanbanCard droppedCard) {
@@ -38,9 +40,14 @@ class _HomeViewState extends State<HomeView> {
         toolbarHeight: 100,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
-          child: Container(
+          child: Column(
+            children: [
+              UserList(),
+              Container(
               color: const Color.fromARGB(255, 220, 220, 220),
               height: 2.0,
+              )
+            ],
           ),
         ),
       ),
