@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kanban_application/widgets/expanded_card.dart';
-import 'package:kanban_application/widgets/user_list.dart';
 
 import 'kanban_card.dart';
 

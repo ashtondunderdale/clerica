@@ -42,7 +42,30 @@ class _HomeViewState extends State<HomeView> {
           preferredSize: const Size.fromHeight(4.0),
           child: Column(
             children: [
-              UserList(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 24, bottom: 4),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 1)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 2, bottom: 2, left: 8, right: 8),
+                        child: Text(
+                          'SPRINT 17',
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 77, 77, 77),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  UserList(),
+                ],
+              ),
               Container(
               color: const Color.fromARGB(255, 220, 220, 220),
               height: 2.0,

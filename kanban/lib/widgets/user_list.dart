@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
 
 class UserList extends StatelessWidget {
-  const UserList({super.key});
+  UserList({super.key});
+
+  List<String> users = [
+    "Peter Roden",
+    "Josh Sweeney",
+    "Bart Wojda",
+    "Ashton Dunderdale",
+    "Harrison O'Leary",
+    "Charlie Glover",
+  ];
+
+  String getInitials(String name){    
+    var firstNameAndLastName = name.split(' ');
+
+    String firstName = firstNameAndLastName[0];
+    String lastName = firstNameAndLastName[1];
+
+    String firstInitial = firstName[0];
+    String lastInitial = lastName[0];
+
+    return firstInitial + lastInitial;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,22 +31,33 @@ class UserList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(255, 223, 223, 223),
-            ),
-            child: Center(
-              child: Text(
-                'AD',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                  fontSize: 13
-                ),
-              ),
+          for (var user in users)
+            Tooltip(
+              message: user,
+              child: Stack(
+                children: [ 
+                  Padding(
+                    padding: const EdgeInsets.only(left: 2),
+                    child: Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: const Color.fromARGB(255, 223, 223, 223),
+                    ),
+                    child: Center(
+                      child: Text(
+                        getInitials(user),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                                    ),
+                  ),
+              ],
             ),
           ),
         ],
