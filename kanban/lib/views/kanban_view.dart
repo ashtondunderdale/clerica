@@ -37,6 +37,16 @@ class _KanbanViewState extends State<KanbanView> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
+        title: Padding(
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 6.6 / 5 - 5),
+          child: Text(
+            "Kanban Board",
+            style: TextStyle(
+              color: const Color.fromARGB(255, 98, 98, 98),
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         toolbarHeight: 100,
         bottom: PreferredSize(

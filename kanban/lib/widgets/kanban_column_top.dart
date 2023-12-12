@@ -26,7 +26,7 @@ class KanbanColumnTop extends StatelessWidget {
           ],
           border: const Border(
             top: BorderSide(
-              color: Colors.grey, 
+              color: Color.fromARGB(255, 208, 208, 208), 
               width: 2, 
             )
           )

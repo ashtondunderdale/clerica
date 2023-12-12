@@ -47,6 +47,16 @@ class TaskView extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.grey,
                             ),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Text(
+                              kanbanCard.summary == "this is a bug" ? "BUG" : "TASK",
+                              style: TextStyle(
+                                color: kanbanCard.summary == "this is a bug" ? const Color.fromARGB(255, 255, 175, 175) : Color.fromARGB(255, 198, 223, 255),
+                              ),
+                            ),
                           )
                         ],
                       ),

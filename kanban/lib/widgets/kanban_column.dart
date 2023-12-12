@@ -26,7 +26,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
       onAccept: (droppedCard) => widget.onCardDropped(widget.title, droppedCard),
       builder: (context, candidateData, rejectedData) {
         Color dropLocationColor =
-            candidateData.isEmpty ? const Color.fromARGB(255, 255, 255, 255) : const Color.fromARGB(255, 246, 246, 246);
+            candidateData.isEmpty ? const Color.fromARGB(255, 255, 255, 255) : Color.fromARGB(255, 248, 248, 248);
         return Container(
           width: columnWidth,
           decoration: BoxDecoration(
@@ -35,9 +35,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
           ),
           child: ReorderableListView(
             onReorder: (int oldIndex, int newIndex) {
-              if (oldIndex < newIndex) {
-                newIndex -= 1;
-              }
+              if (oldIndex < newIndex) newIndex -= 1;
               onReorder(oldIndex, newIndex);
             },
             children: [
@@ -67,14 +65,20 @@ class _KanbanColumnState extends State<KanbanColumn> {
                       width: columnWidth,
                       height: cardHeight,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 243, 243, 243),
+                        color: Color.fromARGB(255, 255, 255, 255),
                         borderRadius: BorderRadius.circular(2),
+                        border: Border(
+                            left: BorderSide(
+                              color: card.summary == "this is a bug" ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 149, 216, 255), // change this logic to actually work for a bug
+                              width: 2
+                            )
+                          ),
                       ),
                       padding: const EdgeInsets.all(8),
                       child: Text(
                         card.summary.toUpperCase(),
                         style: const TextStyle(
-                          color: Color.fromARGB(255, 101, 101, 101),
+                          color: Color.fromARGB(255, 30, 30, 30),
                           fontSize: 12,
                           decoration: TextDecoration.none,
                           fontWeight: FontWeight.normal
