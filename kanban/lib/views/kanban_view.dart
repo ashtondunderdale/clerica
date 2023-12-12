@@ -35,19 +35,20 @@ class _KanbanViewState extends State<KanbanView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Padding(
           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 6.6 / 5 - 5),
           child: Text(
             "Kanban Board",
             style: TextStyle(
-              color: const Color.fromARGB(255, 98, 98, 98),
+              color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.bold
             ),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Theme.of(context).colorScheme.background,
         toolbarHeight: 100,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
@@ -71,7 +72,7 @@ class _KanbanViewState extends State<KanbanView> {
                 ],
               ),
               Container(
-                color: const Color.fromARGB(255, 220, 220, 220),
+                color: Theme.of(context).colorScheme.onSecondary,
                 height: 2.0,
               )
             ],

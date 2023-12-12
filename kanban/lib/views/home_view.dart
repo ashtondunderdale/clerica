@@ -17,9 +17,11 @@ class HomeView extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             gradient: LinearGradient(
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
               colors: [
-                Color(const Color.fromARGB(255, 161, 213, 255).value),
-                Color(const Color.fromARGB(255, 202, 238, 255).value),
+                Color(Color.fromARGB(255, 161, 161, 161).value),
+                Theme.of(context).colorScheme.background,
               ],
             ),
           ),
@@ -37,10 +39,16 @@ class HomeView extends StatelessWidget {
                     child: SizedBox(
                       width: 240,
                       child: TextField(
+                        style: TextStyle(
+                          fontSize: 10,
+                        ),
+                        cursorColor: Theme.of(context).colorScheme.onPrimary,
                         decoration: InputDecoration(
+                        focusedBorder:UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary)),
                          labelText: "email",
                           labelStyle: TextStyle(
-                            fontSize: 14
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.onPrimary
                           ),    
                           suffixIcon: Icon(
                             Icons.email_outlined,
@@ -55,11 +63,18 @@ class HomeView extends StatelessWidget {
                     child: SizedBox(
                       width: 240,
                       child: TextField(
+                        style: TextStyle(
+                          fontSize: 12,
+                          letterSpacing: 2,
+                        ),
+                        cursorColor: Theme.of(context).colorScheme.onPrimary,
                         obscureText: true,
                         decoration: InputDecoration(
+                          focusedBorder:UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary)),
                           labelText: "password",
                           labelStyle: TextStyle(
-                            fontSize: 14
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),                          
                           suffixIcon: Icon(
                             Icons.password_outlined,
@@ -83,6 +98,8 @@ class HomeView extends StatelessWidget {
                           Navigator.push(context,MaterialPageRoute(builder: (context) => KanbanView()));
                         },
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          surfaceTintColor: Colors.grey,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

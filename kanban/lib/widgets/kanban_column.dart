@@ -26,7 +26,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
       onAccept: (droppedCard) => widget.onCardDropped(widget.title, droppedCard),
       builder: (context, candidateData, rejectedData) {
         Color dropLocationColor =
-            candidateData.isEmpty ? const Color.fromARGB(255, 255, 255, 255) : Color.fromARGB(255, 248, 248, 248);
+            candidateData.isEmpty ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.onSecondary;
         return Container(
           width: columnWidth,
           decoration: BoxDecoration(
@@ -65,7 +65,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                       width: columnWidth,
                       height: cardHeight,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: Theme.of(context).colorScheme.onTertiaryContainer,
                         borderRadius: BorderRadius.circular(2),
                         border: Border(
                             left: BorderSide(
@@ -77,8 +77,8 @@ class _KanbanColumnState extends State<KanbanColumn> {
                       padding: const EdgeInsets.all(8),
                       child: Text(
                         card.summary.toUpperCase(),
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 30, 30, 30),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
                           fontSize: 12,
                           decoration: TextDecoration.none,
                           fontWeight: FontWeight.normal
@@ -89,12 +89,12 @@ class _KanbanColumnState extends State<KanbanColumn> {
                       width: columnWidth,
                       height: cardHeight,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 230, 230, 230),
+                        color: Theme.of(context).colorScheme.onTertiaryContainer.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(2),
                       ),
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        card.summary,
+                        card.summary.toUpperCase(),
                         style: const TextStyle(
                           color: Color.fromARGB(255, 230, 230, 230),
                           fontSize: 12,
@@ -106,7 +106,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                         width: columnWidth - 10,
                         height: cardHeight,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onTertiaryContainer,
                           borderRadius: BorderRadius.circular(2),
                           border: Border(
                             left: BorderSide(
@@ -116,7 +116,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.15),
                               spreadRadius: 1,
                               blurRadius: 3,
                               offset: const Offset(0, 0),
@@ -128,7 +128,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           card.summary.toUpperCase(),
                           style: TextStyle(
                             fontSize: 12,
-                            color: widget.title == "DONE" ? Colors.grey : const Color.fromARGB(255, 68, 68, 68),
+                            color: widget.title == "DONE" ? Theme.of(context).colorScheme.onPrimary.withOpacity(0.5) : Theme.of(context).colorScheme.onPrimary,
                             decoration: widget.title == "DONE" ? TextDecoration.lineThrough : TextDecoration.none
                           ),
                         ),
@@ -150,9 +150,5 @@ class _KanbanColumnState extends State<KanbanColumn> {
       final KanbanCard movedCard = widget.cardList.removeAt(oldIndex);
       widget.cardList.insert(newIndex, movedCard);
     });
-  }
-
-  String getCardAmount(){
-    return widget.cardList.length.toString();
   }
 }

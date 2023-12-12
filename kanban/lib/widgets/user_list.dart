@@ -34,6 +34,10 @@ class UserList extends StatelessWidget {
           for (var user in users)
           Tooltip(
             message: user,
+            textStyle: TextStyle(
+              color: Theme.of(context).colorScheme.onTertiary,
+              fontSize: 10
+            ),
             child: Stack(
               children: [ 
                 Padding(
@@ -43,14 +47,14 @@ class UserList extends StatelessWidget {
                     height: MediaQuery.of(context).size.width / 48,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: const Color.fromARGB(255, 223, 223, 223),
+                      color: Theme.of(context).colorScheme.onTertiary,
                     ),
                     child: Center(
                       child: Text(
                         getInitials(user),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey,
+                          color: Color.fromARGB(255, 151, 151, 151),
                           fontSize: MediaQuery.of(context).size.width > 1800 ? 14 : 12,
                         ),
                       ),

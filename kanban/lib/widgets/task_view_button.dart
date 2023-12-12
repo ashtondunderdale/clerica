@@ -14,8 +14,8 @@ class TaskViewButton extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskView())),
           mini: true,
-          foregroundColor: Colors.grey,
-          backgroundColor: Colors.white,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
           child: Icon(Icons.format_list_bulleted),
         ),
       ),

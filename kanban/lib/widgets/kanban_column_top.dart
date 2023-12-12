@@ -14,19 +14,19 @@ class KanbanColumnTop extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 6.6 - 10,
         height: 40,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: Theme.of(context).colorScheme.onSecondary,
           borderRadius: BorderRadius.circular(2),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.15),
               spreadRadius: 1,
               blurRadius: 4,
               offset: const Offset(-2, 2),
             ),
           ],
-          border: const Border(
+          border: Border(
             top: BorderSide(
-              color: Color.fromARGB(255, 208, 208, 208), 
+              color: Theme.of(context).colorScheme.onTertiary, 
               width: 2, 
             )
           )
@@ -37,9 +37,9 @@ class KanbanColumnTop extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 title, 
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 80, 80, 80),
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 12
                 ),
               ),
@@ -51,7 +51,7 @@ class KanbanColumnTop extends StatelessWidget {
                 cardAmount.toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 100, 100, 100),
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 12,
                 ),
               ),
