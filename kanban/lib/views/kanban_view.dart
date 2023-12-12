@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/main.dart';
 import 'package:kanban_application/widgets/dark_mode_button.dart';
+import '../api.dart';
 import '../utils/data.dart';
 import '../widgets/kanban_card.dart';
 import '../widgets/kanban_column.dart';
@@ -86,6 +87,7 @@ class _KanbanViewState extends State<KanbanView> {
                     children: [
                       SprintLabel(),
                       UserList(),
+                      APITest(),     // REMOVE THIS
                     ],
                   ),
                 ],
