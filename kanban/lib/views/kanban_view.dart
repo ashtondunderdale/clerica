@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/main.dart';
+import 'package:kanban_application/widgets/dark_mode_button.dart';
 import '../utils/data.dart';
 import '../widgets/kanban_card.dart';
 import '../widgets/kanban_column.dart';
@@ -48,7 +50,7 @@ class _KanbanViewState extends State<KanbanView> {
             ),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         toolbarHeight: 100,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
@@ -60,6 +62,23 @@ class _KanbanViewState extends State<KanbanView> {
                   Row(
                     children: [
                       TaskViewButton(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, bottom: 10),
+                        child: DarkModeButton()
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10, left: 16),
+                        child: Tooltip(
+                          message: "Logout",
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.arrow_back),
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -72,7 +91,7 @@ class _KanbanViewState extends State<KanbanView> {
                 ],
               ),
               Container(
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: Theme.of(context).colorScheme.onTertiary,
                 height: 2.0,
               )
             ],

@@ -9,13 +9,31 @@ class TaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Task View"),
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
+        automaticallyImplyLeading: false,
+        title: Text(
+          "Task View",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,                       
+          ),
+        ),
+        leading: Tooltip(
+          message: "Back",
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back),
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+        ),
       ),
       body: Center(
         child: Container(
           width:MediaQuery.of(context).size.width - 200,
           height: MediaQuery.of(context).size.height - 200,
-          color: Color.fromARGB(255, 223, 223, 223),
+          color: Theme.of(context).colorScheme.onTertiary,
           child: ListView.builder(
             itemCount: kanbanData.fold<int>(0, (prev, element) => prev + element.cards.length),
             itemBuilder: (context, index) {
@@ -26,7 +44,7 @@ class TaskView extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(left: 2, top: 2, right: 2),
                     child: Container(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onSecondary,
                       child: Row(
                         children: [
                           SizedBox(
@@ -37,7 +55,7 @@ class TaskView extends StatelessWidget {
                                 columnData.title,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: const Color.fromARGB(255, 79, 79, 79)                            
+                                  color: Theme.of(context).colorScheme.onPrimary                            
                                 ),
                               ),
                             ),   

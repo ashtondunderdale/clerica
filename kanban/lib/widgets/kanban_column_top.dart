@@ -18,10 +18,10 @@ class KanbanColumnTop extends StatelessWidget {
           borderRadius: BorderRadius.circular(2),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.15),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
               spreadRadius: 1,
               blurRadius: 4,
-              offset: const Offset(-2, 2),
+              offset: Offset(0, 1)
             ),
           ],
           border: Border(

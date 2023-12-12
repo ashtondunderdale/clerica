@@ -36,7 +36,11 @@ class UserList extends StatelessWidget {
             message: user,
             textStyle: TextStyle(
               color: Theme.of(context).colorScheme.onTertiary,
-              fontSize: 10
+              fontSize: 10,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onPrimary,
+              borderRadius: BorderRadius.circular(4),
             ),
             child: Stack(
               children: [ 
@@ -54,7 +58,7 @@ class UserList extends StatelessWidget {
                         getInitials(user),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 151, 151, 151),
+                             color: Theme.of(context).colorScheme.onPrimary,
                           fontSize: MediaQuery.of(context).size.width > 1800 ? 14 : 12,
                         ),
                       ),

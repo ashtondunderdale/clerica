@@ -26,7 +26,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
       onAccept: (droppedCard) => widget.onCardDropped(widget.title, droppedCard),
       builder: (context, candidateData, rejectedData) {
         Color dropLocationColor =
-            candidateData.isEmpty ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.onSecondary;
+            candidateData.isEmpty ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.background;
         return Container(
           width: columnWidth,
           decoration: BoxDecoration(
@@ -116,7 +116,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.15),
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.15),
                               spreadRadius: 1,
                               blurRadius: 3,
                               offset: const Offset(0, 0),
@@ -128,7 +128,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           card.summary.toUpperCase(),
                           style: TextStyle(
                             fontSize: 12,
-                            color: widget.title == "DONE" ? Theme.of(context).colorScheme.onPrimary.withOpacity(0.5) : Theme.of(context).colorScheme.onPrimary,
+                            color: widget.title == "DONE" ? Theme.of(context).colorScheme.onPrimary.withOpacity(0.5) : Theme.of(context).colorScheme.onSurfaceVariant,
                             decoration: widget.title == "DONE" ? TextDecoration.lineThrough : TextDecoration.none
                           ),
                         ),
