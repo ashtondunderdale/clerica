@@ -7,6 +7,8 @@ class KanbanColumnData {
   KanbanColumnData({required this.title, required this.cards});
 }
 
+String loggedInUser = "";
+
 final List<String> columnTitles = [
   'BACKLOG',
   'DEVELOPING',

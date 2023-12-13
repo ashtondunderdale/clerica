@@ -1,29 +1,50 @@
 import 'package:flutter/material.dart';
 
+import '../utils/data.dart';
+
 class UserList extends StatelessWidget {
   UserList({super.key});
 
-  final List<String> users = [
-    "Peter Roden",
-    "Josh Sweeney",
-    "Bart Wojda",
-    "Ashton Dunderdale",
-    "Harrison O'Leary",
-    "Charlie Glover",
-  ];
+  Map<String,String> users  = {
+    "proden"       : "Peter Roden",
+    "jsweeney"     : "Josh Sweeney",
+    "bwojda"       : "Bart Wojda",
+    "adunderdale"  : "Ashton Dunderdale",
+    "ho'leary"     : "Harrison O'Leary",
+    "cglover"      : "Charlie Glover",
+  };
 
   String getInitials(String name){    
-    var firstNameAndLastName = name.split(' ');
 
-    String firstName = firstNameAndLastName[0];
-    String lastName = firstNameAndLastName[1];
+    try{
+      var firstNameAndLastName = name.split(' ');
 
-    String firstInitial = firstName[0];
-    String lastInitial = lastName[0];
+      String firstName = firstNameAndLastName[0];
+      String lastName = firstNameAndLastName[1];
 
-    return firstInitial + lastInitial;
+      String firstInitial = firstName[0];
+      String lastInitial = lastName[0];
+
+      return firstInitial + lastInitial;
+    }
+    catch (exception){
+      return name[0] + name[1];
+    }
   }
+  
+  Color getCurrentUser(String user, Color UserLoggedInColour, Color UserNotLoggedInColour){
+    String currentUser = loggedInUser;
+    String currentUserName = "";
 
+    if (currentUser.contains(' ')) currentUserName = currentUser.split(' ')[0][0] + currentUser.split(' ')[1].toLowerCase();
+
+    if (currentUser == user || currentUser == currentUserName) {
+      return UserLoggedInColour;
+    } else {
+      return UserNotLoggedInColour;
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,9 +52,9 @@ class UserList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          for (var user in users)
+          for (var user in users.keys)
           Tooltip(
-            message: user,
+            message: users[user].toString(),
             textStyle: TextStyle(
               color: Theme.of(context).colorScheme.onTertiary,
               fontSize: 10,
@@ -52,10 +73,11 @@ class UserList extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Theme.of(context).colorScheme.onTertiary,
+                      border: Border.all(color: getCurrentUser(user, Theme.of(context).colorScheme.onPrimary, Theme.of(context).colorScheme.onTertiary))
                     ),
                     child: Center(
                       child: Text(
-                        getInitials(user),
+                        getInitials(user).toUpperCase(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                              color: Theme.of(context).colorScheme.onPrimary,

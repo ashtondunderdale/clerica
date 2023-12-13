@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../utils/data.dart';
 import 'kanban_view.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class HomeView extends StatefulWidget {
+  HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  
+  FlutterSecureStorage storage = FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    _setTextBoxValues();
+  }
+
+  _setTextBoxValues() async {
+    var username = await storage.read(key: "username") ?? "";
+    var password = await storage.read(key: "password") ?? "";
+
+    usernameController.text = username;
+    passwordController.text = password;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +65,17 @@ class HomeView extends StatelessWidget {
                     child: SizedBox(
                       width: 240,
                       child: TextField(
+                        controller: usernameController,
                         style: TextStyle(
                           fontSize: 10,
                         ),
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
                         decoration: InputDecoration(
                         focusedBorder:UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary)),
-                         labelText: "email",
+                         labelText: "username",
                           labelStyle: TextStyle(
                             fontSize: 16,
-                            color: Theme.of(context).colorScheme.onPrimary
+                            color: Theme.of(context).colorScheme.onPrimary 
                           ),    
                           suffixIcon: Icon(
                             Icons.email_outlined,
@@ -63,6 +90,7 @@ class HomeView extends StatelessWidget {
                     child: SizedBox(
                       width: 240,
                       child: TextField(
+                        controller: passwordController,
                         style: TextStyle(
                           fontSize: 12,
                           letterSpacing: 2,
@@ -95,6 +123,11 @@ class HomeView extends StatelessWidget {
                       ),
                       child: ElevatedButton(
                         onPressed: () {
+                          loggedInUser = usernameController.text;
+
+                          storage.write(key: "username", value: usernameController.text);
+                          storage.write(key: "password", value: passwordController.text);
+
                           Navigator.push(context,MaterialPageRoute(builder: (context) => KanbanView()));
                         },
                         style: ElevatedButton.styleFrom(
