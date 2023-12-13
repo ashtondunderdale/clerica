@@ -22,6 +22,18 @@ final List<KanbanColumnData> kanbanData = [
   KanbanColumnData(title: 'BACKLOG', cards: [
     KanbanCard(summary: "this is a task 1"),
     KanbanCard(summary: "this is a bug"),
+    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),    KanbanCard(summary: "this is a task 1"),
+    KanbanCard(summary: "this is a bug"),
     ]
   ),
 

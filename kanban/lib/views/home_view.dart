@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../utils/data.dart';
@@ -66,6 +68,7 @@ class _HomeViewState extends State<HomeView> {
                       child: TextField(
                         controller: usernameController,
                         style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
                           fontSize: 10,
                         ),
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
@@ -93,6 +96,7 @@ class _HomeViewState extends State<HomeView> {
                         style: TextStyle(
                           fontSize: 12,
                           letterSpacing: 2,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
                         obscureText: true,
@@ -121,7 +125,7 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_validateInputs()) {
                             loggedInUser = usernameController.text;
 

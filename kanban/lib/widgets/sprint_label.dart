@@ -9,7 +9,7 @@ class SprintLabel extends StatelessWidget {
       padding: const EdgeInsets.only(right: 26, bottom: 4),
       child: Tooltip(
         height: 30,
-        message: "1/12/23 ⇒ 15/12/23",
+        message: "1/12/23 → 15/12/23",
         textStyle: TextStyle(
           color: Theme.of(context).colorScheme.onTertiary,
           fontSize: 12,

@@ -5,7 +5,7 @@ import '../utils/data.dart';
 class UserList extends StatelessWidget {
   UserList({super.key});
 
-  Map<String,String> users  = {
+  final Map<String,String> users  = {
     "proden"       : "Peter Roden",
     "jsweeney"     : "Josh Sweeney",
     "bwojda"       : "Bart Wojda",

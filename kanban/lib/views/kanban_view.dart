@@ -38,6 +38,7 @@ class _KanbanViewState extends State<KanbanView> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent, 
         automaticallyImplyLeading: false,
         title: Padding(
           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 6.6 / 5 - 5),

@@ -8,7 +8,9 @@ class TaskView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         automaticallyImplyLeading: false,
         title: Text(
@@ -31,7 +33,7 @@ class TaskView extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          width:MediaQuery.of(context).size.width - 200,
+          width:MediaQuery.of(context).size.width - 100,
           height: MediaQuery.of(context).size.height - 200,
           color: Theme.of(context).colorScheme.onTertiary,
           child: ListView.builder(
@@ -44,7 +46,7 @@ class TaskView extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(left: 2, top: 2, right: 2),
                     child: Container(
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.background,
                       child: Row(
                         children: [
                           SizedBox(
@@ -72,7 +74,7 @@ class TaskView extends StatelessWidget {
                             child: Text(
                               kanbanCard.summary == "this is a bug" ? "BUG" : "TASK",
                               style: TextStyle(
-                                color: kanbanCard.summary == "this is a bug" ? const Color.fromARGB(255, 255, 175, 175) : Color.fromARGB(255, 198, 223, 255),
+                                color: kanbanCard.summary == "this is a bug" ? const Color.fromARGB(255, 255, 175, 175) : Color.fromARGB(255, 200, 149, 255),
                               ),
                             ),
                           )
