@@ -47,7 +47,11 @@ class _KanbanColumnState extends State<KanbanColumn> {
                     builder: (BuildContext context){
                       return AlertDialog(
                         contentPadding: EdgeInsets.all(0),
-                        content: SizedBox(
+                        content: Container(
+                          decoration: BoxDecoration(
+                            border: Border(right: BorderSide(color: card.summary == "this is a bug" ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), width: 8)),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           width: 900,
                           height: 500,
                           child: ExpandedCard(summary: card.summary, columnTitle: widget.title),

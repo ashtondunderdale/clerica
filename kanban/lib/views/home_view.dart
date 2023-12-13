@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
                       child: TextField(
                         controller: usernameController,
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 10,
                         ),
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
@@ -96,7 +96,7 @@ class _HomeViewState extends State<HomeView> {
                         style: TextStyle(
                           fontSize: 12,
                           letterSpacing: 2,
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
                         obscureText: true,

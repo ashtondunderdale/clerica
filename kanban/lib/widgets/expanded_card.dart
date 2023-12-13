@@ -10,8 +10,8 @@ class ExpandedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(4)
+        color: Theme.of(context).colorScheme.onTertiary,
+        borderRadius: BorderRadius.only(topLeft:Radius.circular(4), bottomLeft: Radius.circular(4))
       ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -20,13 +20,26 @@ class ExpandedCard extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: Text(
-                summary.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 20,
-                  decoration: columnTitle == "DONE" ? TextDecoration.lineThrough : TextDecoration.none,
-                  color: columnTitle == "DONE" ? Colors.grey : const Color.fromARGB(255, 68, 68, 68),
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    summary.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      decoration: columnTitle == "DONE" ? TextDecoration.lineThrough : TextDecoration.none,
+                      color: columnTitle == "DONE" ? Colors.grey : Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: Text(
+                      columnTitle,
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                      ),
+                  )
+                ],
               ),
             ),
             Align(
