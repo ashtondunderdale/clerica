@@ -13,7 +13,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  
   FlutterSecureStorage storage = FlutterSecureStorage();
 
   @override
@@ -71,16 +70,16 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
                         decoration: InputDecoration(
-                        focusedBorder:UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary)),
-                         labelText: "username",
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary)),
+                          labelText: "username",
                           labelStyle: TextStyle(
                             fontSize: 16,
-                            color: Theme.of(context).colorScheme.onPrimary 
-                          ),    
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                           suffixIcon: Icon(
                             Icons.email_outlined,
                             size: 18,
-                            )
+                          ),
                         ),
                       ),
                     ),
@@ -98,16 +97,16 @@ class _HomeViewState extends State<HomeView> {
                         cursorColor: Theme.of(context).colorScheme.onPrimary,
                         obscureText: true,
                         decoration: InputDecoration(
-                          focusedBorder:UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary)),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary)),
                           labelText: "password",
                           labelStyle: TextStyle(
                             fontSize: 16,
                             color: Theme.of(context).colorScheme.onPrimary,
-                          ),                          
+                          ),
                           suffixIcon: Icon(
                             Icons.password_outlined,
                             size: 18,
-                          )
+                          ),
                         ),
                       ),
                     ),
@@ -119,16 +118,20 @@ class _HomeViewState extends State<HomeView> {
                       height: 40,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(8)
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: ElevatedButton(
                         onPressed: () {
-                          loggedInUser = usernameController.text;
+                          if (_validateInputs()) {
+                            loggedInUser = usernameController.text;
 
-                          storage.write(key: "username", value: usernameController.text);
-                          storage.write(key: "password", value: passwordController.text);
+                            storage.write(key: "username", value: usernameController.text);
+                            storage.write(key: "password", value: passwordController.text);
 
-                          Navigator.push(context,MaterialPageRoute(builder: (context) => KanbanView()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => KanbanView()));
+                          } else {
+                            _showErrorSnackBar("Username and password cannot be empty.");
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -141,15 +144,28 @@ class _HomeViewState extends State<HomeView> {
                           Icons.login,
                           color: const Color.fromARGB(255, 91, 91, 91),
                           size: 18,
-                        )
+                        ),
                       ),
-                    )
+                    ),
                   ),
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  bool _validateInputs() {
+    return usernameController.text.isNotEmpty && passwordController.text.isNotEmpty;
+  }
+
+  void _showErrorSnackBar(String errorMessage) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(errorMessage),
+        backgroundColor: const Color.fromARGB(255, 255, 130, 121),
       ),
     );
   }

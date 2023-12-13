@@ -54,7 +54,7 @@ class UserList extends StatelessWidget {
         children: [
           for (var user in users.keys)
           Tooltip(
-            message: users[user].toString(),
+            message: user == loggedInUser ? "You" : users[user].toString(),
             textStyle: TextStyle(
               color: Theme.of(context).colorScheme.onTertiary,
               fontSize: 10,
@@ -73,7 +73,7 @@ class UserList extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Theme.of(context).colorScheme.onTertiary,
-                      border: Border.all(color: getCurrentUser(user, Theme.of(context).colorScheme.onPrimary, Theme.of(context).colorScheme.onTertiary))
+                      border: Border.all(color: getCurrentUser(user, Theme.of(context).colorScheme.onPrimary, Theme.of(context).colorScheme.onTertiary), width: 2)
                     ),
                     child: Center(
                       child: Text(

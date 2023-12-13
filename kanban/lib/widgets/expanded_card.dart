@@ -13,12 +13,12 @@ class ExpandedCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(4)
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Align(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Align(
               alignment: Alignment.topLeft,
               child: Text(
                 summary.toUpperCase(),
@@ -29,8 +29,21 @@ class ExpandedCard extends StatelessWidget {
                 ),
               ),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, top: 24),
+                child: Container(
+                  width: 600,
+                  height: 360,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey)
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

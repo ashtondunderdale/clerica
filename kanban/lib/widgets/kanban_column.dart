@@ -48,8 +48,8 @@ class _KanbanColumnState extends State<KanbanColumn> {
                       return AlertDialog(
                         contentPadding: EdgeInsets.all(0),
                         content: SizedBox(
-                          width: 500,
-                          height: 600,
+                          width: 900,
+                          height: 500,
                           child: ExpandedCard(summary: card.summary, columnTitle: widget.title),
                         ),
                       );

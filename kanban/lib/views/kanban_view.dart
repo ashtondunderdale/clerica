@@ -72,6 +72,7 @@ class _KanbanViewState extends State<KanbanView> {
                           child: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
+                              loggedInUser = "";
                             },
                             icon: Icon(Icons.arrow_back),
                             color: Theme.of(context).colorScheme.onPrimary,
