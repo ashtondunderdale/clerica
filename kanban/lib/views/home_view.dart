@@ -130,7 +130,7 @@ class _HomeViewState extends State<HomeView> {
                           {
 
                             if (await _login()){
-                              loggedInUser = usernameController.text;
+                              loggedInUser = usernameController.text.trim();
 
                               storage.write(key: "username", value: usernameController.text);
                               storage.write(key: "password", value: passwordController.text);
@@ -180,7 +180,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-    Future<bool> _login() async {
+  Future<bool> _login() async {
     
     if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
       print('Username and password are required.');
@@ -206,23 +206,21 @@ class _HomeViewState extends State<HomeView> {
         }),
       );
     
-      print('Error Response Body: ${responseJson.body}');
+      //print('Response Body: ${responseJson.body}');
 
       if (responseJson.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(responseJson.body);
 
         bool success = data['success'];
-        String token = data['token'];
+        //String token = data['token'];
 
-        if (success) {
-          //print('Login successful Token: $token');
-          return true;
-        } else {
+        if (success) return true;
+         
+        else {
           _showErrorSnackBar("Incorrect login details");
           return false;
         }
       } else {
-        //print('Error: ${responseJson.statusCode}');
           _showErrorSnackBar("Incorrect login details");
         return false;
       }

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:kanban_application/widgets/dark_mode_button.dart';
 import '../utils/data.dart';
 import '../widgets/kanban_card.dart';
@@ -82,6 +85,11 @@ class _KanbanViewState extends State<KanbanView> {
                       ),
                     ],
                   ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      _getPhases();
+                    },
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end, 
                     children: [
@@ -125,5 +133,44 @@ class _KanbanViewState extends State<KanbanView> {
         ],
       ),
     );
+  }
+
+  Future<bool> _getPhases() async {
+
+    const String apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhases';
+
+    Map<String, String> header = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    };
+
+    try {
+      http.Response response = await http.post(Uri.parse(apiUrl), headers: header);
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final parsedData = jsonDecode(json);
+        
+        List<dynamic> projects = parsedData['value'];
+
+        for (var project in projects) {
+          KanbanCard card = KanbanCard(
+            status: project['ProjPhase_Description'],
+            summary: project['UD04Status_Character01'] ?? 'Ignored',
+          );
+        }
+        return true;
+      } 
+      else 
+      {
+        print('Error: ${response.statusCode}');
+        return false;
+      }
+    } 
+    catch (e) 
+    {
+      print("Exception Error: $e");
+      return false;
+    }
   }
 }
