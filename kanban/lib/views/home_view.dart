@@ -126,14 +126,20 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       child: ElevatedButton(
                         onPressed: () async {
-                          if (_validateInputs()) {
-                            loggedInUser = usernameController.text;
+                          if (_validateInputs()) 
+                          {
 
-                            storage.write(key: "username", value: usernameController.text);
-                            storage.write(key: "password", value: passwordController.text);
+                            if (await _login()){
+                              loggedInUser = usernameController.text;
 
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => KanbanView()));
-                          } else {
+                              storage.write(key: "username", value: usernameController.text);
+                              storage.write(key: "password", value: passwordController.text);
+
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => KanbanView()));
+                           }                       
+                          } 
+                          else 
+                          {
                             _showErrorSnackBar("Username and password cannot be empty.");
                           }
                         },
@@ -172,5 +178,58 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: const Color.fromARGB(255, 255, 130, 121),
       ),
     );
+  }
+
+    Future<bool> _login() async {
+    
+    if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
+      print('Username and password are required.');
+      return false;
+    }
+
+    const String apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Authentication/Login';
+
+    Map<String, String> header = {
+      "Content-Type": "application/json",
+      "Accept": "text/plain",
+      "Access-Control-Allow-Origin": "*",
+    };
+
+    try{
+
+      http.Response responseJson = await http.post(
+        Uri.parse(apiUrl),
+        headers: header,
+        body: json.encode({
+          "Username": usernameController.text,
+          "Password": passwordController.text,
+        }),
+      );
+    
+      print('Error Response Body: ${responseJson.body}');
+
+      if (responseJson.statusCode == 200) {
+        final Map<String, dynamic> data = jsonDecode(responseJson.body);
+
+        bool success = data['success'];
+        String token = data['token'];
+
+        if (success) {
+          //print('Login successful Token: $token');
+          return true;
+        } else {
+          _showErrorSnackBar("Incorrect login details");
+          return false;
+        }
+      } else {
+        //print('Error: ${responseJson.statusCode}');
+          _showErrorSnackBar("Incorrect login details");
+        return false;
+      }
+    } catch (e){
+      print("Error: $e");
+      _showErrorSnackBar("Error: an internal exception has occured");
+      return false;
+    }
   }
 }
