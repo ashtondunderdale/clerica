@@ -27,6 +27,7 @@ class _KanbanViewState extends State<KanbanView> {
     columnCards = {
       for (var title in columnTitles) title: kanbanData.firstWhere((data) => data.title == title).cards
     };
+    _getPhases();
   }
 
   void onCardDropped(String oldColumnTitle, String newColumnTitle, KanbanCard droppedCard) {
@@ -84,11 +85,6 @@ class _KanbanViewState extends State<KanbanView> {
                         ),
                       ),
                     ],
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      _getPhases();
-                    },
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end, 
@@ -155,9 +151,49 @@ class _KanbanViewState extends State<KanbanView> {
 
         for (var project in projects) {
           KanbanCard card = KanbanCard(
-            status: project['ProjPhase_Description'],
-            summary: project['UD04Status_Character01'] ?? 'Ignored',
+            summary:  project['ProjPhase_Description']  ?? "Null",
+            status:   project['UD04Status_Character01'] ?? 'Ignored',
+            comments: project['ProjPhase_Comments_c']   ?? "Null",
+            sprint:   project['UD02_Character01']       ?? "Null",
+            project:  project['Project_Description']    ?? "Null",
+
           );
+          
+          switch (card.status)
+          {
+            case "Backlog":
+              setState(() {
+                kanbanData[0].cards.add(card);                     
+              });
+
+            case "In Development":
+              setState(() {
+                kanbanData[1].cards.add(card);                     
+              });
+
+            case "Developed":
+              setState(() {
+                kanbanData[2].cards.add(card);                     
+              });
+
+            case "In Test":
+              setState(() {
+                kanbanData[3].cards.add(card);                     
+              });
+
+            case "Tested":
+              setState(() {
+                kanbanData[4].cards.add(card);                     
+              });
+
+            case "Done":
+              setState(() {
+                kanbanData[5].cards.add(card);                     
+              });
+
+            default:
+              print("Null Status for card: ${card.summary}");
+          }
         }
         return true;
       } 

@@ -54,7 +54,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           ),
                           width: 900,
                           height: 500,
-                          child: ExpandedCard(summary: card.summary, columnTitle: widget.title),
+                          child: ExpandedCard(card: card, columnTitle: widget.title),
                         ),
                       );
                     }
@@ -136,13 +136,29 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           ],
                         ),
                         padding: const EdgeInsets.all(8),
-                        child: Text(
-                          card.summary.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: widget.title == "DONE" ? Theme.of(context).colorScheme.onPrimary.withOpacity(0.5) : Theme.of(context).colorScheme.onSurfaceVariant,
-                            decoration: widget.title == "DONE" ? TextDecoration.lineThrough : TextDecoration.none
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 4),
+                              child: Text(
+                                card.project.toUpperCase(),
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              card.summary,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: widget.title == "DONE" ? Theme.of(context).colorScheme.onPrimary.withOpacity(0.5) : Theme.of(context).colorScheme.onSurfaceVariant,
+                                decoration: widget.title == "DONE" ? TextDecoration.lineThrough : TextDecoration.none
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/utils/light_theme.dart';
+import 'package:kanban_application/views/kanban_view.dart';
 import 'utils/dark_theme.dart';
 import 'views/home_view.dart';
-import 'views/task_view.dart';
-import 'views/kanban_view.dart';
 
 void main() => runApp(const App());
 
@@ -28,7 +27,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "kanban",
-      home: HomeView(),
+      home: KanbanView(),
       theme: lightTheme,
       darkTheme: darkTheme.copyWith(
         scrollbarTheme: ScrollbarThemeData(thumbColor: MaterialStatePropertyAll(Colors.white)),

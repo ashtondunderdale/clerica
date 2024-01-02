@@ -20,9 +20,7 @@ final List<String> columnTitles = [
 
 final List<KanbanColumnData> kanbanData = [
   KanbanColumnData(title: 'BACKLOG', cards: [
-    KanbanCard(status: "status", summary: "summary"),
-    KanbanCard(status: "status2", summary: "summary2")
-
+    KanbanCard(status: "status", summary: "summary", comments: "comments", sprint: "Sprint 17", project: "Internal Applications")
   ]),
   KanbanColumnData(title: 'DEVELOPING', cards: []),
   KanbanColumnData(title: 'DEVELOPED', cards: []),

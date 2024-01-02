@@ -214,18 +214,25 @@ class _HomeViewState extends State<HomeView> {
         bool success = data['success'];
         //String token = data['token'];
 
-        if (success) return true;
-         
-        else {
+        if (success) 
+        {
+          return true;
+        }
+        else 
+        {
           _showErrorSnackBar("Incorrect login details");
           return false;
         }
-      } else {
+      }
+      else 
+      {
           _showErrorSnackBar("Incorrect login details");
         return false;
       }
-    } catch (e){
-      print("Error: $e");
+    } 
+    catch (exception)
+    {
+      print("Error: $exception");
       _showErrorSnackBar("Error: an internal exception has occured");
       return false;
     }

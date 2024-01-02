@@ -32,16 +32,16 @@ class UserList extends StatelessWidget {
     }
   }
   
-  Color getCurrentUser(String user, Color UserLoggedInColour, Color UserNotLoggedInColour){
+  Color getCurrentUser(String user, Color userLoggedInColour, Color userNotLoggedInColour){
     String currentUser = loggedInUser;
     String currentUserName = "";
 
     if (currentUser.contains(' ')) currentUserName = currentUser.split(' ')[0][0] + currentUser.split(' ')[1].toLowerCase();
 
     if (currentUser == user || currentUser == currentUserName) {
-      return UserLoggedInColour;
+      return userLoggedInColour;
     } else {
-      return UserNotLoggedInColour;
+      return userNotLoggedInColour;
     }
   }
   

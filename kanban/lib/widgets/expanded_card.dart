@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/widgets/kanban_card.dart';
 
 class ExpandedCard extends StatelessWidget {
-  const ExpandedCard({super.key, required this.summary, required this.columnTitle});
+  const ExpandedCard({super.key, required this.card, required this.columnTitle});
 
-  final String summary;
+  final KanbanCard card;
   final String columnTitle;
 
   @override
@@ -23,7 +24,7 @@ class ExpandedCard extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    summary.toUpperCase(),
+                    card.summary.toUpperCase(),
                     style: TextStyle(
                       fontSize: 20,
                       decoration: columnTitle == "DONE" ? TextDecoration.lineThrough : TextDecoration.none,
@@ -37,8 +38,21 @@ class ExpandedCard extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.grey,
                       ),
+                    ),
+                  ),
+                  Spacer(),
+                  Align(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: Text(
+                        card.sprint,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -52,9 +66,18 @@ class ExpandedCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey)
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      card.comments,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
