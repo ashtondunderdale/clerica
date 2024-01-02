@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kanban_application/utils/light_theme.dart';
 import 'package:kanban_application/views/kanban_view.dart';
 import 'utils/dark_theme.dart';
-import 'views/home_view.dart';
 
 void main() => runApp(const App());
 

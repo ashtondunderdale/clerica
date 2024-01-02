@@ -19,13 +19,29 @@ final List<String> columnTitles = [
 ];
 
 final List<KanbanColumnData> kanbanData = [
-  KanbanColumnData(title: 'BACKLOG', cards: [
-    KanbanCard(status: "status", summary: "summary", comments: "comments", sprint: "Sprint 17", project: "Internal Applications")
-  ]),
-  KanbanColumnData(title: 'DEVELOPING', cards: []),
-  KanbanColumnData(title: 'DEVELOPED', cards: []),
-  KanbanColumnData(title: 'TESTING', cards: []),
-  KanbanColumnData(title: 'TESTED', cards: []),
-  KanbanColumnData(title: 'DONE', cards: []),
+  KanbanColumnData(
+    title: 'BACKLOG', 
+    cards: []
+  ),
+  KanbanColumnData(
+    title: 'DEVELOPING', 
+    cards: []
+  ),
+  KanbanColumnData(
+    title: 'DEVELOPED', 
+    cards: []
+  ),
+  KanbanColumnData(
+    title: 'TESTING', 
+    cards: []
+  ),
+  KanbanColumnData(
+    title: 'TESTED', 
+    cards: []
+  ),
+  KanbanColumnData(
+    title: 'DONE', 
+    cards: []
+  ),
 ];
 

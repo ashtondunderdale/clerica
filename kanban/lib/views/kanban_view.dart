@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:kanban_application/utils/api.dart';
 import 'package:kanban_application/widgets/dark_mode_button.dart';
+import 'package:kanban_application/widgets/dropdown_button.dart';
 import '../utils/data.dart';
 import '../widgets/kanban_card.dart';
 import '../widgets/kanban_column.dart';
@@ -20,14 +19,14 @@ class KanbanView extends StatefulWidget {
 
 class _KanbanViewState extends State<KanbanView> {
   late Map<String, List<KanbanCard>> columnCards;
-
+  
   @override
   void initState() {
     super.initState();
     columnCards = {
       for (var title in columnTitles) title: kanbanData.firstWhere((data) => data.title == title).cards
     };
-    _getPhases();
+    api.getPhases("Specific User Project Phases");
   }
 
   void onCardDropped(String oldColumnTitle, String newColumnTitle, KanbanCard droppedCard) {
@@ -36,6 +35,12 @@ class _KanbanViewState extends State<KanbanView> {
       columnCards[newColumnTitle]!.add(droppedCard);
     });
   }
+
+  void _updateCards(){
+    setState(() => kanbanData[0]);
+  }
+
+  ApiService api = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +91,7 @@ class _KanbanViewState extends State<KanbanView> {
                       ),
                     ],
                   ),
+                  PhasesDropDownButton(stateSetter: setState),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end, 
                     children: [
@@ -106,107 +112,38 @@ class _KanbanViewState extends State<KanbanView> {
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          for (var title in columnTitles)
-            Padding(
-              padding: const EdgeInsets.only(top: 12, left: 10, right: 0),
-              child: Column(
-                children: [
-                  KanbanColumnTop(title: title, cardAmount: columnCards[title]?.length ?? 0),
-                  Expanded(
-                    child: KanbanColumn(
-                      title: title,
-                      cardList: columnCards[title] ?? [],
-                      onCardDropped: (String newColumnTitle, KanbanCard droppedCard) {
-                        String currentColumnTitle = columnCards.entries
-                            .firstWhere((entry) => entry.value.contains(droppedCard), orElse: () => const MapEntry("", [])).key;
-                        onCardDropped(currentColumnTitle, newColumnTitle, droppedCard);
-                      },
-                    ),
+          SizedBox(
+            width: 200,
+            height: 600,
+            child: ListView.builder(
+              itemCount: columnTitles.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.only(top: 12, left: 10, right: 0),
+                child: SizedBox(
+                  width: 200,
+                  height: 600,
+                  child: Column(
+                    children: [
+                      KanbanColumnTop(title: columnTitles[index], cardAmount: columnCards[columnTitles[index]]?.length ?? 0),
+                      Expanded(
+                        child: KanbanColumn(
+                          title: columnTitles[index],
+                          cardList: columnCards[columnTitles[index]] ?? [],
+                          onCardDropped: (String newColumnTitle, KanbanCard droppedCard) {
+                            String currentColumnTitle = columnCards.entries
+                                .firstWhere((entry) => entry.value.contains(droppedCard), orElse: () => const MapEntry("", [])).key;
+                            onCardDropped(currentColumnTitle, newColumnTitle, droppedCard);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
+          ),
         ],
       ),
     );
-  }
-
-  Future<bool> _getPhases() async {
-
-    const String apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhases';
-
-    Map<String, String> header = {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    };
-
-    try {
-      http.Response response = await http.post(Uri.parse(apiUrl), headers: header);
-
-      if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
-        final parsedData = jsonDecode(json);
-        
-        List<dynamic> projects = parsedData['value'];
-
-        for (var project in projects) {
-          KanbanCard card = KanbanCard(
-            summary:  project['ProjPhase_Description']  ?? "Null",
-            status:   project['UD04Status_Character01'] ?? 'Ignored',
-            comments: project['ProjPhase_Comments_c']   ?? "Null",
-            sprint:   project['UD02_Character01']       ?? "Null",
-            project:  project['Project_Description']    ?? "Null",
-
-          );
-          
-          switch (card.status)
-          {
-            case "Backlog":
-              setState(() {
-                kanbanData[0].cards.add(card);                     
-              });
-
-            case "In Development":
-              setState(() {
-                kanbanData[1].cards.add(card);                     
-              });
-
-            case "Developed":
-              setState(() {
-                kanbanData[2].cards.add(card);                     
-              });
-
-            case "In Test":
-              setState(() {
-                kanbanData[3].cards.add(card);                     
-              });
-
-            case "Tested":
-              setState(() {
-                kanbanData[4].cards.add(card);                     
-              });
-
-            case "Done":
-              setState(() {
-                kanbanData[5].cards.add(card);                     
-              });
-
-            default:
-              print("Null Status for card: ${card.summary}");
-          }
-        }
-        return true;
-      } 
-      else 
-      {
-        print('Error: ${response.statusCode}');
-        return false;
-      }
-    } 
-    catch (e) 
-    {
-      print("Exception Error: $e");
-      return false;
-    }
   }
 }
