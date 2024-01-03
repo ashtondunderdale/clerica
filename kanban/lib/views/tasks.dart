@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/utils/name_service.dart';
 
 import '../models/data.dart';
 
 class TaskView extends StatelessWidget {
-  const TaskView({Key? key});
+  TaskView({Key? key});
+
+  NameService nameService = NameService();
 
   @override
   Widget build(BuildContext context) {
@@ -61,28 +64,61 @@ class TaskView extends StatelessWidget {
                                 ),
                               ),
                             ),   
-                          ),
-                          Text(
-                            card.summary,
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),      
+                          ),                     
                           Padding(
-                            padding: const EdgeInsets.only(left: 200),
+                            padding: const EdgeInsets.only(left: 50),
+                            child: SizedBox(
+                              width: 200,
+                              child: Text(
+                                card.summary,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),   
+                          Spacer(),   
+                          SizedBox(
+                            width: 200,
                             child: Text(
                               card.status.toUpperCase(),
                               style: TextStyle(
-                                color: card.status == "Fail Test" ? Color.fromARGB(255, 255, 175, 175) : (card.status == "With Torchbearer" ? Color.fromARGB(255, 255, 187, 160) : Theme.of(context).colorScheme.onPrimary)
-                            
+                                color: card.status == "Fail Test" ? Color.fromARGB(255, 255, 175, 175) : (card.status == "With Torchbearer" ? Color.fromARGB(255, 255, 187, 160) : Theme.of(context).colorScheme.onPrimary)        
                               ),
                             ),
+                          ),
+                          Spacer(),
+                          Row(
+                            children: [
+                              Text(
+                                nameService.getInitials(card.ownedBy),
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  fontSize: 14
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8, right: 8),
+                                child: Icon(
+                                  Icons.arrow_forward_outlined,
+                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  size: 12,
+                                ),
+                              ),
+                              Text(
+                                nameService.getInitials(card.assignedTo),
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  fontSize: 14
+                                ),
+                              ),
+                            ],
                           ),
                           Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: Text(
-                              card.summary.contains("Case") ? "CASE" : "TASK",
+                              card.summary.contains("Case") ? "CASE" : "ISSUE",
                               style: TextStyle(
                                 color: card.summary.contains("Case") ? const Color.fromARGB(255, 255, 175, 175) : Color.fromARGB(255, 200, 149, 255),
                               ),
