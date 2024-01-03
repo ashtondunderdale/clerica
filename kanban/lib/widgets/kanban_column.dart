@@ -20,7 +20,8 @@ class _KanbanColumnState extends State<KanbanColumn> {
   @override
   Widget build(BuildContext context) {
     double columnWidth = MediaQuery.of(context).size.width / 6.6;
-    double cardHeight = 120;
+    double cardHeight = 100;
+    double colourBorderWidth = 2.5;
 
     NameService nameService = NameService();
 
@@ -82,7 +83,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                         border: Border(
                             left: BorderSide(
                               color: card.summary.contains("Case") ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), // change this logic to actually work for a bug
-                              width: 2
+                              width: colourBorderWidth,
                             )
                           ),
                       ),
@@ -107,7 +108,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           border: Border(
                             left: BorderSide(
                               color: card.summary.contains("Case") ? Color.fromARGB(255, 255, 166, 160).withOpacity(0.5) : Color.fromARGB(255, 200, 149, 255).withOpacity(0.5), // change this logic to actually work for a bug
-                              width: 2
+                              width: colourBorderWidth,
                             ),
                           ),
                         ),
@@ -131,7 +132,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           border: Border(
                             left: BorderSide(
                               color: card.summary.contains("Case") ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), // change this logic to actually work for a bug
-                              width: 2
+                              width: colourBorderWidth,
                             )
                           ),
                           boxShadow: [
@@ -189,6 +190,17 @@ class _KanbanColumnState extends State<KanbanColumn> {
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 14
+                                  ),
+                                ),
+                                Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 4, bottom: 4),
+                                  child: Text(
+                                    card.storyPoints.toString(),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    ),
                                   ),
                                 )
                               ],

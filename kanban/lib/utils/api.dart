@@ -49,13 +49,16 @@ class ApiService with ChangeNotifier{
 
         for (var project in projects) {
           KanbanCard card = KanbanCard(
-            summary:    project['ProjPhase_Description']  ?? "No Summary",
-            status:     project['UD04Status_Character01'] ?? 'Ignored',
-            comments:   project['ProjPhase_Comments_c']   ?? "",
-            sprint:     project['UD02_Character01']       ?? "Unassigned Sprint",
-            project:    project['Project_Description']    ?? "Null",
-            assignedTo: project["EmpBasic1_Name"]         ?? "Nobody",
-            ownedBy:    project["EmpBasic_Name"]          ?? "Nobody",
+            parentPhase: project['ProjPhase_Description']   ?? "NULL",
+            summary:     project['ProjPhase_Description']   ?? "No Summary",
+            status:      project['UD04Status_Character01']  ?? 'IGNORED',
+            comments:    project['ProjPhase_Comments_c']    ?? "",
+            sprint:      project['UD02_Character01']        ?? "Unassigned Sprint",
+            project:     project['Project_Description']     ?? "NULL",
+            assignedTo:  project["EmpBasic1_Name"]          ?? "??",
+            ownedBy:     project["EmpBasic_Name"]           ?? "??",
+            storyPoints: project["ProjPhase_StoryPoints_c"] ?? "??",
+
           );
           
           switch (card.status)

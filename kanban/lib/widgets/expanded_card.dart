@@ -23,12 +23,15 @@ class ExpandedCard extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Row(
                 children: [
-                  Text(
-                    card.summary.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      decoration: columnTitle == "DONE" ? TextDecoration.lineThrough : TextDecoration.none,
-                      color: columnTitle == "DONE" ? Colors.grey : Theme.of(context).colorScheme.onSurfaceVariant,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      card.summary.toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        decoration: columnTitle == "DONE" ? TextDecoration.lineThrough : TextDecoration.none,
+                        color: columnTitle == "DONE" ? Colors.grey : Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                     ),
                   ),
                   Padding(
