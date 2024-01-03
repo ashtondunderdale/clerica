@@ -42,7 +42,7 @@ class TaskView extends StatelessWidget {
               int currentCardIndex = index;
               for (var columnData in kanbanData) {
                 if (currentCardIndex < columnData.cards.length) {
-                  final kanbanCard = columnData.cards[currentCardIndex];
+                  final card = columnData.cards[currentCardIndex];
                   return Padding(
                     padding: const EdgeInsets.only(left: 2, top: 2, right: 2),
                     child: Container(
@@ -63,7 +63,7 @@ class TaskView extends StatelessWidget {
                             ),   
                           ),
                           Text(
-                            kanbanCard.summary,
+                            card.summary,
                             style: TextStyle(
                               color: Colors.grey,
                             ),
@@ -72,9 +72,9 @@ class TaskView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: Text(
-                              kanbanCard.summary == "this is a bug" ? "BUG" : "TASK",
+                              card.summary.contains("Case") ? "CASE" : "TASK",
                               style: TextStyle(
-                                color: kanbanCard.summary == "this is a bug" ? const Color.fromARGB(255, 255, 175, 175) : Color.fromARGB(255, 200, 149, 255),
+                                color: card.summary.contains("Case") ? const Color.fromARGB(255, 255, 175, 175) : Color.fromARGB(255, 200, 149, 255),
                               ),
                             ),
                           )

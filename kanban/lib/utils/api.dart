@@ -24,10 +24,6 @@ class ApiService with ChangeNotifier{
     {
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhases';
     }
-    else if (dropdownValue == "Your Project Phases")
-    {      
-      apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForCurrentUser';
-    }
     else if (dropdownValue == "Specific User Project Phases")
     { 
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForSpecificUser';
@@ -56,7 +52,7 @@ class ApiService with ChangeNotifier{
             summary:    project['ProjPhase_Description']  ?? "No Summary",
             status:     project['UD04Status_Character01'] ?? 'Ignored',
             comments:   project['ProjPhase_Comments_c']   ?? "",
-            sprint:     project['UD02_Character01']       ?? "Null",
+            sprint:     project['UD02_Character01']       ?? "Unassigned Sprint",
             project:    project['Project_Description']    ?? "Null",
             assignedTo: project["EmpBasic1_Name"]         ?? "Nobody",
             ownedBy:    project["EmpBasic_Name"]          ?? "Nobody",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/main.dart';
 import 'package:kanban_application/utils/api.dart';
+import 'package:kanban_application/utils/name_service.dart';
 
 import '../utils/data.dart';
 
@@ -14,48 +15,11 @@ class UserList extends StatefulWidget {
 class _UserListState extends State<UserList> {
   final ApiService api = ApiService();
 
-  final Map<String,String> users  = {
-    "proden"       : "Peter Roden",
-    "jsweeney"     : "Josh Sweeney",
-    "bwojda"       : "Bart Wojda",
-    "adunderdale"  : "Ashton Dunderdale",
-    "ho'leary"     : "Harrison O'Leary",
-    "cglover"      : "Charlie Glover",
-  };
-
-  String getInitials(String name){    
-
-    try{
-      var firstNameAndLastName = name.split(' ');
-
-      String firstName = firstNameAndLastName[0];
-      String lastName = firstNameAndLastName[1];
-
-      String firstInitial = firstName[0];
-      String lastInitial = lastName[0];
-
-      return firstInitial + lastInitial;
-    }
-    catch (exception){
-      return name[0] + name[1];
-    }
-  }
-
-  Color getCurrentUser(String user, Color userLoggedInColour, Color userNotLoggedInColour){
-    String currentUser = loggedInUser;
-    String currentUserName = "";
-
-    if (currentUser.contains(' ')) currentUserName = currentUser.split(' ')[0][0] + currentUser.split(' ')[1].toLowerCase();
-
-    if (currentUser == user || currentUser == currentUserName) {
-      return userLoggedInColour;
-    } else {
-      return userNotLoggedInColour;
-    }
-  }
+  NameService nameService = NameService();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.0, right: MediaQuery.of(context).size.width / 6.6 / 5),
       child: Row(
@@ -78,14 +42,15 @@ class _UserListState extends State<UserList> {
                   padding: const EdgeInsets.only(left: 6),
                   child: GestureDetector(
                     onTap: () async {
-                      
-                    for (int i = 0; i < kanbanData.length; i++){
-                      kanbanData[i].cards.clear(); // < / <=
-                    }  
-                    api.getPhases("Specific User Project Phases", users[user].toString());
+                        
+                      for (int i = 0; i < kanbanData.length; i++){
+                        kanbanData[i].cards.clear(); // < / <=
+                      }  
+
+                      await api.getPhases("Specific User Project Phases", users[user].toString());
 
                       setState(() {
-                        api.updateColumns();
+                        currentTheme.updateColumns();
                       });
                     },
                     child: Container(
@@ -94,11 +59,11 @@ class _UserListState extends State<UserList> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Theme.of(context).colorScheme.onTertiary,
-                        border: Border.all(color: getCurrentUser(user, Theme.of(context).colorScheme.onPrimary, Theme.of(context).colorScheme.onTertiary), width: 2)
+                        border: Border.all(color: nameService.getCurrentUser(user, Theme.of(context).colorScheme.onPrimary, Theme.of(context).colorScheme.onTertiary), width: 2)
                       ),
                       child: Center(
                         child: Text(
-                          getInitials(user).toUpperCase(),
+                          nameService.getInitials(user).toUpperCase(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                                color: Theme.of(context).colorScheme.onPrimary,

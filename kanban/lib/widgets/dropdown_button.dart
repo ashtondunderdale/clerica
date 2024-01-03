@@ -40,10 +40,6 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
                 value: "Your Project Phases",
                 child: Text("Your Project Phases"),
               ),
-              DropdownMenuItem<String>(
-                value: "Specific User Project Phases",
-                child: Text("Specific User Project Phases"),
-              ),
             ],
             onChanged: (String? value) async {
 
@@ -56,11 +52,8 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
 
               setState(() {
                 _dropdownValue = value;
-                api.updateColumns();
+                currentTheme.updateColumns();
               });
-
-              api.updateColumns();
-              currentTheme.updateColumns();
             },
             icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).colorScheme.onPrimary),
             style: TextStyle(

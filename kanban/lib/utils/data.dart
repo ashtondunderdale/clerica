@@ -12,7 +12,7 @@ final Map<String,String> users  = {
   "jsweeney"     : "Josh Sweeney",
   "bwojda"       : "Bart Wojda",
   "adunderdale"  : "Ashton Dunderdale",
-  "ho'leary"     : "Harrison O'Leary",
+  "holeary"      : "Harrison O'Leary",
   "cglover"      : "Charlie Glover",
 };
 

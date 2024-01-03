@@ -47,7 +47,7 @@ class ExpandedCard extends StatelessWidget {
                       child: Text(
                         card.sprint,
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -72,18 +72,40 @@ class ExpandedCard extends StatelessWidget {
                       card.comments,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontSize: 12
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-            Text(
-              "Assigned To: ${card.assignedTo}",
+            Padding(
+              padding: const EdgeInsets.only(top: 8, left: 12),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "OWNED: ${card.ownedBy}",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "ASSIGNED:  ${card.assignedTo}",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontSize: 12,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            Text(
-              "Owned By: ${card.ownedBy}",
-            )
           ],
         ),
       ),

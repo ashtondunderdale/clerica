@@ -28,7 +28,11 @@ class _KanbanViewState extends State<KanbanView> {
     columnCards = {
       for (var title in columnTitles) title: kanbanData.firstWhere((data) => data.title == title).cards
     };
-       
+ 
+    print(loggedInUser);
+        for (int i = 0; i < kanbanData.length; i++){
+      kanbanData[i].cards.clear(); // < / <=
+    }
     api.getPhases("Specific User Project Phases", users[loggedInUser].toString()); // should get for currently logged in user
 
     api.addListener(() {
@@ -55,7 +59,7 @@ class _KanbanViewState extends State<KanbanView> {
         title: Padding(
           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 6.6 / 5 - 5),
           child: Text(
-            "Kanban Board",
+            "Development View",
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.bold

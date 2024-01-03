@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/utils/name_service.dart';
 import 'package:kanban_application/widgets/expanded_card.dart';
 
 import 'kanban_card.dart';
@@ -20,6 +21,8 @@ class _KanbanColumnState extends State<KanbanColumn> {
   Widget build(BuildContext context) {
     double columnWidth = MediaQuery.of(context).size.width / 6.6;
     double cardHeight = 120;
+
+    NameService nameService = NameService();
 
     return DragTarget<KanbanCard>(
       onWillAccept: (droppedCard) => true,
@@ -49,7 +52,12 @@ class _KanbanColumnState extends State<KanbanColumn> {
                         contentPadding: EdgeInsets.all(0),
                         content: Container(
                           decoration: BoxDecoration(
-                            border: Border(right: BorderSide(color: card.summary == "this is a bug" ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), width: 8)),
+                            border: Border(
+                              right: BorderSide(
+                                color: card.summary.contains("Case") ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255),
+                                width: 8
+                              )
+                            ),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           width: 900,
@@ -73,7 +81,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                         borderRadius: BorderRadius.circular(2),
                         border: Border(
                             left: BorderSide(
-                              color: card.summary == "this is a bug" ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), // change this logic to actually work for a bug
+                              color: card.summary.contains("Case") ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), // change this logic to actually work for a bug
                               width: 2
                             )
                           ),
@@ -98,7 +106,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           borderRadius: BorderRadius.circular(2),
                           border: Border(
                             left: BorderSide(
-                              color: card.summary == "this is a bug" ? Color.fromARGB(255, 255, 166, 160).withOpacity(0.5) : Color.fromARGB(255, 200, 149, 255).withOpacity(0.5), // change this logic to actually work for a bug
+                              color: card.summary.contains("Case") ? Color.fromARGB(255, 255, 166, 160).withOpacity(0.5) : Color.fromARGB(255, 200, 149, 255).withOpacity(0.5), // change this logic to actually work for a bug
                               width: 2
                             ),
                           ),
@@ -122,7 +130,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                           borderRadius: BorderRadius.circular(2),
                           border: Border(
                             left: BorderSide(
-                              color: card.summary == "this is a bug" ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), // change this logic to actually work for a bug
+                              color: card.summary.contains("Case") ? Color.fromARGB(255, 255, 166, 160) : Color.fromARGB(255, 200, 149, 255), // change this logic to actually work for a bug
                               width: 2
                             )
                           ),
@@ -157,6 +165,33 @@ class _KanbanColumnState extends State<KanbanColumn> {
                                 color: widget.title == "DONE" ? Theme.of(context).colorScheme.onPrimary.withOpacity(0.5) : Theme.of(context).colorScheme.onSurfaceVariant,
                                 decoration: widget.title == "DONE" ? TextDecoration.lineThrough : TextDecoration.none
                               ),
+                            ),
+                            Spacer(),
+                            Row(
+                              children: [
+                                Text(
+                                  nameService.getInitials(card.ownedBy),
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    fontSize: 14
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8, right: 8),
+                                  child: Icon(
+                                    Icons.arrow_forward_outlined,
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    size: 12,
+                                  ),
+                                ),
+                                Text(
+                                  nameService.getInitials(card.assignedTo),
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    fontSize: 14
+                                  ),
+                                )
+                              ],
                             ),
                           ],
                         ),

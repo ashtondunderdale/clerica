@@ -51,7 +51,7 @@ class MyTheme with ChangeNotifier{
     notifyListeners();
   }
 
-  void updateColumns(){ // this is to update the columns when the dropdown option is changed
+  void updateColumns(){ 
     notifyListeners();
   }
 }
