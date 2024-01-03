@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../utils/data.dart';
-import 'kanban_view.dart';
+import '../models/data.dart';
+import 'kanban.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key});
@@ -183,7 +183,7 @@ class _HomeViewState extends State<HomeView> {
   Future<bool> _login() async {
     
     if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
-      print('Username and password are required.');
+      _showErrorSnackBar("Incorrect login details");
       return false;
     }
 
@@ -226,7 +226,7 @@ class _HomeViewState extends State<HomeView> {
       }
       else 
       {
-          _showErrorSnackBar("Incorrect login details");
+        _showErrorSnackBar("Error: ${responseJson.statusCode}");
         return false;
       }
     } 

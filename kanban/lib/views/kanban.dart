@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/main.dart';
-import 'package:kanban_application/utils/api.dart';
-import 'package:kanban_application/widgets/dark_mode_button.dart';
-import 'package:kanban_application/widgets/dropdown_button.dart';
-import '../utils/data.dart';
-import '../widgets/kanban_card.dart';
-import '../widgets/kanban_column.dart';
-import '../widgets/kanban_column_top.dart';
-import '../widgets/sprint_label.dart';
-import '../widgets/task_view_button.dart';
-import '../widgets/user_list.dart';
+import 'package:kanban_application/utils/api_service.dart';
+import 'package:kanban_application/widgets/appbar/dark_mode_button.dart';
+import 'package:kanban_application/widgets/appbar/dropdown.dart';
+import '../models/data.dart';
+import '../models/kanban_card.dart';
+import '../widgets/kanban/kanban_column.dart';
+import '../widgets/kanban/kanban_column_title.dart';
+import '../widgets/appbar/sprint_label.dart';
+import '../widgets/appbar/task_view_button.dart';
+import '../widgets/appbar/user_list.dart';
 
 class KanbanView extends StatefulWidget {
   KanbanView({Key? key}) : super(key: key);
@@ -29,12 +28,9 @@ class _KanbanViewState extends State<KanbanView> {
       for (var title in columnTitles) title: kanbanData.firstWhere((data) => data.title == title).cards
     };
  
-    print(loggedInUser);
-        for (int i = 0; i < kanbanData.length; i++){
-      kanbanData[i].cards.clear(); // < / <=
-    }
-    api.getPhases("Specific User Project Phases", users[loggedInUser].toString()); // should get for currently logged in user
+    api.clearKanban();
 
+    api.getPhases("Specific User Project Phases", users[loggedInUser].toString()); // should get for currently logged in user
     api.addListener(() {
       setState(() {});
     });

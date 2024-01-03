@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:kanban_application/utils/data.dart';
+import 'package:kanban_application/models/data.dart';
 
 class NameService{
 

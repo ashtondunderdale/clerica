@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/data.dart';
+import '../models/data.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({Key? key});
@@ -33,7 +33,7 @@ class TaskView extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          width:MediaQuery.of(context).size.width - 100,
+          width: MediaQuery.of(context).size.width - 100,
           height: MediaQuery.of(context).size.height - 200,
           color: Theme.of(context).colorScheme.onTertiary,
           child: ListView.builder(
@@ -67,6 +67,16 @@ class TaskView extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.grey,
                             ),
+                          ),      
+                          Padding(
+                            padding: const EdgeInsets.only(left: 200),
+                            child: Text(
+                              card.status.toUpperCase(),
+                              style: TextStyle(
+                                color: card.status == "Fail Test" ? Color.fromARGB(255, 255, 175, 175) : (card.status == "With Torchbearer" ? Color.fromARGB(255, 255, 187, 160) : Theme.of(context).colorScheme.onPrimary)
+                            
+                              ),
+                            ),
                           ),
                           Spacer(),
                           Padding(
@@ -77,7 +87,7 @@ class TaskView extends StatelessWidget {
                                 color: card.summary.contains("Case") ? const Color.fromARGB(255, 255, 175, 175) : Color.fromARGB(255, 200, 149, 255),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     )

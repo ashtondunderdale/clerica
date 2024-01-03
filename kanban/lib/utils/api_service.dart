@@ -1,20 +1,18 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:kanban_application/utils/data.dart';
-import 'package:kanban_application/widgets/kanban_card.dart';
+import 'package:kanban_application/models/data.dart';
+import 'package:kanban_application/models/kanban_card.dart';
 
 class ApiService with ChangeNotifier{
-
+  
   void clearKanban(){
     for (int i = 0; i < kanbanData.length; i++){
       kanbanData[i].cards.clear(); // < / <=
     }
   }
 
-  void updateColumns(){ 
-    notifyListeners();
-  }
+  void updateColumns() => notifyListeners();
 
   Future<bool> getPhases(String dropdownValue, String user) async {
 
@@ -38,8 +36,13 @@ class ApiService with ChangeNotifier{
       "User": user,
     };
 
+    int noStatusCardCount = 0;
+
     try {
-      http.Response response = await http.post(Uri.parse(apiUrl), headers: header, body: jsonEncode(requestBody));
+      http.Response response = await http.post(Uri.parse(apiUrl), 
+        headers: header, 
+        body: jsonEncode(requestBody)
+      );
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
@@ -51,42 +54,51 @@ class ApiService with ChangeNotifier{
           KanbanCard card = KanbanCard(
             parentPhase: project['ProjPhase_Description']   ?? "NULL",
             summary:     project['ProjPhase_Description']   ?? "No Summary",
-            status:      project['UD04Status_Character01']  ?? 'IGNORED',
+            status:      project['UD04Status_Character01']  ?? 'No Status',
             comments:    project['ProjPhase_Comments_c']    ?? "",
             sprint:      project['UD02_Character01']        ?? "Unassigned Sprint",
             project:     project['Project_Description']     ?? "NULL",
             assignedTo:  project["EmpBasic1_Name"]          ?? "??",
             ownedBy:     project["EmpBasic_Name"]           ?? "??",
             storyPoints: project["ProjPhase_StoryPoints_c"] ?? "??",
-
-          );
-          
+          );          
           switch (card.status)
           {
-            case "Backlog":
-                kanbanData[0].cards.add(card);                     
+            case "Backlog" || "Fail Test": kanbanData[0].cards.add(card); // goes to BACKLOG                 
 
-            case "In Development":
-                kanbanData[1].cards.add(card);                     
+            case "In Development" || "In development" || "With Torchbearer": kanbanData[1].cards.add(card); // goes to DEVELOPING                     
 
-            case "Developed":
-                kanbanData[2].cards.add(card);                     
+            case "Developed": kanbanData[2].cards.add(card); // goes to DEVELOPED                      
 
-            case "In Test":
-                kanbanData[3].cards.add(card);                     
+            case "UAT" || "UAT 10.2.600" || "UAT 10.2.700" || "UAT Kinetic" || "Staging" : kanbanData[3].cards.add(card); // goes to TESTING                    
 
-            case "Tested":
-                kanbanData[4].cards.add(card);                     
+            case "Pass Test": kanbanData[4].cards.add(card); // goes to TESTED                    
 
-            case "Done":
-                kanbanData[5].cards.add(card);                     
+            case "Complete" || "Ready For Release" || "Ready for Release" || "Released": kanbanData[5].cards.add(card); // goes to DONE             
 
-            default:
-              print("Null Property (status) for card: ${card.summary}");
+            default: 
+            if (card.status == "No Status")
+            {
+              noStatusCardCount++;
+            }
+            else
+            {
+              print("Invalid status for card: ${card.status}");
+            }
+
+            /** Status not accounted for:
+             * 
+             *  Requirements
+             *  Quote
+             *  On Hold
+             *  Reject
+             *  Closed    
+             */
 
             notifyListeners();
           }
         }
+        print("\n$noStatusCardCount items found with No Status");
         return true;
       } 
       else 

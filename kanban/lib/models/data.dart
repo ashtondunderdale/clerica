@@ -1,4 +1,4 @@
-import '../widgets/kanban_card.dart';
+import 'kanban_card.dart';
 
 class KanbanColumnData {
   final String title;
@@ -7,16 +7,17 @@ class KanbanColumnData {
   KanbanColumnData({required this.title, required this.cards});
 }
 
+String loggedInUser = "";
+
 final Map<String,String> users  = {
-  "proden"       : "Peter Roden",
-  "jsweeney"     : "Josh Sweeney",
-  "bwojda"       : "Bart Wojda",
-  "adunderdale"  : "Ashton Dunderdale",
-  "holeary"      : "Harrison O'Leary",
-  "cglover"      : "Charlie Glover",
+  "proden"      : "Peter Roden",
+  "jsweeney"    : "Josh Sweeney",
+  "bwojda"      : "Bart Wojda",
+  "adunderdale" : "Ashton Dunderdale",
+  "holeary"     : "Harrison O'Leary",
+  "cglover"     : "Charlie Glover",
 };
 
-String loggedInUser = "";
 
 final List<String> columnTitles = [
   'BACKLOG',
@@ -29,27 +30,27 @@ final List<String> columnTitles = [
 
 final List<KanbanColumnData> kanbanData = [
   KanbanColumnData(
-    title: 'BACKLOG', 
+    title: columnTitles[0], 
     cards: []
   ),
   KanbanColumnData(
-    title: 'DEVELOPING', 
+    title: columnTitles[1], 
     cards: []
   ),
   KanbanColumnData(
-    title: 'DEVELOPED', 
+    title: columnTitles[2], 
     cards: []
   ),
   KanbanColumnData(
-    title: 'TESTING', 
+    title: columnTitles[3], 
     cards: []
   ),
   KanbanColumnData(
-    title: 'TESTED', 
+    title: columnTitles[4], 
     cards: []
   ),
   KanbanColumnData(
-    title: 'DONE', 
+    title: columnTitles[5], 
     cards: []
   ),
 ];

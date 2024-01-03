@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/main.dart';
-import 'package:kanban_application/utils/api.dart';
-import 'package:kanban_application/utils/data.dart';
+import 'package:kanban_application/utils/api_service.dart';
+import 'package:kanban_application/models/data.dart';
 
 class PhasesDropDownButton extends StatefulWidget {
 
@@ -40,20 +40,18 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
                 value: "Your Project Phases",
                 child: Text("Your Project Phases"),
               ),
+              DropdownMenuItem<String>(
+                value: "Internal Applications",
+                child: Text("Internal Applications"),
+              ),
             ],
             onChanged: (String? value) async {
-
-              for (int i = 0; i < kanbanData.length; i++){
-                kanbanData[i].cards.clear(); // < / <=
-              }
+              api.clearKanban();
               
               _dropdownValue = value;
               await api.getPhases(_dropdownValue.toString(), "");                 
 
-              setState(() {
-                _dropdownValue = value;
-                currentTheme.updateColumns();
-              });
+              setState(() => currentTheme.updateColumns());
             },
             icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).colorScheme.onPrimary),
             style: TextStyle(

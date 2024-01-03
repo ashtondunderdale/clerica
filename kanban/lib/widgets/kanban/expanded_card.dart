@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/widgets/kanban_card.dart';
+import 'package:kanban_application/models/kanban_card.dart';
 
 class ExpandedCard extends StatelessWidget {
   const ExpandedCard({super.key, required this.card, required this.columnTitle});
@@ -29,15 +29,22 @@ class ExpandedCard extends StatelessWidget {
                       card.summary.toUpperCase(),
                       style: TextStyle(
                         fontSize: 20,
-                        decoration: columnTitle == "DONE" ? TextDecoration.lineThrough : TextDecoration.none,
-                        color: columnTitle == "DONE" ? Colors.grey : Theme.of(context).colorScheme.onSurfaceVariant,
+                        decoration: card.status == "Complete" || 
+                                  card.status == "Ready For Release" || 
+                                  card.status == "Ready for Release" || 
+                                  card.status == "Released" ? TextDecoration.lineThrough : TextDecoration.none,
+                                  
+                        color: card.status == "Complete" || 
+                                  card.status == "Ready For Release" || 
+                                  card.status == "Ready for Release" || 
+                                  card.status == "Released" ? Colors.grey : Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: Text(
-                      columnTitle,
+                      card.status.toUpperCase(),
                       style: TextStyle(
                         color: Colors.grey,
                       ),
@@ -99,7 +106,7 @@ class ExpandedCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "ASSIGNED:  ${card.assignedTo}",
+                      "ASSIGNEE:  ${card.assignedTo}",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: 12,

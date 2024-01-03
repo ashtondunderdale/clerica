@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../views/task_view.dart';
+import '../../views/tasks.dart';
 
 class TaskViewButton extends StatelessWidget {
   const TaskViewButton({super.key});
