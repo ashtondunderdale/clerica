@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/main.dart';
 import 'package:kanban_application/utils/api.dart';
 import 'package:kanban_application/widgets/dark_mode_button.dart';
 import 'package:kanban_application/widgets/dropdown_button.dart';
@@ -19,14 +20,20 @@ class KanbanView extends StatefulWidget {
 
 class _KanbanViewState extends State<KanbanView> {
   late Map<String, List<KanbanCard>> columnCards;
-  
+
   @override
   void initState() {
     super.initState();
+
     columnCards = {
       for (var title in columnTitles) title: kanbanData.firstWhere((data) => data.title == title).cards
     };
-    api.getPhases("Specific User Project Phases");
+       
+    api.getPhases("Specific User Project Phases", users[loggedInUser].toString()); // should get for currently logged in user
+
+    api.addListener(() {
+      setState(() {});
+    });
   }
 
   void onCardDropped(String oldColumnTitle, String newColumnTitle, KanbanCard droppedCard) {
@@ -34,10 +41,6 @@ class _KanbanViewState extends State<KanbanView> {
       columnCards[oldColumnTitle]!.remove(droppedCard);
       columnCards[newColumnTitle]!.add(droppedCard);
     });
-  }
-
-  void _updateCards(){
-    setState(() => kanbanData[0]);
   }
 
   ApiService api = ApiService();
@@ -91,7 +94,7 @@ class _KanbanViewState extends State<KanbanView> {
                       ),
                     ],
                   ),
-                  PhasesDropDownButton(stateSetter: setState),
+                  PhasesDropDownButton(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end, 
                     children: [
@@ -112,36 +115,26 @@ class _KanbanViewState extends State<KanbanView> {
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 200,
-            height: 600,
-            child: ListView.builder(
-              itemCount: columnTitles.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.only(top: 12, left: 10, right: 0),
-                child: SizedBox(
-                  width: 200,
-                  height: 600,
-                  child: Column(
-                    children: [
-                      KanbanColumnTop(title: columnTitles[index], cardAmount: columnCards[columnTitles[index]]?.length ?? 0),
-                      Expanded(
-                        child: KanbanColumn(
-                          title: columnTitles[index],
-                          cardList: columnCards[columnTitles[index]] ?? [],
-                          onCardDropped: (String newColumnTitle, KanbanCard droppedCard) {
-                            String currentColumnTitle = columnCards.entries
-                                .firstWhere((entry) => entry.value.contains(droppedCard), orElse: () => const MapEntry("", [])).key;
-                            onCardDropped(currentColumnTitle, newColumnTitle, droppedCard);
-                          },
-                        ),
-                      ),
-                    ],
+          for (var title in columnTitles)
+            Padding(
+              padding: const EdgeInsets.only(top: 12, left: 10, right: 0),
+              child: Column(
+                children: [
+                  KanbanColumnTop(title: title, cardAmount: columnCards[title]?.length ?? 0),
+                  Expanded(
+                    child: KanbanColumn(
+                      title: title,
+                      cardList: columnCards[title] ?? [],
+                      onCardDropped: (String newColumnTitle, KanbanCard droppedCard) {
+                        String currentColumnTitle = columnCards.entries
+                            .firstWhere((entry) => entry.value.contains(droppedCard), orElse: () => const MapEntry("", [])).key;
+                        onCardDropped(currentColumnTitle, newColumnTitle, droppedCard);
+                      },
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
-          ),
         ],
       ),
     );

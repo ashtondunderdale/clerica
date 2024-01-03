@@ -78,6 +78,12 @@ class ExpandedCard extends StatelessWidget {
                 ),
               ),
             ),
+            Text(
+              "Assigned To: ${card.assignedTo}",
+            ),
+            Text(
+              "Owned By: ${card.ownedBy}",
+            )
           ],
         ),
       ),

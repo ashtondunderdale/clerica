@@ -1,26 +1,35 @@
-  import 'dart:convert';
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kanban_application/utils/data.dart';
 import 'package:kanban_application/widgets/kanban_card.dart';
 
-class ApiService{
+class ApiService with ChangeNotifier{
 
-  Future<bool> getPhases(String dropdownValue) async {
+  void clearKanban(){
+    for (int i = 0; i < kanbanData.length; i++){
+      kanbanData[i].cards.clear(); // < / <=
+    }
+  }
 
-    //kanbanData.clear();
+  void updateColumns(){ 
+    notifyListeners();
+  }
 
-    String apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForCurrentUser'; // default
+  Future<bool> getPhases(String dropdownValue, String user) async {
+
+    String apiUrl = ''; // default
 
     if (dropdownValue == "All Project Phases")
     {
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhases';
     }
     else if (dropdownValue == "Your Project Phases")
-    {
+    {      
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForCurrentUser';
     }
     else if (dropdownValue == "Specific User Project Phases")
-    {
+    { 
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForSpecificUser';
     }
 
@@ -29,8 +38,12 @@ class ApiService{
       "Accept": "application/json",
     };
 
+    Map<String, dynamic> requestBody = {
+      "User": user,
+    };
+
     try {
-      http.Response response = await http.post(Uri.parse(apiUrl), headers: header);
+      http.Response response = await http.post(Uri.parse(apiUrl), headers: header, body: jsonEncode(requestBody));
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
@@ -40,11 +53,13 @@ class ApiService{
 
         for (var project in projects) {
           KanbanCard card = KanbanCard(
-            summary:  project['ProjPhase_Description']  ?? "Null",
-            status:   project['UD04Status_Character01'] ?? 'Ignored',
-            comments: project['ProjPhase_Comments_c']   ?? "Null",
-            sprint:   project['UD02_Character01']       ?? "Null",
-            project:  project['Project_Description']    ?? "Null",
+            summary:    project['ProjPhase_Description']  ?? "No Summary",
+            status:     project['UD04Status_Character01'] ?? 'Ignored',
+            comments:   project['ProjPhase_Comments_c']   ?? "",
+            sprint:     project['UD02_Character01']       ?? "Null",
+            project:    project['Project_Description']    ?? "Null",
+            assignedTo: project["EmpBasic1_Name"]         ?? "Nobody",
+            ownedBy:    project["EmpBasic_Name"]          ?? "Nobody",
           );
           
           switch (card.status)
@@ -69,6 +84,8 @@ class ApiService{
 
             default:
               print("Null Property (status) for card: ${card.summary}");
+
+            notifyListeners();
           }
         }
         return true;

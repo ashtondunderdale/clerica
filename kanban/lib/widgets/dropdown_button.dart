@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/main.dart';
 import 'package:kanban_application/utils/api.dart';
 import 'package:kanban_application/utils/data.dart';
 
 class PhasesDropDownButton extends StatefulWidget {
-  StateSetter stateSetter;
 
-  PhasesDropDownButton({Key? key, required this.stateSetter}) : super(key: key);
+  PhasesDropDownButton({Key? key}) : super(key: key);
 
   @override
   State<PhasesDropDownButton> createState() => _PhasesDropDownButtonState();
@@ -45,16 +45,22 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
                 child: Text("Specific User Project Phases"),
               ),
             ],
-            onChanged: (String? value) {
+            onChanged: (String? value) async {
 
               for (int i = 0; i < kanbanData.length; i++){
                 kanbanData[i].cards.clear(); // < / <=
               }
+              
+              _dropdownValue = value;
+              await api.getPhases(_dropdownValue.toString(), "");                 
 
               setState(() {
                 _dropdownValue = value;
-                api.getPhases(_dropdownValue.toString());
+                api.updateColumns();
               });
+
+              api.updateColumns();
+              currentTheme.updateColumns();
             },
             icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).colorScheme.onPrimary),
             style: TextStyle(

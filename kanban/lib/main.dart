@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/utils/light_theme.dart';
+import 'package:kanban_application/views/home_view.dart';
 import 'package:kanban_application/views/kanban_view.dart';
 import 'utils/dark_theme.dart';
 
@@ -26,7 +27,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "kanban",
-      home: KanbanView(),
+      home: HomeView(),
       theme: lightTheme,
       darkTheme: darkTheme.copyWith(
         scrollbarTheme: ScrollbarThemeData(thumbColor: MaterialStatePropertyAll(Colors.white)),
@@ -47,6 +48,10 @@ class MyTheme with ChangeNotifier{
 
   void switchTheme(){
     _isDark = !_isDark;
+    notifyListeners();
+  }
+
+  void updateColumns(){ // this is to update the columns when the dropdown option is changed
     notifyListeners();
   }
 }

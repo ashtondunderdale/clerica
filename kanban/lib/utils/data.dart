@@ -7,6 +7,15 @@ class KanbanColumnData {
   KanbanColumnData({required this.title, required this.cards});
 }
 
+final Map<String,String> users  = {
+  "proden"       : "Peter Roden",
+  "jsweeney"     : "Josh Sweeney",
+  "bwojda"       : "Bart Wojda",
+  "adunderdale"  : "Ashton Dunderdale",
+  "ho'leary"     : "Harrison O'Leary",
+  "cglover"      : "Charlie Glover",
+};
+
 String loggedInUser = "";
 
 final List<String> columnTitles = [
