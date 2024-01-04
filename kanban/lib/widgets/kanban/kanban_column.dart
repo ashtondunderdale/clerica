@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/utils/api_service.dart';
-import 'package:kanban_application/utils/name_service.dart';
-import 'package:kanban_application/widgets/kanban/kanban_card.dart';
-import 'package:kanban_application/widgets/kanban/expanded_card.dart';
 
-import '../../models/kanban_card.dart';
+import 'package:kanban_application/models/kanban_card.dart';
+import 'package:kanban_application/utils/api_service.dart';
+import 'package:kanban_application/widgets/kanban/kanban_card.dart';
+
 
 class KanbanColumn extends StatefulWidget {
   final String title;

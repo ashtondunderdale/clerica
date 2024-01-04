@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:kanban_application/models/data.dart';
 import 'package:kanban_application/models/kanban_card.dart';
+
 
 class ApiService with ChangeNotifier{
   
@@ -57,12 +59,12 @@ class ApiService with ChangeNotifier{
 
         for (var project in projects) {
           KanbanCard card = KanbanCard(
-            parentPhase: project['ProjPhase_Description']   ?? "NO PARENT PHASE",
+            parentPhase: project['ProjPhase_Description']   ?? "NO PARENT PHASE ASSIGNED",
             summary:     project['ProjPhase_Description']   ?? "NO SUMMARY",
             status:      project['UD04Status_Character01']  ?? 'NO STATUS',
             comments:    project['ProjPhase_Comments_c']    ?? "",
             sprint:      project['UD02_Character01']        ?? "UNASSIGNED SPRINT",
-            project:     project['Project_Description']     ?? "NULL",
+            project:     project['Project_Description']     ?? "NO PROJECT ASSIGNED",
             assignedTo:  project["EmpBasic1_Name"]          ?? "??",
             ownedBy:     project["EmpBasic_Name"]           ?? "??",
             storyPoints: project["ProjPhase_StoryPoints_c"] ?? "",

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:kanban_application/models/kanban_card.dart';
 import 'package:kanban_application/utils/name_service.dart';
 import 'package:kanban_application/widgets/kanban/expanded_card.dart';
+
 
 class NewKanbanCard extends StatelessWidget {
   NewKanbanCard({super.key, required this.card, required this.columnWidth});

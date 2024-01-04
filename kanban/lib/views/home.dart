@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../models/data.dart';
-import 'kanban.dart';
+
+import 'package:kanban_application/models/data.dart';
+import 'package:kanban_application/views/kanban.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key});

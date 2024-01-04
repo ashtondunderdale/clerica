@@ -1,5 +1,6 @@
 import 'kanban_card.dart';
 
+
 class KanbanColumnData {
   final String title;
   List<KanbanCard> cards;

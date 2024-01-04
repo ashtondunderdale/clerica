@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+import 'package:kanban_application/utils/theme/theme.dart';
+
 
 class DarkModeButton extends StatelessWidget {
   const DarkModeButton({super.key});

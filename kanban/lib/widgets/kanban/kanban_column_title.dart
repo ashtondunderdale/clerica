@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class KanbanColumnTop extends StatelessWidget {
   const KanbanColumnTop({super.key, required this.title, required this.cardAmount});
 

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'package:kanban_application/models/data.dart';
 import 'package:kanban_application/utils/name_service.dart';
 
-import '../models/data.dart';
 
 class TaskView extends StatelessWidget {
   TaskView({Key? key});
 
-  NameService nameService = NameService();
+  final NameService nameService = NameService();
 
   @override
   Widget build(BuildContext context) {

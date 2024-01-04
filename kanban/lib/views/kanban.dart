@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:kanban_application/utils/api_service.dart';
+
+import 'package:kanban_application/models/data.dart';
+import 'package:kanban_application/models/kanban_card.dart';
 import 'package:kanban_application/widgets/appbar/dark_mode_button.dart';
 import 'package:kanban_application/widgets/appbar/dropdown.dart';
-import '../models/data.dart';
-import '../models/kanban_card.dart';
-import '../widgets/kanban/kanban_column.dart';
-import '../widgets/kanban/kanban_column_title.dart';
-import '../widgets/appbar/sprint_label.dart';
-import '../widgets/appbar/task_view_button.dart';
-import '../widgets/appbar/user_list.dart';
+import 'package:kanban_application/widgets/appbar/sprint_label.dart';
+import 'package:kanban_application/widgets/appbar/task_view_button.dart';
+import 'package:kanban_application/widgets/appbar/user_list.dart';
+import 'package:kanban_application/widgets/kanban/kanban_column.dart';
+import 'package:kanban_application/widgets/kanban/kanban_column_title.dart';
+
 
 class KanbanView extends StatefulWidget {
   KanbanView({Key? key}) : super(key: key);
@@ -56,10 +58,11 @@ class _KanbanViewState extends State<KanbanView> {
         title: Padding(
           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 6.6 / 5 - 5),
           child: Text(
-            "Development View",
+            "Development Kanban",
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
             ),
           ),
         ),
@@ -95,12 +98,12 @@ class _KanbanViewState extends State<KanbanView> {
                       ),
                     ],
                   ),
+                  SprintLabel(),
                   Spacer(),
                   PhasesDropDownButton(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end, 
                     children: [
-                      SprintLabel(),
                       UserList(),
                     ],
                   ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:kanban_application/models/kanban_card.dart';
+
 
 class ExpandedCard extends StatelessWidget {
   const ExpandedCard({super.key, required this.card, required this.columnTitle});
@@ -87,26 +89,56 @@ class ExpandedCard extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8, left: 12),
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "OWNER: ${card.ownedBy == "??" ? "Nobody" : card.ownedBy}",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        fontSize: 12,
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 80,
+                        child: Text(
+                          "OWNER: ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Theme.of(context).colorScheme.onSurfaceVariant
+                          ),
+                        ),
                       ),
-                    ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          card.ownedBy == "??" ? "Nobody" : card.ownedBy,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "ASSIGNEE:  ${card.assignedTo == "??" ? "Nobody" : card.assignedTo}",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        fontSize: 12,
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 80,
+                        child: Text(
+                          "ASSIGNEE: ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Theme.of(context).colorScheme.onSurfaceVariant
+                          ),
+                        ),
                       ),
-                    ),
-                  )
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          card.assignedTo == "??" ? "Nobody" : card.assignedTo,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

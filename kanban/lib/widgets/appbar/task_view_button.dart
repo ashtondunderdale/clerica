@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../views/tasks.dart';
+import 'package:kanban_application/views/tasks.dart';
+
 
 class TaskViewButton extends StatelessWidget {
   const TaskViewButton({super.key});

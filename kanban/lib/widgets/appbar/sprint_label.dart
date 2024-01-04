@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
+
 class SprintLabel extends StatelessWidget {
   const SprintLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 26, bottom: 4),
+      padding: const EdgeInsets.only(left: 12, bottom: 4),
       child: Tooltip(
         height: 30,
-        message: "1/12/23 → 15/12/23",
+        message: "1/12/23 - 15/12/23",
         textStyle: TextStyle(
           color: Theme.of(context).colorScheme.onTertiary,
           fontSize: 12,
@@ -32,7 +33,7 @@ class SprintLabel extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width > 1800 ? 13 : 11,
+                fontSize: 10,
               ),
             ),
           ),

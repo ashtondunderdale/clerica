@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/utils/light_theme.dart';
+
+import 'package:kanban_application/utils/theme/dark_theme.dart';
+import 'package:kanban_application/utils/theme/light_theme.dart';
+import 'package:kanban_application/utils/theme/theme.dart';
 import 'package:kanban_application/views/home.dart';
-import 'utils/dark_theme.dart';
+
 
 void main() => runApp(const App());
 
@@ -36,23 +39,3 @@ class _AppState extends State<App> {
     );
   }
 }
-
-class MyTheme with ChangeNotifier{
-
-  static bool _isDark = false;
-
-  ThemeMode currentTheme(){
-    return _isDark ? ThemeMode.dark : ThemeMode.light;
-  }
-
-  void switchTheme(){
-    _isDark = !_isDark;
-    notifyListeners();
-  }
-
-  void updateColumns(){ 
-    notifyListeners();
-  }
-}
-
-MyTheme currentTheme = MyTheme();

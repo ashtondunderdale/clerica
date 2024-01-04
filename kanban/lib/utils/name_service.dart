@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:kanban_application/models/data.dart';
 
+
 class NameService{
 
 String getInitials(String name)
