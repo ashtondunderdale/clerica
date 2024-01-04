@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kanban_application/models/data.dart';
 import 'package:kanban_application/models/kanban_card.dart';
 import 'package:kanban_application/utils/name_service.dart';
 import 'package:kanban_application/widgets/kanban/expanded_card.dart';
@@ -7,12 +6,12 @@ import 'package:kanban_application/widgets/kanban/expanded_card.dart';
 class NewKanbanCard extends StatelessWidget {
   NewKanbanCard({super.key, required this.card, required this.columnWidth});
 
-  double columnWidth;
-  double cardHeight = 100;
-  double colourBorderWidth = 2.5;
+  final double columnWidth;
+  final double cardHeight = 100;
+  final double colourBorderWidth = 2.5;
 
-  KanbanCard card;
-  NameService nameService = NameService();
+  final KanbanCard card;
+  final NameService nameService = NameService();
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +277,7 @@ class NewKanbanCard extends StatelessWidget {
                               nameService.getInitials(card.ownedBy),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),
                           ),
@@ -306,7 +305,7 @@ class NewKanbanCard extends StatelessWidget {
                               nameService.getInitials(card.assignedTo),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),
                           ),
@@ -318,7 +317,7 @@ class NewKanbanCard extends StatelessWidget {
                         child: Text(
                           card.storyPoints.toString(),
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 10,
                             color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                         ),
@@ -423,7 +422,7 @@ class NewKanbanCard extends StatelessWidget {
                               nameService.getInitials(card.ownedBy) == "??" ? "?" : nameService.getInitials(card.ownedBy),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                fontSize: 12
+                                fontSize: 10,
                               ),
                             ),
                           ),
@@ -434,7 +433,7 @@ class NewKanbanCard extends StatelessWidget {
                         child: Icon(
                           Icons.arrow_forward_outlined,
                           color: Theme.of(context).colorScheme.onSurfaceVariant,                              
-                          size: 12,
+                          size: 10,
                         ),
                       ),
                       Tooltip(
@@ -460,7 +459,7 @@ class NewKanbanCard extends StatelessWidget {
                               nameService.getInitials(card.assignedTo) == "??" ? "?" : nameService.getInitials(card.assignedTo),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                fontSize: 12
+                                fontSize: 10
                               ),
                             ),
                           ),

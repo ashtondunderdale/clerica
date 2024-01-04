@@ -29,15 +29,9 @@ class ExpandedCard extends StatelessWidget {
                       card.summary.toUpperCase(),
                       style: TextStyle(
                         fontSize: 20,
-                        decoration: card.status == "Complete" || 
-                                  card.status == "Ready For Release" || 
-                                  card.status == "Ready for Release" || 
-                                  card.status == "Released" ? TextDecoration.lineThrough : TextDecoration.none,
-                                  
-                        color: card.status == "Complete" || 
-                                  card.status == "Ready For Release" || 
-                                  card.status == "Ready for Release" || 
-                                  card.status == "Released" ? Colors.grey : Theme.of(context).colorScheme.onSurfaceVariant,
+                        decoration: card.status == "Ready For Release" || card.status == "Ready for Release" ? TextDecoration.lineThrough : TextDecoration.none,                           
+                        color: card.status == "Ready For Release" || card.status == "Ready for Release" ? Colors.grey : Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
