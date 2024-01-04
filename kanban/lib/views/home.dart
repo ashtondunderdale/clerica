@@ -66,6 +66,7 @@ class _HomeViewState extends State<HomeView> {
                     child: SizedBox(
                       width: 240,
                       child: TextField(
+                        onSubmitted: (value) => handleLoginAndNavigation(),
                         controller: usernameController,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -92,6 +93,7 @@ class _HomeViewState extends State<HomeView> {
                     child: SizedBox(
                       width: 240,
                       child: TextField(
+                        onSubmitted: (value) => handleLoginAndNavigation(),
                         controller: passwordController,
                         style: TextStyle(
                           fontSize: 12,
@@ -125,24 +127,7 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: ElevatedButton(
-                        onPressed: () async {
-                          if (_validateInputs()) 
-                          {
-
-                            if (await _login()){
-                              loggedInUser = usernameController.text.trim();
-
-                              storage.write(key: "username", value: usernameController.text);
-                              storage.write(key: "password", value: passwordController.text);
-
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => KanbanView()));
-                           }                       
-                          } 
-                          else 
-                          {
-                            _showErrorSnackBar("Username and password cannot be empty.");
-                          }
-                        },
+                        onPressed: () => handleLoginAndNavigation(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           surfaceTintColor: Colors.grey,
@@ -165,6 +150,26 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+
+  void handleLoginAndNavigation() async
+  {
+    if (_validateInputs())
+    {
+      if (await _login())
+      {
+        loggedInUser = usernameController.text.trim();
+
+        storage.write(key: "username", value: usernameController.text);
+        storage.write(key: "password", value: passwordController.text);
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => KanbanView()));
+      }
+    }
+    else 
+    {
+      _showErrorSnackBar("Username and password cannot be empty.");
+    }
   }
 
   bool _validateInputs() {
