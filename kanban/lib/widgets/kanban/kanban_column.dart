@@ -10,8 +10,7 @@ class KanbanColumn extends StatefulWidget {
   final List<KanbanCard> cardList;
   final Function(String, KanbanCard) onCardDropped;
 
-  const KanbanColumn({Key? key, required this.title, required this.cardList, required this.onCardDropped})
-      : super(key: key);
+  const KanbanColumn({Key? key, required this.title, required this.cardList, required this.onCardDropped}): super(key: key);
 
   @override
   State<KanbanColumn> createState() => _KanbanColumnState();
@@ -20,6 +19,7 @@ class KanbanColumn extends StatefulWidget {
 class _KanbanColumnState extends State<KanbanColumn> {
   @override
   Widget build(BuildContext context) {
+    
     double columnWidth = MediaQuery.of(context).size.width / 6.6;
 
     return DragTarget<KanbanCard>(
@@ -42,6 +42,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
             children: [
               for (int index = 0; index < widget.cardList.length; index++)
                 NewKanbanCard(
+                  columnWidth: MediaQuery.of(context).size.width / 6.6,
                   key: ValueKey(widget.cardList[index]),
                   card: widget.cardList[index],             
                 ),
