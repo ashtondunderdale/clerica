@@ -391,6 +391,7 @@ class NewKanbanCard extends StatelessWidget {
               ),
             ),
           ),
+          
         ),           // admin_panel_settings_outlined, assignment_ind_outlined, bug_report_outlined, content_paste_go, person_add_alt, supervised_user_circle_outlined
       ),
     );

@@ -129,6 +129,7 @@ class _HomeViewState extends State<HomeView> {
                       child: ElevatedButton(
                         onPressed: () => handleLoginAndNavigation(),
                         style: ElevatedButton.styleFrom(
+                          foregroundColor: const Color.fromARGB(255, 79, 79, 79),
                           backgroundColor: Colors.white,
                           surfaceTintColor: Colors.grey,
                           shape: RoundedRectangleBorder(

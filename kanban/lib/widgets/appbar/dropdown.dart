@@ -12,7 +12,7 @@ class PhasesDropDownButton extends StatefulWidget {
 }
 
 class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
-  String? _dropdownValue = "Your Project Phases";
+  String? _dropdownValue = "Internal Applications";
   ApiService api = ApiService();
 
   @override
@@ -37,19 +37,35 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
                 child: Text("All Project Phases"),
               ),
               DropdownMenuItem<String>(
-                value: "Your Project Phases",
-                child: Text("Your Project Phases"),
-              ),
-              DropdownMenuItem<String>(
                 value: "Internal Applications",
                 child: Text("Internal Applications"),
+              ),
+              DropdownMenuItem<String>(
+                value: "MIMS",
+                child: Text("MIMS"),
+              ),
+              DropdownMenuItem<String>(
+                value: "PO Approval",
+                child: Text("PO Approval"),
+              ),
+              DropdownMenuItem<String>(
+                value: "Proof of Delivery",
+                child: Text("Proof of Delivery"),
+              ),
+              DropdownMenuItem<String>(
+                value: "Alberta Quoting System",
+                child: Text("Alberta Quoting System"),
+              ),
+              DropdownMenuItem<String>(
+                value: "Alberta Quoting System",
+                child: Text("Alberta Quoting System"),
               ),
             ],
             onChanged: (String? value) async {
               api.clearKanban();
               
               _dropdownValue = value;
-              await api.getPhases(_dropdownValue.toString(), "");                 
+              await api.getPhases(_dropdownValue.toString(), _dropdownValue.toString());                 
 
               setState(() => currentTheme.updateColumns());
             },

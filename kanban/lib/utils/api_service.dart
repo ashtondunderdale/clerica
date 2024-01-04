@@ -14,7 +14,7 @@ class ApiService with ChangeNotifier{
 
   void updateColumns() => notifyListeners();
 
-  Future<bool> getPhases(String dropdownValue, String user) async {
+  Future<bool> getPhases(String dropdownValue, String parameter) async {
 
     String apiUrl = ''; // default
 
@@ -22,9 +22,17 @@ class ApiService with ChangeNotifier{
     {
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhases';
     }
-    else if (dropdownValue == "Specific User Project Phases")
+    else if (dropdownValue == "Specific User Project Phases") // for user list clickable icons
     { 
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForSpecificUser';
+    }
+    else if (dropdownValue == "Internal Applications" 
+          || dropdownValue == "MIMS" 
+          || dropdownValue == "PO Approval"
+          || dropdownValue == "Proof of Delivery"
+          || dropdownValue == "Alberta Quoting System")
+    {
+      apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForSpecificProject';
     }
 
     Map<String, String> header = {
@@ -33,7 +41,8 @@ class ApiService with ChangeNotifier{
     };
 
     Map<String, dynamic> requestBody = {
-      "User": user,
+      "User": parameter,
+      "Project": parameter,
     };
 
     int noStatusCardCount = 0;
@@ -61,7 +70,8 @@ class ApiService with ChangeNotifier{
             assignedTo:  project["EmpBasic1_Name"]          ?? "??",
             ownedBy:     project["EmpBasic_Name"]           ?? "??",
             storyPoints: project["ProjPhase_StoryPoints_c"] ?? "??",
-          );          
+          );    
+
           switch (card.status)
           {
             case "Backlog" || "Fail Test": kanbanData[0].cards.add(card); // goes to BACKLOG                 

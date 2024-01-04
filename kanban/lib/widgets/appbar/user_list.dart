@@ -30,12 +30,12 @@ class _UserListState extends State<UserList> {
             margin: EdgeInsets.only(left: 6),
             message: user == loggedInUser ? "You" : users[user].toString(),
             textStyle: TextStyle(
-              color: user == loggedInUser ? Color.fromARGB(255, 142, 204, 255) : Theme.of(context).colorScheme.onTertiary,
+              color: user == loggedInUser ? Color.fromARGB(255, 255, 255, 255) : Theme.of(context).colorScheme.onTertiary,
               fontSize: 10,
               fontWeight: user == loggedInUser ? FontWeight.bold : FontWeight.normal
             ),
             decoration: BoxDecoration(
-              color: user == loggedInUser ? Color.fromARGB(255, 85, 87, 89) : Theme.of(context).colorScheme.onPrimary,
+              color: user == loggedInUser ? Color.fromARGB(255, 143, 143, 143) : Theme.of(context).colorScheme.onPrimary,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Stack(
@@ -55,7 +55,7 @@ class _UserListState extends State<UserList> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Theme.of(context).colorScheme.onTertiary,
-                        border: Border.all(color: nameService.getCurrentUser(user, const Color.fromARGB(255, 142, 204, 255), Theme.of(context).colorScheme.onTertiary), width: 2)
+                        border: Border.all(color: nameService.getCurrentUser(user, Colors.grey, Theme.of(context).colorScheme.onTertiary), width: 2)
                       ),
                       child: Center(
                         child: Text(
