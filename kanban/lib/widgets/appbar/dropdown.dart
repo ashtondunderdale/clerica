@@ -56,10 +56,6 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
                 value: "Alberta Quoting System",
                 child: Text("Alberta Quoting System"),
               ),
-              DropdownMenuItem<String>(
-                value: "Alberta Quoting System",
-                child: Text("Alberta Quoting System"),
-              ),
             ],
             onChanged: (String? value) async {
               api.clearKanban();

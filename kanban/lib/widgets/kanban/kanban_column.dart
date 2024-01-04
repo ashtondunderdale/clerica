@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/utils/api_service.dart';
 import 'package:kanban_application/utils/name_service.dart';
 import 'package:kanban_application/widgets/kanban/kanban_card.dart';
 import 'package:kanban_application/widgets/kanban/expanded_card.dart';
@@ -21,10 +22,14 @@ class _KanbanColumnState extends State<KanbanColumn> {
   Widget build(BuildContext context) {
     
     double columnWidth = MediaQuery.of(context).size.width / 6.6;
+    ApiService api = ApiService();
 
     return DragTarget<KanbanCard>(
       onWillAccept: (droppedCard) => true,
-      onAccept: (droppedCard) => widget.onCardDropped(widget.title, droppedCard),
+      onAccept: (droppedCard){
+        widget.onCardDropped(widget.title, droppedCard);
+        api.updateEpicorPhaseStatus(widget.title, droppedCard);
+      },
       builder: (context, candidateData, rejectedData) {
         Color dropLocationColor =
             candidateData.isEmpty ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.background;

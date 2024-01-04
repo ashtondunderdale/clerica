@@ -84,7 +84,7 @@ class ApiService with ChangeNotifier{
 
             case "Pass Test": kanbanData[4].cards.add(card); // goes to TESTED                    
 
-            case "Complete" || "Ready For Release" || "Ready for Release" || "Released": kanbanData[5].cards.add(card); // goes to DONE             
+            case "Ready For Release" || "Ready for Release" || "Complete": kanbanData[5].cards.add(card); // goes to DONE             
 
             default: 
             if (card.status == "No Status")
@@ -102,7 +102,8 @@ class ApiService with ChangeNotifier{
              *  Quote
              *  On Hold
              *  Reject
-             *  Closed    
+             *  Closed   
+             *  Released 
              */
 
             notifyListeners();
@@ -117,9 +118,43 @@ class ApiService with ChangeNotifier{
         return false;
       }
     } 
-    catch (e) 
+    catch (exception) 
     {
-      print("Exception Error: $e");
+      print("Exception Error: $exception");
+      return false;
+    }
+  }
+
+  Future<bool> updateEpicorPhaseStatus(String newStatus, KanbanCard card) async {
+    try
+    {
+    print("card moved, new status: ${newStatus}"); 
+
+    switch (newStatus)
+    {
+      case "BACKLOG":
+        // change status to Backlog / additional functionality if fail test
+
+      case "DEVELOPING":
+        // change status to In Development / In development, with additional functionality for With Torchbearer
+
+      case "DEVELOPED":
+        // change status to Developed
+
+      case "TESTING":
+        // change status to UAT
+
+      case "TESTED":
+        // change status to Pass Test
+
+      case "DONE":
+        // change status to Ready For Release / Ready for Release / Complete
+    }
+    return true;
+    } 
+    catch (exception) 
+    {
+      print("Exception Error: $exception");
       return false;
     }
   }
