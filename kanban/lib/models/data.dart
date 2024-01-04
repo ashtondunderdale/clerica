@@ -55,3 +55,24 @@ final List<KanbanColumnData> kanbanData = [
   ),
 ];
 
+final List<String> developmentProjects = [
+  "AP Automation",
+  "SFDC",
+  "Alberta Quoting System",
+  "Epicor Work",
+  "Installers App",
+  "License Portal",
+  "License API",
+  "Mobile Field Service Web API",
+  "Mobile Field Service App API",
+  "MIMS",
+  "Dev Ops",
+  "Epicor Parameters Screen",
+  "PO Approval",
+  "Proof of Delivery",
+  "Epicor Printing Service",
+  "Requsisition Enahncements",
+  "GHA Scheduling Module",
+  "Internal Applications",
+  "Web Applications Common",
+];

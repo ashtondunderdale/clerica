@@ -36,7 +36,7 @@ class _UserListState extends State<UserList> {
             ),
             decoration: BoxDecoration(
               color: user == loggedInUser ? Color.fromARGB(255, 143, 143, 143) : Theme.of(context).colorScheme.onPrimary,
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Stack(
               children: [ 

@@ -68,7 +68,7 @@ class TaskView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 50),
                             child: SizedBox(
-                              width: 200,
+                              width: 300,
                               child: Text(
                                 card.summary,
                                 style: TextStyle(
@@ -91,7 +91,7 @@ class TaskView extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                nameService.getInitials(card.ownedBy),
+                                nameService.getInitials(card.ownedBy) == "??" ? "?" : nameService.getInitials(card.ownedBy),
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.onPrimary,
                                   fontSize: 14
@@ -106,7 +106,7 @@ class TaskView extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                nameService.getInitials(card.assignedTo),
+                                nameService.getInitials(card.assignedTo) == "??" ? "?" : nameService.getInitials(card.assignedTo),
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.onPrimary,
                                   fontSize: 14

@@ -30,7 +30,8 @@ class _KanbanViewState extends State<KanbanView> {
  
     api.clearKanban();
 
-    api.getPhases("Specific User Project Phases", users[loggedInUser].toString()); // should get for currently logged in user
+    api.getPhases("Specific User Project Phases", users[loggedInUser].toString());
+
     api.addListener(() {
       setState(() {});
     });
@@ -94,6 +95,7 @@ class _KanbanViewState extends State<KanbanView> {
                       ),
                     ],
                   ),
+                  Spacer(),
                   PhasesDropDownButton(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end, 

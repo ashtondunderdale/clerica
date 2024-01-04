@@ -26,11 +26,7 @@ class ApiService with ChangeNotifier{
     { 
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForSpecificUser';
     }
-    else if (dropdownValue == "Internal Applications" 
-          || dropdownValue == "MIMS" 
-          || dropdownValue == "PO Approval"
-          || dropdownValue == "Proof of Delivery"
-          || dropdownValue == "Alberta Quoting System")
+    else if (developmentProjects.contains(dropdownValue))
     {
       apiUrl = 'https://localhost:7190/api/v1/ProjectManagementSvc/Epicor/BaqSvcGetProjectPhasesForSpecificProject';
     }
@@ -61,15 +57,15 @@ class ApiService with ChangeNotifier{
 
         for (var project in projects) {
           KanbanCard card = KanbanCard(
-            parentPhase: project['ProjPhase_Description']   ?? "NULL",
-            summary:     project['ProjPhase_Description']   ?? "No Summary",
-            status:      project['UD04Status_Character01']  ?? 'No Status',
+            parentPhase: project['ProjPhase_Description']   ?? "NO PARENT PHASE",
+            summary:     project['ProjPhase_Description']   ?? "NO SUMMARY",
+            status:      project['UD04Status_Character01']  ?? 'NO STATUS',
             comments:    project['ProjPhase_Comments_c']    ?? "",
-            sprint:      project['UD02_Character01']        ?? "Unassigned Sprint",
+            sprint:      project['UD02_Character01']        ?? "UNASSIGNED SPRINT",
             project:     project['Project_Description']     ?? "NULL",
             assignedTo:  project["EmpBasic1_Name"]          ?? "??",
             ownedBy:     project["EmpBasic_Name"]           ?? "??",
-            storyPoints: project["ProjPhase_StoryPoints_c"] ?? "??",
+            storyPoints: project["ProjPhase_StoryPoints_c"] ?? "",
           );    
 
           switch (card.status)
@@ -128,7 +124,7 @@ class ApiService with ChangeNotifier{
   Future<bool> updateEpicorPhaseStatus(String newStatus, KanbanCard card) async {
     try
     {
-    print("card moved, new status: ${newStatus}"); 
+    print("New status: $newStatus for Card: ${card.summary}"); 
 
     switch (newStatus)
     {

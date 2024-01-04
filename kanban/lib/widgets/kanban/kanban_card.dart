@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/models/data.dart';
 import 'package:kanban_application/models/kanban_card.dart';
 import 'package:kanban_application/utils/name_service.dart';
 import 'package:kanban_application/widgets/kanban/expanded_card.dart';
@@ -122,13 +123,25 @@ class NewKanbanCard extends StatelessWidget {
                   Spacer(),
                   Row(
                     children: [
-                      DefaultTextStyle(
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontSize: 14
-                        ),
-                        child: Text(
-                          nameService.getInitials(card.ownedBy),
+                      Tooltip(
+                        message: card.ownedBy,
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              nameService.getInitials(card.ownedBy),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
@@ -139,15 +152,24 @@ class NewKanbanCard extends StatelessWidget {
                           size: 12,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(),
-                        child: DefaultTextStyle(
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            fontSize: 14
+                      Tooltip(
+                        message: card.assignedTo,
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Text(
-                            nameService.getInitials(card.assignedTo),
+                          child: Center(
+                            child: Text(
+                              nameService.getInitials(card.assignedTo),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -242,11 +264,24 @@ class NewKanbanCard extends StatelessWidget {
                   Spacer(),
                   Row(
                     children: [
-                      Text(
-                        nameService.getInitials(card.ownedBy),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontSize: 14
+                      Tooltip(
+                        message: card.ownedBy,
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              nameService.getInitials(card.ownedBy),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
@@ -257,11 +292,24 @@ class NewKanbanCard extends StatelessWidget {
                           size: 12,
                         ),
                       ),
-                      Text(
-                        nameService.getInitials(card.assignedTo),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontSize: 14
+                      Tooltip(
+                        message: card.assignedTo,
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              nameService.getInitials(card.assignedTo),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Spacer(),
@@ -352,26 +400,70 @@ class NewKanbanCard extends StatelessWidget {
                   Spacer(),
                   Row(
                     children: [
-                      Text(
-                        nameService.getInitials(card.ownedBy),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontSize: 14
+                      Tooltip(
+                        message: nameService.getInitials(card.ownedBy) == "??" ? "Nobody" : card.ownedBy,
+                        margin: EdgeInsets.only(left: 6),
+                        textStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.onTertiary,
+                          fontSize: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              nameService.getInitials(card.ownedBy) == "??" ? "?" : nameService.getInitials(card.ownedBy),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                fontSize: 12
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 8),
                         child: Icon(
                           Icons.arrow_forward_outlined,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,                              
                           size: 12,
                         ),
                       ),
-                      Text(
-                        nameService.getInitials(card.assignedTo),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontSize: 14
+                      Tooltip(
+                        message: nameService.getInitials(card.assignedTo) == "??" ? "Nobody" : card.assignedTo,
+                        margin: EdgeInsets.only(left: 6),
+                        textStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.onTertiary,
+                          fontSize: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                            borderRadius: BorderRadius.circular(220),
+                          ),
+                          child: Center(
+                            child: Text(
+                              nameService.getInitials(card.assignedTo) == "??" ? "?" : nameService.getInitials(card.assignedTo),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                fontSize: 12
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Spacer(),
@@ -390,8 +482,7 @@ class NewKanbanCard extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          
+          ),        
         ),           // admin_panel_settings_outlined, assignment_ind_outlined, bug_report_outlined, content_paste_go, person_add_alt, supervised_user_circle_outlined
       ),
     );

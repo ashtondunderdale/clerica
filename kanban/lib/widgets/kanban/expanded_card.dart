@@ -96,7 +96,7 @@ class ExpandedCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "OWNED: ${card.ownedBy}",
+                      "OWNER: ${card.ownedBy == "??" ? "Nobody" : card.ownedBy}",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: 12,
@@ -106,7 +106,7 @@ class ExpandedCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "ASSIGNEE:  ${card.assignedTo}",
+                      "ASSIGNEE:  ${card.assignedTo == "??" ? "Nobody" : card.assignedTo}",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: 12,

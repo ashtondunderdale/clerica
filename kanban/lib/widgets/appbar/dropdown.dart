@@ -18,9 +18,9 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(bottom: 4, right: 24),
       child: Container(
-        height: 40,
+        height: 30,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
@@ -31,32 +31,12 @@ class _PhasesDropDownButtonState extends State<PhasesDropDownButton> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: DropdownButton<String>(
             value: _dropdownValue,
-            items: [
-              DropdownMenuItem<String>(
-                value: "All Project Phases",
-                child: Text("All Project Phases"),
-              ),
-              DropdownMenuItem<String>(
-                value: "Internal Applications",
-                child: Text("Internal Applications"),
-              ),
-              DropdownMenuItem<String>(
-                value: "MIMS",
-                child: Text("MIMS"),
-              ),
-              DropdownMenuItem<String>(
-                value: "PO Approval",
-                child: Text("PO Approval"),
-              ),
-              DropdownMenuItem<String>(
-                value: "Proof of Delivery",
-                child: Text("Proof of Delivery"),
-              ),
-              DropdownMenuItem<String>(
-                value: "Alberta Quoting System",
-                child: Text("Alberta Quoting System"),
-              ),
-            ],
+            items: developmentProjects.map((String project) {
+              return DropdownMenuItem<String>(
+                value: project,
+                child: Text(project),
+              );
+            }).toList(),
             onChanged: (String? value) async {
               api.clearKanban();
               

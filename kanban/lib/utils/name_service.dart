@@ -6,7 +6,6 @@ class NameService{
 
 String getInitials(String name)
   {    
-
     try
     {
       var firstNameAndLastName = name.split(' ');
