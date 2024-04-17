@@ -10,5 +10,8 @@ abstract class BoardEvent extends Equatable {
 }
 
 class BoardCardMovedEvent extends BoardEvent {
-  const BoardCardMovedEvent(KanbanCardModel card);
+  final KanbanCardModel card;
+  final String destinationTitle;
+
+  const BoardCardMovedEvent(this.card, this.destinationTitle);
 }

@@ -8,26 +8,28 @@ List<String> kanbanColumnTitles = [
   "DONE"
 ];
 
-List<List<KanbanCardModel>> kanbanColumnCards = [
-  [
-    KanbanCardModel(title: "A project"),
-    KanbanCardModel(title: "another project"),
-  ],
-  [
-    KanbanCardModel(title: "a project in progress"),
-    KanbanCardModel(title: "test"),
-    KanbanCardModel(title: "TEST!!!"),
-    KanbanCardModel(title: "another project 2"),
-  ],
-  [
-    KanbanCardModel(title: "DONE!!!!!")
-  ],
+List<KanbanCardModel> kanbanColumnCards = [
+    KanbanCardModel(title: "A project", column: "TODO"),
+    KanbanCardModel(title: "another project", column: "TODO"),
+  
+  
+    KanbanCardModel(title: "a project in progress", column: "IN PROGRESS"),
+    KanbanCardModel(title: "test", column: "IN PROGRESS"),
+    KanbanCardModel(title: "TEST!!!", column: "IN PROGRESS"),
+    KanbanCardModel(title: "another project 2", column: "IN PROGRESS"),
+  
+  
+    KanbanCardModel(title: "DONE!!!!!", column: "DONE")
+  
 ];
 
-List<KanbanColumnModel> kanbanColumns = List.generate(
-  kanbanColumnTitles.length, (index) => KanbanColumnModel(
-    title: kanbanColumnTitles[index],
-    itemCount: kanbanColumnCards[index].length,
-    cards: kanbanColumnCards[index],
-  )
-);
+List<KanbanColumnModel> kanbanColumns = kanbanColumnTitles.map((title) {
+  List<KanbanCardModel> columnCards = kanbanColumnCards.where((card) => card.column == title).toList();
+  
+  return KanbanColumnModel(
+    title: title,
+    itemCount: columnCards.length,
+    cards: columnCards,
+  );
+}).toList();
+
