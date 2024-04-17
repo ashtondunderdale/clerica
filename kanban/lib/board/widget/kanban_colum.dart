@@ -1,47 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/constants.dart';
 
 class KanbanColumn extends StatelessWidget {
-  const KanbanColumn({super.key, required this.title, required this.itemCount});
+  const KanbanColumn({super.key, 
+    required this.title, 
+    required this.itemCount
+  });
 
   final String title;
   final int itemCount;
 
   @override
   Widget build(BuildContext context) {
+    return _buildColumn(context, title);
+  }
+
+  Widget _buildColumn(BuildContext context, String title) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(paddingValue),
       child: Container(
-        width: 240,
-        height: MediaQuery.sizeOf(context).height,
+        width: kanbanColumnWidth,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 245, 245, 245),
-          borderRadius: BorderRadius.circular(4)
-        ),
+            color: lightGrey,
+            borderRadius: BorderRadius.circular(borderRadiusValue)),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(paddingValue),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                  fontSize: 12
-                ),
-              ),
+              _buildText(title),
               Spacer(),
-              Text(
-                itemCount.toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                  fontSize: 12
-                ),
-              ),
+              _buildText(itemCount.toString()),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildText(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.w500, 
+        color: darkGrey, 
+        fontSize: smallTextFontSize
       ),
     );
   }
