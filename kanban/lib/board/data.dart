@@ -24,8 +24,10 @@ List<List<KanbanCardModel>> kanbanColumnCards = [
   ],
 ];
 
-List<KanbanColumnModel> kanbanColumns = List.generate(kanbanColumnTitles.length, (index) => KanbanColumnModel(
-  title: kanbanColumnTitles[index],
-  itemCount: kanbanColumnCards[index].length,
-  cards: kanbanColumnCards[index],
-));
+List<KanbanColumnModel> kanbanColumns = List.generate(
+  kanbanColumnTitles.length, (index) => KanbanColumnModel(
+    title: kanbanColumnTitles[index],
+    itemCount: kanbanColumnCards[index].length,
+    cards: kanbanColumnCards[index],
+  )
+);

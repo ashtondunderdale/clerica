@@ -27,7 +27,7 @@ class KanbanColumn extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: primaryPaddingValue-8, left: primaryPaddingValue, right: primaryPaddingValue, bottom: primaryPaddingValue*2),
+              padding: const EdgeInsets.only(left: primaryPaddingValue, right: primaryPaddingValue, bottom: primaryPaddingValue*2),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
