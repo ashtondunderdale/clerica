@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 /// looks nicer
 /// 
 /// used in:
@@ -37,8 +38,11 @@ const Color darkGrey = Color.fromARGB(255, 165, 165, 165);
 /// other constants
 /// 
 const double borderRadiusValue = 4;
-const double paddingValue = 8;
+const double primaryPaddingValue = 8;
+const double secondaryPaddingValue = 4;
 
 const double kanbanColumnWidth = 240;
+const double kanbanCardHeight = 100;
+const double kanbanCardWidth = kanbanColumnWidth - 16;
 
 const double smallTextFontSize = 13;

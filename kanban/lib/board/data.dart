@@ -1,4 +1,6 @@
-import 'package:kanban_application/board/models/kanban_column_model.dart';
+import 'models/kanban_card_model.dart';
+import 'models/kanban_column_model.dart';
+
 
 List<String> kanbanColumnTitles = [
   "TODO",
@@ -6,6 +8,24 @@ List<String> kanbanColumnTitles = [
   "DONE"
 ];
 
-List<KanbanColumnModel> kanbanColumns = kanbanColumnTitles.map((title) {
-  return KanbanColumnModel(title: title, itemCount: 0);
-}).toList();
+List<List<KanbanCardModel>> kanbanColumnCards = [
+  [
+    KanbanCardModel(title: "A project"),
+    KanbanCardModel(title: "another project"),
+  ],
+  [
+    KanbanCardModel(title: "a project in progress"),
+    KanbanCardModel(title: "test"),
+    KanbanCardModel(title: "TEST!!!"),
+    KanbanCardModel(title: "another project 2"),
+  ],
+  [
+    KanbanCardModel(title: "DONE!!!!!")
+  ],
+];
+
+List<KanbanColumnModel> kanbanColumns = List.generate(kanbanColumnTitles.length, (index) => KanbanColumnModel(
+  title: kanbanColumnTitles[index],
+  itemCount: kanbanColumnCards[index].length,
+  cards: kanbanColumnCards[index],
+));
