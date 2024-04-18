@@ -25,13 +25,11 @@ class _KanbanState extends State<Kanban> {
         children: kanbanColumns.map((column) => KanbanColumn(
           column: column, 
           onCardMoved: (card, column){
-            setState(() {
-              final previousColumn = kanbanColumns.firstWhere((column) => column.title == card.column);
-              
-              BlocProvider.of<BoardBloc>(context).add(
-                BoardCardMovedEvent(card, column, previousColumn),
-              );
-            });
+            final previousColumn = kanbanColumns.firstWhere((column) => column.title == card.column);
+            
+            BlocProvider.of<BoardBloc>(context).add(
+              BoardCardMovedEvent(card, column, previousColumn),
+            );
           }
         )).toList(),
       ),
