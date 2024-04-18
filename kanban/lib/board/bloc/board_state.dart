@@ -10,9 +10,7 @@ abstract class BoardState extends Equatable {
   List<Object> get props => [];
 }
 
-class BoardInitial extends BoardState {
-  const BoardInitial();
-}
+class BoardInitial extends BoardState {}
 
 class BoardCardMovedState extends BoardState {
   final KanbanCardModel card;

@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../models/kanban_card_model.dart';
 import 'board_event.dart';
 import 'board_state.dart';
 
@@ -10,11 +9,11 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   }
 
   void _moveCard(BoardCardMovedEvent event, Emitter<BoardState> emit) {
-    final KanbanCardModel card = event.card;
-    final String destinationTitle = event.destinationTitle;
+    event.card.column = event.newColumn.title;
 
-    card.column = destinationTitle;
+    event.previousColumn.cards.remove(event.card);
+    event.newColumn.cards.add(event.card);
 
-    emit(BoardCardMovedState(card));
+    emit(BoardCardMovedState(event.card));
   }
 }

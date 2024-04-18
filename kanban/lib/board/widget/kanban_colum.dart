@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
-import '../bloc/board_bloc.dart';
-import '../bloc/board_event.dart';
 import '../models/kanban_card_model.dart';
 import '../models/kanban_column_model.dart';
 import 'kanban_card.dart';
 
 
 class KanbanColumn extends StatefulWidget {
-  const KanbanColumn({super.key, required this.column});
+  const KanbanColumn({Key? key, required this.column, required this.onCardMoved});
 
   final KanbanColumnModel column;
+  final Function(KanbanCardModel, KanbanColumnModel) onCardMoved;
 
   @override
   State<KanbanColumn> createState() => _KanbanColumnState();
@@ -26,11 +24,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
   Widget _buildColumn(BuildContext context, String title) => Padding(
     padding: const EdgeInsets.all(primaryPaddingValue),
     child: DragTarget<KanbanCardModel>(
-      onAcceptWithDetails: (card) {
-        BlocProvider.of<BoardBloc>(context).add(
-          BoardCardMovedEvent(card.data, widget.column.title),
-        );
-      },
+      onAcceptWithDetails: (card) => widget.onCardMoved(card.data, widget.column),
       onWillAccept: (data) => true,
       builder: (context, candidateData, rejectedData) => Container(
         width: kanbanColumnWidth,

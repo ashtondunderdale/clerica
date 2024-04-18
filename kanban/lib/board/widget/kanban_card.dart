@@ -5,7 +5,7 @@ import '../models/kanban_card_model.dart';
 
 
 class KanbanCard extends StatelessWidget {
-  const KanbanCard({super.key, required this.card});
+  const KanbanCard({Key? key, required this.card});
 
   final KanbanCardModel card;
 
