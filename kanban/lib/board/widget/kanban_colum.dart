@@ -63,7 +63,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
     text,
     style: TextStyle(
       fontWeight: FontWeight.w500, 
-      color: darkGrey, 
+      color: veryDarkGrey, 
       fontSize: smallTextFontSize
     ),
   );

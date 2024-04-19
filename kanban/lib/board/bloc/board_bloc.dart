@@ -14,6 +14,9 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     event.previousColumn.cards.remove(event.card);
     event.newColumn.cards.add(event.card);
 
-    emit(BoardCardMovedState(event.card));
+    event.newColumn.itemCount = event.newColumn.cards.length;
+    event.previousColumn.itemCount = event.previousColumn.cards.length;
+
+    emit(BoardCardMovedState(event.card, event.newColumn, event.previousColumn));
   }
 }

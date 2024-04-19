@@ -21,7 +21,18 @@ class KanbanCard extends StatelessWidget {
           height: kanbanCardHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadiusValue),
-            color: mediumGrey
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                color: darkGrey,
+                blurRadius: 2,
+                spreadRadius: 0,
+                offset: const Offset(
+                  -0.5,
+                  1,
+                ),
+              ), //BoxShadow
+            ],
           ),
           child:_buildText(card.title)
         ),
@@ -30,10 +41,9 @@ class KanbanCard extends StatelessWidget {
   );
 
     Widget _buildText(String text) => Padding(
-    padding: const EdgeInsets.all(secondaryPaddingValue),
+    padding: const EdgeInsets.all(primaryPaddingValue),
     child: DefaultTextStyle(   
       style: TextStyle(
-        fontWeight: FontWeight.bold, 
         color: darkGrey, 
         fontSize: smallTextFontSize
       ),

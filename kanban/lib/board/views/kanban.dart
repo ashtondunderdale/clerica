@@ -30,6 +30,10 @@ class _KanbanState extends State<Kanban> {
             BlocProvider.of<BoardBloc>(context).add(
               BoardCardMovedEvent(card, column, previousColumn),
             );
+
+            setState(() {
+              
+            });
           }
         )).toList(),
       ),
