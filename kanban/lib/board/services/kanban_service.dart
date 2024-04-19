@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:html' as web;
 
 import 'package:kanban_application/board/data.dart';
-import 'package:kanban_application/board/models/kanban_column_model.dart';
 
 import '../models/kanban_card_model.dart';
 
@@ -10,38 +9,37 @@ class KanbanService {
   static const _storageKey = 'kanbanData';
 
   void addNewCard(String title, String columnTitle) {
-    KanbanColumnModel column = kanbanColumns.where((col) => col.title == columnTitle).first;
-    column.cards.add(KanbanCardModel(title: title, column: columnTitle));
+    var column = kanbanColumns.firstWhere((col) => col.title == columnTitle);
+    
+    column.cards.add(KanbanCardModel(
+      title: title, 
+      column: columnTitle
+    ));
   }
 
-  Future<void> saveKanbanData(KanbanCardModel card) async {
+  Future saveKanbanData(KanbanCardModel card) async {
     final jsonString = web.window.localStorage[_storageKey];
     List<KanbanCardModel> kanbanData = [];
 
     if (jsonString == null) return;
 
-    final decodedData = json.decode(jsonString);
-    final List<dynamic> cardsJson = decodedData['cards'];
+    final List<dynamic> cards = json.decode(jsonString)['cards'];
 
-    kanbanData = cardsJson.map((cardJson) => KanbanCardModel(
-        title: cardJson['title'],
-        column: cardJson['column'] ?? "TODO",
-      ))
-    .toList();
+    kanbanData = cards.map((card) => KanbanCardModel(
+      title: card['title'],
+      column: card['column'] ?? "TODO",
+    )).toList();
 
     bool cardExists = false;
     for (var existingCard in kanbanData) {
       if (existingCard.title == card.title) {
         existingCard.column = card.column;
         cardExists = true;
-
         break;
       }
     }
 
-    if (!cardExists) {
-      kanbanData.add(card);
-    }
+    if (!cardExists) kanbanData.add(card);
 
     final List<Map<String, dynamic>> jsonData =
         kanbanData.map((card) => card.toJson()).toList();
@@ -55,14 +53,11 @@ class KanbanService {
 
     if (jsonString == null) return [];
 
-    final decodedData = json.decode(jsonString);
-    final List<dynamic> cardsJson = decodedData['cards'];
+    final List<dynamic> cards = json.decode(jsonString)['cards'];
 
-    return cardsJson
-        .map((cardJson) => KanbanCardModel(
-              title: cardJson['title'],
-              column: cardJson['column'] ?? "TODO",
-            ))
-        .toList();
+    return cards.map((card) => KanbanCardModel(
+      title: card['title'],
+      column: card['column'] ?? "TODO",
+    )).toList();
   }
 }

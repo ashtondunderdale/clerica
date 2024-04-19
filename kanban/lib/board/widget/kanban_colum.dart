@@ -28,17 +28,12 @@ class _KanbanColumnState extends State<KanbanColumn> {
     padding: const EdgeInsets.all(primaryPaddingValue),
     child: DragTarget<KanbanCardModel>(
       onAcceptWithDetails: (card) => widget.onCardMoved(card.data, widget.column),
-      onWillAccept: (data) => true,
       builder: (context, candidateData, rejectedData) => MouseRegion(
         onEnter: (enter) {
-          setState(() {
-            _isHovered = true;
-          });
+          setState(() => _isHovered = true);
         },
         onExit: (exit) {
-          setState(() {
-            _isHovered = false;
-          });
+          setState(() => _isHovered = false);
         },
         child: Container(
           width: kanbanColumnWidth,

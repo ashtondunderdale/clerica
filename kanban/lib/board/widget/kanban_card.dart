@@ -14,7 +14,7 @@ class KanbanCard extends StatefulWidget {
 }
 
 class _KanbanCardState extends State<KanbanCard> {
-  Color backgroundColor = white;
+  Color _backgroundColor = white;
   bool _isHovered = false;
 
   @override
@@ -44,7 +44,7 @@ class _KanbanCardState extends State<KanbanCard> {
     height: kanbanCardHeight,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(borderRadiusValue),
-      color: _isHovered ? lightGrey : backgroundColor,
+      color: _isHovered ? lightGrey : _backgroundColor,
       boxShadow: [
         BoxShadow(
           color: darkGrey,

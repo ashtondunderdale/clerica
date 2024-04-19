@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kanban_application/board/data.dart';
 import 'package:kanban_application/board/models/kanban_column_model.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 import 'package:kanban_application/constants.dart';
+import 'dart:math';
 
 class AddCardButton extends StatefulWidget {
   const AddCardButton({super.key, required this.column, required this.onCardAdded});
@@ -15,17 +17,21 @@ class AddCardButton extends StatefulWidget {
 }
 
 class _AddCardButtonState extends State<AddCardButton> {
+  KanbanService _kanban = KanbanService();
+
+  final TextEditingController _cardTitleController = TextEditingController();
   bool _isHovered = false;
   bool _isClicked = false;
-
-  final TextEditingController cardTitleController = TextEditingController();
-  KanbanService kanban = KanbanService();
+  String _addCardMessage = addCardMessages[0];
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        setState(() => _isClicked = true);
+        setState(() {
+          _isClicked = true;
+          _addCardMessage = addCardMessages.elementAt(Random().nextInt(addCardMessages.length));
+        });
       },
       child: MouseRegion(
         cursor: _isHovered ? SystemMouseCursors.click : MouseCursor.defer,      
@@ -35,12 +41,12 @@ class _AddCardButtonState extends State<AddCardButton> {
         onExit: (_) {
           setState(() => _isHovered = false);
         },
-        child: _isClicked ? _buildAddCardOption(cardTitleController) : _buildItems()
+        child: _isClicked ? _buildAddCardContainer(_cardTitleController) : _buildAddCardOption()
       ),
     );
   }
 
-  Widget _buildItems() => Padding(
+  Widget _buildAddCardOption() => Padding(
     padding: const EdgeInsets.only(top: primaryPaddingValue),
     child: Container(
       width: kanbanCardWidth - 4,
@@ -72,11 +78,11 @@ class _AddCardButtonState extends State<AddCardButton> {
   );
 
 
-  Widget _buildAddCardOption(TextEditingController controller) => KeyboardListener(
+  Widget _buildAddCardContainer(TextEditingController controller) => KeyboardListener(
     focusNode: FocusNode(),
     onKeyEvent: (KeyEvent event) {
       if (event.logicalKey == LogicalKeyboardKey.enter) {
-        kanban.addNewCard(controller.text, widget.column.title);      
+        _kanban.addNewCard(controller.text, widget.column.title);      
         widget.onCardAdded();
 
         setState(() {
@@ -108,6 +114,7 @@ class _AddCardButtonState extends State<AddCardButton> {
                 ),
                 controller: controller,
                 decoration: InputDecoration(
+                hintText: _addCardMessage,
                   border: InputBorder.none,
                 ),
                 autofocus: true,
@@ -119,5 +126,3 @@ class _AddCardButtonState extends State<AddCardButton> {
     ),
   );
 }
-
-

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/board/models/kanban_card_model.dart';
+import 'package:kanban_application/board/models/kanban_column_model.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 
 import '../../constants.dart';
@@ -14,8 +16,7 @@ class Kanban extends StatefulWidget {
 }
 
 class _KanbanState extends State<Kanban> {
-
-  KanbanService kanban = KanbanService();
+  KanbanService _kanban = KanbanService();
 
   @override
   void initState() {
@@ -24,7 +25,7 @@ class _KanbanState extends State<Kanban> {
   }
 
   Future initialize() async {
-    for (var card in await kanban.loadKanbanData()) {
+    for (var card in await _kanban.loadKanbanData()) {
       kanbanColumns.where((column) => column.title == card.column).forEach((column) {
         column.cards.add(card);
       });
@@ -42,22 +43,26 @@ class _KanbanState extends State<Kanban> {
         children: kanbanColumns.map((column) => KanbanColumn(
           column: column, 
           onCardMoved: (card, column){
-            final previousColumn = kanbanColumns.firstWhere((column) => column.title == card.column);
-            card.column = column.title;
-
-            previousColumn.cards.remove(card);
-            column.cards.add(card);
-
-            column.itemCount = column.cards.length;
-            previousColumn.itemCount = previousColumn.cards.length;
-
-            kanban.saveKanbanData(card);
-            
-            setState(() {});
+            updateKanban(card, column);
           },
         )).toList(),
       ),
     ),
   );
+
+  void updateKanban(KanbanCardModel card, KanbanColumnModel column) {
+    final previousColumn = kanbanColumns.firstWhere((column) => column.title == card.column);
+    card.column = column.title;
+
+    previousColumn.cards.remove(card);
+    column.cards.add(card);
+
+    column.itemCount = column.cards.length;
+    previousColumn.itemCount = previousColumn.cards.length;
+
+    _kanban.saveKanbanData(card);
+    
+    setState(() {});
+  }
 }
 
