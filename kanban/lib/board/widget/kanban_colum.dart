@@ -56,14 +56,23 @@ class _KanbanColumnState extends State<KanbanColumn> {
                     ],
                   ),
                 ),
-                _buildCards(widget.column.cards),
-                _isHovered ? AddCardButton(
-                  column: widget.column, 
-                  onCardAdded: () {
-                    widget.column.itemCount = widget.column.cards.length;
-                    setState(() {});
-                  }
-                ) : SizedBox()
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        _buildCards(widget.column.cards),
+                          _isHovered ? AddCardButton(
+                          column: widget.column, 
+                          onCardAdded: () {
+                            widget.column.itemCount = widget.column.cards.length;
+                            setState(() {});
+                          }
+                        ) : SizedBox(),
+                      ],
+                    )
+                  ),
+                ),
               ],
             ),
           ),
@@ -72,9 +81,10 @@ class _KanbanColumnState extends State<KanbanColumn> {
     ),
   );
 
-  Widget _buildCards(List<KanbanCardModel> cards) => Column(
-    children: cards.map((card) => KanbanCard(card: card)).toList()
-  );
+Widget _buildCards(List<KanbanCardModel> cards) => Column(
+  children: cards.map((card) => KanbanCard(card: card)).toList(),
+);
+
 
   Widget _buildText(String text) => Text(
     text,

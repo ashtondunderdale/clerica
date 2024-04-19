@@ -2,10 +2,10 @@ import 'models/kanban_column_model.dart';
 
 
 List<String> kanbanColumnTitles = [
+  "FUTURE", 
   "TODO",
   "IN PROGRESS",
   "DONE",
-  "FUTURE"
 ];
 
 List<String> addCardMessages = [
