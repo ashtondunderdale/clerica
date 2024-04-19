@@ -1,12 +1,20 @@
 import 'dart:convert';
 import 'dart:html' as web;
 
+import 'package:kanban_application/board/data.dart';
+import 'package:kanban_application/board/models/kanban_column_model.dart';
+
 import '../models/kanban_card_model.dart';
 
-class KanbanController {
+class KanbanService {
   static const _storageKey = 'kanbanData';
 
-  static Future<void> saveKanbanData(KanbanCardModel card) async {
+  void addNewCard(String title, String columnTitle) {
+    KanbanColumnModel column = kanbanColumns.where((col) => col.title == columnTitle).first;
+    column.cards.add(KanbanCardModel(title: title, column: columnTitle));
+  }
+
+  Future<void> saveKanbanData(KanbanCardModel card) async {
     final jsonString = web.window.localStorage[_storageKey];
     List<KanbanCardModel> kanbanData = [];
 
@@ -26,6 +34,7 @@ class KanbanController {
       if (existingCard.title == card.title) {
         existingCard.column = card.column;
         cardExists = true;
+
         break;
       }
     }
@@ -41,7 +50,7 @@ class KanbanController {
     web.window.localStorage[_storageKey] = updatedJsonString;
   }
 
-  static Future<List<KanbanCardModel>> loadKanbanData() async {
+  Future<List<KanbanCardModel>> loadKanbanData() async {
     final jsonString = web.window.localStorage[_storageKey];
 
     if (jsonString == null) return [];

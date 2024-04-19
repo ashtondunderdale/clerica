@@ -2,7 +2,7 @@ import 'kanban_card_model.dart';
 
 
 class KanbanColumnModel {
-  final String title;
+  String title;
   int itemCount;
   List<KanbanCardModel> cards;
 

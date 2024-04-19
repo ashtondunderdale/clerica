@@ -1,8 +1,5 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
-import 'package:kanban_application/board/controllers/kanban_controller.dart';
-import 'package:kanban_application/board/models/kanban_card_model.dart';
+import 'package:kanban_application/board/services/kanban_service.dart';
 
 import '../../constants.dart';
 import '../data.dart';
@@ -18,6 +15,8 @@ class Kanban extends StatefulWidget {
 
 class _KanbanState extends State<Kanban> {
 
+  KanbanService kanban = KanbanService();
+
   @override
   void initState() {
     super.initState();
@@ -25,9 +24,7 @@ class _KanbanState extends State<Kanban> {
   }
 
   Future initialize() async {
-    kanbanColumnCards = await KanbanController.loadKanbanData();
-
-    for (var card in kanbanColumnCards) {
+    for (var card in await kanban.loadKanbanData()) {
       kanbanColumns.where((column) => column.title == card.column).forEach((column) {
         column.cards.add(card);
       });
@@ -54,10 +51,10 @@ class _KanbanState extends State<Kanban> {
             column.itemCount = column.cards.length;
             previousColumn.itemCount = previousColumn.cards.length;
 
-            KanbanController.saveKanbanData(card);
+            kanban.saveKanbanData(card);
             
             setState(() {});
-          }
+          },
         )).toList(),
       ),
     ),

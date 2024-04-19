@@ -62,7 +62,13 @@ class _KanbanColumnState extends State<KanbanColumn> {
                   ),
                 ),
                 _buildCards(widget.column.cards),
-                _isHovered ? AddCardButton() : SizedBox()
+                _isHovered ? AddCardButton(
+                  column: widget.column, 
+                  onCardAdded: () {
+                    widget.column.itemCount = widget.column.cards.length;
+                    setState(() {});
+                  }
+                ) : SizedBox()
               ],
             ),
           ),
