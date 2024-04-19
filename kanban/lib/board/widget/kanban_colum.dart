@@ -37,7 +37,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
         },
         child: Container(
           width: kanbanColumnWidth,
-          height: MediaQuery.of(context).size.height,
+          height: null,
           decoration: BoxDecoration(
             color: lightGrey,
             borderRadius: BorderRadius.circular(borderRadiusValue)),
@@ -81,10 +81,15 @@ class _KanbanColumnState extends State<KanbanColumn> {
     ),
   );
 
-Widget _buildCards(List<KanbanCardModel> cards) => Column(
-  children: cards.map((card) => KanbanCard(card: card)).toList(),
-);
-
+  Widget _buildCards(List<KanbanCardModel> cards) => Column(
+    children: cards.map((card) => KanbanCard(
+      card: card, 
+      onCardRemoved: () { 
+        widget.column.itemCount = widget.column.cards.length;
+        setState(() {});
+      }
+    )).toList(),
+  );
 
   Widget _buildText(String text) => Text(
     text,
@@ -94,4 +99,5 @@ Widget _buildCards(List<KanbanCardModel> cards) => Column(
       fontSize: smallTextFontSize
     ),
   );
+
 }

@@ -17,6 +17,11 @@ class KanbanService {
     ));
   }
 
+  void removeCard(KanbanCardModel card) {
+    var column = kanbanColumns.firstWhere((col) => col.title == card.column);
+    column.cards.remove(card);
+  }
+
   Future saveKanbanData(KanbanCardModel card) async {
     final jsonString = web.window.localStorage[_storageKey];
     List<KanbanCardModel> kanbanData = [];

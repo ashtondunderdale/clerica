@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:kanban_application/board/services/kanban_service.dart';
 
 import '../../constants.dart';
 import '../models/kanban_card_model.dart';
 
 
 class KanbanCard extends StatefulWidget {
-  const KanbanCard({Key? key, required this.card});
+  const KanbanCard({Key? key, required this.card, required this.onCardRemoved});
 
   final KanbanCardModel card;
+  final VoidCallback onCardRemoved;
 
   @override
   State<KanbanCard> createState() => _KanbanCardState();
 }
 
 class _KanbanCardState extends State<KanbanCard> {
+  KanbanService _kanban = KanbanService();
+
   Color _backgroundColor = white;
   bool _isHovered = false;
 
@@ -26,12 +30,12 @@ class _KanbanCardState extends State<KanbanCard> {
         feedback: widget,
         childWhenDragging: _buildDraggingCard(),
         child: MouseRegion(
-        onEnter: (_) {
-          setState(() => _isHovered = true);
-        },
-        onExit: (_) {
-          setState(() => _isHovered = false);
-        },
+          onEnter: (_) {
+            setState(() => _isHovered = true);
+          },
+          onExit: (_) {
+            setState(() => _isHovered = false);
+          },
           child: _buildCardBody()
         ),
       ),
@@ -54,18 +58,42 @@ class _KanbanCardState extends State<KanbanCard> {
         ),
       ],
     ),
-    child:_buildText(widget.card.title)
+    child: Padding(
+      padding: const EdgeInsets.all(primaryPaddingValue),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: kanbanCardWidth - 40,
+            child: _buildText(widget.card.title)),
+          Spacer(),
+          _isHovered ? _buildBinIcon() : SizedBox(),
+        ],
+      ),
+    ),
   );
 
-  Widget _buildText(String text) => Padding(
-    padding: const EdgeInsets.all(primaryPaddingValue),
-    child: DefaultTextStyle(   
-      style: TextStyle(
-        color: darkGrey, 
-        fontSize: smallTextFontSize
+  Widget _buildBinIcon() => MouseRegion(
+    cursor: SystemMouseCursors.click,
+    child: GestureDetector(
+      onTap: () {
+        _kanban.removeCard(widget.card);
+        widget.onCardRemoved();
+      },
+      child: Icon(
+        Icons.delete,
+        color: darkGrey,
+        size: 16,
       ),
-      child: Text(text),
     ),
+  );
+
+  Widget _buildText(String text) => DefaultTextStyle(   
+    style: TextStyle(
+      color: darkGrey, 
+      fontSize: smallTextFontSize
+    ),
+    child: Text(text),
   );
 
   Widget _buildDraggingCard() => Container(
