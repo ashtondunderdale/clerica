@@ -34,6 +34,7 @@ class _KanbanState extends State<Kanban> {
       kanbanColumns.where((column) => column.title == card.column)
         .forEach((column) {
           column.cards.add(card);
+          column.itemCount++;
         });
     }
 

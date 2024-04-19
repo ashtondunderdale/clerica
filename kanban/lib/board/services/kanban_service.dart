@@ -39,6 +39,7 @@ class KanbanService {
   void removeCard(KanbanCardModel card) {
     var column = kanbanColumns.firstWhere((col) => col.title == card.column);
     column.cards.remove(card);
+    removeKanbanData(card.id);
   }
 
   String generateCardId() {
@@ -104,8 +105,29 @@ class KanbanService {
 
       return cards;
     } catch (exception) {
-      print(exception);
+      print('Error loading data from storage: $exception');
       return [];
     }
   }
+
+Future<void> removeKanbanData(String cardId) async {
+  var jsonString = web.window.localStorage[_storageKey];
+
+  if (jsonString != null && jsonString.isNotEmpty) {
+    try {
+      Map<String, dynamic> decodedData = json.decode(jsonString);
+      List<dynamic> cards = decodedData['cards'];
+      List<dynamic> updatedCards = cards.where((card) => card['id'] != cardId).toList();
+
+      decodedData['cards'] = updatedCards;
+
+      String updatedJsonString = json.encode(decodedData);
+
+      web.window.localStorage[_storageKey] = updatedJsonString;
+    } catch (exception) {
+      print('Error removing card from storage: $exception');
+    }
+  }
+}
+
 }
