@@ -1,5 +1,5 @@
 class KanbanCardModel {
-  final String title;
+  String title;
   String column;
   String id;
   bool isVisible;
@@ -8,7 +8,7 @@ class KanbanCardModel {
     required this.title,
     required this.column,
     required this.id,
-    required this.isVisible
+    required this.isVisible,
   });
 
   Map<String, dynamic> toJson() =>
@@ -16,6 +16,6 @@ class KanbanCardModel {
     'title': title,
     'column': column,
     'id': id,
-    'isVisible': true
+    'isVisible': true,
   };
 }

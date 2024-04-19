@@ -58,6 +58,7 @@ class _KanbanState extends State<Kanban> {
           child: SizedBox(
             height: MediaQuery.of(context).size.height - actionBarHeight,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: kanbanColumns.map((column) => KanbanColumn(
                 column: column,
                 onCardMoved: (card, column) {

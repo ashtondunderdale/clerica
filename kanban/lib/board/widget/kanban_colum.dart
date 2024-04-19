@@ -99,5 +99,4 @@ class _KanbanColumnState extends State<KanbanColumn> {
       fontSize: smallTextFontSize
     ),
   );
-
 }

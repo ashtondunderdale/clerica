@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 
 import '../../constants.dart';
@@ -17,9 +18,17 @@ class KanbanCard extends StatefulWidget {
 
 class _KanbanCardState extends State<KanbanCard> {
   KanbanService _kanban = KanbanService();
+  final TextEditingController _cardTitleController = TextEditingController();
 
   Color _backgroundColor = white;
   bool _isHovered = false;
+  bool _isEditingTitle = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _cardTitleController.text = widget.card.title;
+  }
 
   @override
   Widget build(BuildContext context) => widget.card.isVisible ? Padding(
@@ -68,7 +77,8 @@ class _KanbanCardState extends State<KanbanCard> {
             children: [
               SizedBox(
                 width: kanbanCardWidth - 40,
-                child: _buildText(widget.card.title)),
+                child: _buildTitle(_cardTitleController)
+              ),
               Spacer(),
               _isHovered ? _buildBinIcon() : SizedBox(),
             ],
@@ -79,6 +89,66 @@ class _KanbanCardState extends State<KanbanCard> {
       ),
     ),
   );
+
+  Widget _buildTitle(TextEditingController controller) => _isEditingTitle
+    ? SizedBox(
+        width: kanbanCardWidth - 40,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: primaryPaddingValue),
+          child: KeyboardListener(
+            focusNode: FocusNode(),
+            onKeyEvent: (event) {
+              if (event.logicalKey == LogicalKeyboardKey.enter) {
+                setState(() {
+                  _isEditingTitle = false;
+                  widget.card.title = controller.text;
+                  _kanban.saveKanbanData(widget.card);
+                });
+              }
+            },
+            child: TextField(
+              cursorColor: darkGrey,
+              style: TextStyle(
+                color: darkGrey,
+                fontSize: smallTextFontSize,
+              ),
+              controller: controller,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+              ),
+              autofocus: true,
+            ),
+          ),
+        ),
+      )
+    : Row(
+        children: [
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(secondaryPaddingValue),
+              child: _buildText(
+                widget.card.title,
+              ),
+            ),
+          ),
+          _isHovered
+              ? Padding(
+                  padding: const EdgeInsets.all(secondaryPaddingValue),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() => _isEditingTitle = true);
+                    },
+                    child: Icon(
+                      Icons.edit,
+                      color: darkGrey,
+                      size: 13,
+                    ),
+                  ),
+                )
+              : SizedBox(),
+        ],
+      );
+
 
   Widget _buildBinIcon() => MouseRegion(
     cursor: SystemMouseCursors.click,
@@ -98,7 +168,7 @@ class _KanbanCardState extends State<KanbanCard> {
   Widget _buildText(String text) => DefaultTextStyle(   
     style: TextStyle(
       color: darkGrey, 
-      fontSize: smallTextFontSize
+      fontSize: smallTextFontSize,
     ),
     child: Text(text),
   );
