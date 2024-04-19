@@ -93,24 +93,26 @@ class _KanbanCardState extends State<KanbanCard> {
   Widget _buildTitle(TextEditingController controller) => _isEditingTitle
     ? SizedBox(
         width: kanbanCardWidth - 40,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: primaryPaddingValue),
-          child: KeyboardListener(
-            focusNode: FocusNode(),
-            onKeyEvent: (event) {
-              if (event.logicalKey == LogicalKeyboardKey.enter) {
-                setState(() {
-                  _isEditingTitle = false;
-                  widget.card.title = controller.text;
-                  _kanban.saveKanbanData(widget.card);
-                });
-              }
-            },
+        child: KeyboardListener(
+          focusNode: FocusNode(),
+          onKeyEvent: (event) {
+            if (event.logicalKey == LogicalKeyboardKey.enter) {
+              setState(() {
+                _isEditingTitle = false;
+                widget.card.title = controller.text;
+
+                _kanban.saveKanbanData(widget.card);
+              });
+            }
+          },
+          child: SizedBox(
+            width: kanbanCardWidth - 40,
+            height: 8,
             child: TextField(
               cursorColor: darkGrey,
-              style: TextStyle(
-                color: darkGrey,
-                fontSize: smallTextFontSize,
+              style:  TextStyle(
+                color: darkGrey, 
+                fontSize: smallTextFontSize
               ),
               controller: controller,
               decoration: InputDecoration(
