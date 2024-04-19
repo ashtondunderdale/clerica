@@ -1,12 +1,12 @@
 {
     "cards" : [
         {
-            "Title":"card1",
-            "Column":"TODO"
+            "title":"card1",
+            "column":"TODO"
         },
         {
-            "Title":"card2",
-            "Column":"IN PROGRESS"
+            "title":"card2",
+            "column":"IN PROGRESS"
         }
     ]
 }

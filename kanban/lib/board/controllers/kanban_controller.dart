@@ -1,25 +1,36 @@
 import 'dart:convert';
-
-import 'package:flutter/services.dart';
-import 'package:kanban_application/board/models/kanban_card_model.dart';
+import 'dart:html' as web;
 
 import '../data.dart';
+import '../models/kanban_card_model.dart';
 
 class KanbanController {
 
-  static Future<List<KanbanCardModel>> getInitialCards() async
-  { 
-    var jsonString = await rootBundle.loadString("cards.json");
-    List<dynamic> cardsJson = json.decode(jsonString)['cards'];
+  static const _storageKey = 'kanbanData';
 
-    for (var cardJson in cardsJson) {
+  static Future<void> saveKanbanData(String kanbanData) async {
+    
+    
 
-      kanbanColumnCards.add(KanbanCardModel(
-        title: cardJson['Title'], 
-        column: cardJson['Column'] ?? "TODO"
-      ));      
-    }
+    kanbanData = '{"cards":[{"title":"card1","column":"TODO"},{"title":"card2","column":"IN PROGRESS"}]}';
+    web.window.localStorage[_storageKey] = kanbanData;
+  }
 
-    return kanbanColumnCards;
+  static Future<List<KanbanCardModel>> loadKanbanData() async {
+    final jsonString = web.window.localStorage[_storageKey];
+
+    if (jsonString == null) return []; 
+
+      final decodedData = json.decode(jsonString);
+      final List<dynamic> cardsJson = decodedData['cards'];
+
+      for (var cardJson in cardsJson) {
+        kanbanColumnCards.add(KanbanCardModel(
+          title: cardJson['title'], 
+          column: cardJson['column'] ?? "TODO",
+        ));      
+      }
+
+      return kanbanColumnCards;
   }
 }
