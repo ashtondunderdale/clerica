@@ -31,7 +31,7 @@ class KanbanService {
     );
     
     column.cards.add(card);
-    //saveKanbanData(card);
+    saveKanbanData(card);
 
     totalCardCount++;
   }
@@ -41,54 +41,71 @@ class KanbanService {
     column.cards.remove(card);
   }
 
-  Future<void> saveKanbanData(KanbanCardModel kanbanData) async {
-    print("saving data");
-
-
-    String data = '{"cards":[{"title":"card1","column":"TODO", "id":"K00000"},{"title":"card2","column":"IN PROGRESS", "id":"K00001"}]}';
-    web.window.localStorage[_storageKey] = data;
-    print(web.window.localStorage[_storageKey]);
-  }
-
-Future<List<KanbanCardModel>> loadKanbanData() async {
-  String? jsonString = web.window.localStorage[_storageKey];
-
-  if (jsonString == null || jsonString.isEmpty) {
-    return [];
-  }
-
-  try {
-    final decodedData = json.decode(jsonString);
-    final List<dynamic> cards = decodedData['cards'];
-    final List<KanbanCardModel> pulledCards = [];
-      print(cards[0]);
-
-    for (var card in cards) {
-      var newCard = KanbanCardModel(
-        title: card['title'] ?? "null",
-        column: card['column'] ?? "null",
-        id: card['id'] ?? "null",
-        isVisible: true,
-      );
-
-      pulledCards.add(newCard);
-    }
-
-    return pulledCards;
-  } catch (exception) {
-    print(exception);
-    return [];
-  }
-}
-
-
-
-
   String generateCardId() {
-    // first ID: K00000, then K00001...
     int currentCardDigitLength = totalCardCount.toString().length;
     int zeroesToAdd = 5 - currentCardDigitLength;
 
     return "ID${"0" * zeroesToAdd}$totalCardCount";
+  }
+
+  //-------------------------LOCAL_STORAGE_STUFF_BELOW-------------------------//
+
+  Future<void> saveKanbanData(KanbanCardModel newCard) async {
+    var jsonString = web.window.localStorage[_storageKey];
+
+    List<Map<String, dynamic>> updatedCards = [];
+
+    if (jsonString != null && jsonString.isNotEmpty) {
+      final decodedData = json.decode(jsonString);
+      final List<dynamic> cards = decodedData['cards'];
+
+      for (var card in cards) {
+        if (card['id'] == newCard.id) {
+          card['title'] = newCard.title;
+          card['column'] = newCard.column;
+          updatedCards.add(card);
+        } else {
+          updatedCards.add(card);
+        }
+      }
+    }
+
+    if (!updatedCards.any((card) => card['id'] == newCard.id)) {
+      updatedCards.add({
+        'title': newCard.title,
+        'column': newCard.column,
+        'id': newCard.id,
+      });
+    }
+
+    web.window.localStorage[_storageKey] = json.encode({'cards': updatedCards});
+  }
+
+
+  Future<List<KanbanCardModel>> loadKanbanData() async {
+    String? jsonString = web.window.localStorage[_storageKey];
+
+    if (jsonString == null || jsonString.isEmpty) {
+      return [];
+    }
+
+    try {
+      final List<dynamic> storedCards = json.decode(jsonString)['cards'];
+      final List<KanbanCardModel> cards = [];
+
+      for (var card in storedCards) {
+        cards.add(KanbanCardModel(
+          title: card['title'] ?? "null",
+          column: card['column'] ?? "null",
+          id: card['id'] ?? "null",
+          isVisible: true,
+        ));
+      }
+
+      return cards;
+    } catch (exception) {
+      print(exception);
+      return [];
+    }
   }
 }
