@@ -23,24 +23,21 @@ class _KanbanState extends State<Kanban> {
   @override
   void initState() {
     super.initState();
+    originalCards = _kanban.getAllCards();
     initialize();
   }
 
   Future initialize() async {
     var cards = await _kanban.loadKanbanData();
 
-    originalCards = _kanban.getAllCards();
-
     for (var card in cards) {
-      kanbanColumns
-          .where((column) => column.title == card.column)
-          .forEach((column) {
-        column.cards.add(card);
-      });
+      kanbanColumns.where((column) => column.title == card.column)
+        .forEach((column) {
+          column.cards.add(card);
+        });
     }
 
     totalCardCount = cards.length;
-
     setState(() {});
   }
 
@@ -52,24 +49,7 @@ class _KanbanState extends State<Kanban> {
           children: [
             CardSearchBar(
               onSearch: (query) {
-                setState(() {
-
-                  for (var column in kanbanColumns) {
-                    column.cards.clear();
-                  }
-
-                  originalCards = _kanban.getAllCards();
-
-                  for (var card in originalCards) {
-                    if (card.title.contains(query)) {
-                      kanbanColumns.where((column) => column.title == card.column).forEach((column) {
-                        column.cards.add(card);
-                      });
-                    }
-                  }
-
-                  setState(() {});
-                });
+                updateCardVisibility(query);
               },
             ),
             SingleChildScrollView(
@@ -77,14 +57,12 @@ class _KanbanState extends State<Kanban> {
               child: SizedBox(
                 height: MediaQuery.of(context).size.height - actionBarHeight,
                 child: Row(
-                  children: kanbanColumns
-                      .map((column) => KanbanColumn(
-                            column: column,
-                            onCardMoved: (card, column) {
-                              updateKanban(card, column);
-                            },
-                          ))
-                      .toList(),
+                  children: kanbanColumns.map((column) => KanbanColumn(
+                    column: column,
+                    onCardMoved: (card, column) {
+                      updateKanban(card, column);
+                    },
+                  )).toList(),
                 ),
               ),
             ),
@@ -104,6 +82,22 @@ class _KanbanState extends State<Kanban> {
     previousColumn.itemCount = previousColumn.cards.length;
 
     _kanban.saveKanbanData(card);
+
+    setState(() {});
+  }
+
+  void updateCardVisibility(String query) {
+    originalCards = _kanban.getAllCards();
+
+    for (var column in kanbanColumns) {
+      for (var card in column.cards) {
+        card.isVisible = false;
+      }
+    }
+
+    for (var card in originalCards) {
+      card.isVisible = card.title.contains(query) ? true : false;
+    }
 
     setState(() {});
   }

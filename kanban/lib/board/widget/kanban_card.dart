@@ -22,7 +22,7 @@ class _KanbanCardState extends State<KanbanCard> {
   bool _isHovered = false;
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(BuildContext context) => widget.card.isVisible ? Padding(
     padding: const EdgeInsets.all(secondaryPaddingValue),
     child: GestureDetector(
       child: Draggable<KanbanCardModel>(
@@ -40,7 +40,7 @@ class _KanbanCardState extends State<KanbanCard> {
         ),
       ),
     ),
-  );
+  ) : SizedBox();
 
   Widget _buildCardBody() => AnimatedContainer(
     duration: _isHovered ? Duration(milliseconds: 200) : Duration(milliseconds: 100),

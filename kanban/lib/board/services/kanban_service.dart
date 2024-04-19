@@ -26,7 +26,8 @@ class KanbanService {
     column.cards.add(KanbanCardModel(
       title: title, 
       column: columnTitle,
-      id: generateCardId()
+      id: generateCardId(),
+      isVisible: true
     ));
 
     totalCardCount++;
@@ -48,7 +49,8 @@ class KanbanService {
     kanbanData = cards.map((card) => KanbanCardModel(
       title: card['title'],
       column: card['column'],
-      id: card['id']
+      id: card['id'],
+      isVisible: true
     )).toList();
 
     bool cardExists = false;
@@ -79,7 +81,8 @@ class KanbanService {
     return cards.map((card) => KanbanCardModel(
       title: card['title'],
       column: card['column'],
-      id: card['id']
+      id: card['id'],
+      isVisible: true
     )).toList();
   }
 
