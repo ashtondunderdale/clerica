@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -17,7 +15,7 @@ class KanbanCard extends StatefulWidget {
 
 class _KanbanCardState extends State<KanbanCard> {
   Color backgroundColor = white;
-  bool isHovered = false;
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -28,16 +26,12 @@ class _KanbanCardState extends State<KanbanCard> {
         feedback: widget,
         childWhenDragging: _buildDraggingCard(),
         child: MouseRegion(
-          onEnter: (enter) {
-            setState(() {
-              isHovered = true;
-            });
-          },
-          onExit: (exit) {
-            setState(() {
-              isHovered = false;
-            });
-          },
+        onEnter: (_) {
+          setState(() => _isHovered = true);
+        },
+        onExit: (_) {
+          setState(() => _isHovered = false);
+        },
           child: _buildCardBody()
         ),
       ),
@@ -45,12 +39,12 @@ class _KanbanCardState extends State<KanbanCard> {
   );
 
   Widget _buildCardBody() => AnimatedContainer(
-    duration: isHovered ? Duration(milliseconds: 200) : Duration(milliseconds: 100),
+    duration: _isHovered ? Duration(milliseconds: 200) : Duration(milliseconds: 100),
     width: kanbanCardWidth,
     height: kanbanCardHeight,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(borderRadiusValue),
-      color: isHovered ? lightGrey : backgroundColor,
+      color: _isHovered ? lightGrey : backgroundColor,
       boxShadow: [
         BoxShadow(
           color: darkGrey,

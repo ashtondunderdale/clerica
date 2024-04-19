@@ -25,9 +25,7 @@ class _KanbanState extends State<Kanban> {
   }
 
   Future initialize() async {
-    await KanbanController.saveKanbanData("");
-    await KanbanController.loadKanbanData();
-    //kanbanColumnCards = await KanbanController.loadKanbanData();
+    kanbanColumnCards = await KanbanController.loadKanbanData();
 
     for (var card in kanbanColumnCards) {
       kanbanColumns.where((column) => column.title == card.column).forEach((column) {
@@ -56,7 +54,7 @@ class _KanbanState extends State<Kanban> {
             column.itemCount = column.cards.length;
             previousColumn.itemCount = previousColumn.cards.length;
 
-            KanbanController.saveKanbanData("");
+            KanbanController.saveKanbanData(card);
             
             setState(() {});
           }

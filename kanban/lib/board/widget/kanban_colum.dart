@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kanban_application/board/widget/add_card_button.dart';
 
 import '../../constants.dart';
 import '../models/kanban_card_model.dart';
@@ -18,6 +19,8 @@ class KanbanColumn extends StatefulWidget {
 }
 
 class _KanbanColumnState extends State<KanbanColumn> {
+  bool _isHovered = false;
+
   @override
   Widget build(BuildContext context) => _buildColumn(context, widget.column.title);
 
@@ -26,29 +29,42 @@ class _KanbanColumnState extends State<KanbanColumn> {
     child: DragTarget<KanbanCardModel>(
       onAcceptWithDetails: (card) => widget.onCardMoved(card.data, widget.column),
       onWillAccept: (data) => true,
-      builder: (context, candidateData, rejectedData) => Container(
-        width: kanbanColumnWidth,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color: lightGrey,
-          borderRadius: BorderRadius.circular(borderRadiusValue)),
-        child: Padding(
-          padding: const EdgeInsets.all(primaryPaddingValue),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: primaryPaddingValue, right: primaryPaddingValue, bottom: primaryPaddingValue*2),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildText(title),
-                    Spacer(),
-                    _buildText(widget.column.itemCount.toString()),
-                  ],
+      builder: (context, candidateData, rejectedData) => MouseRegion(
+        onEnter: (enter) {
+          setState(() {
+            _isHovered = true;
+          });
+        },
+        onExit: (exit) {
+          setState(() {
+            _isHovered = false;
+          });
+        },
+        child: Container(
+          width: kanbanColumnWidth,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            color: lightGrey,
+            borderRadius: BorderRadius.circular(borderRadiusValue)),
+          child: Padding(
+            padding: const EdgeInsets.all(primaryPaddingValue),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: primaryPaddingValue, right: primaryPaddingValue, bottom: primaryPaddingValue*2),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildText(title),
+                      Spacer(),
+                      _buildText(widget.column.itemCount.toString()),
+                    ],
+                  ),
                 ),
-              ),
-              _buildCards(widget.column.cards),
-            ],
+                _buildCards(widget.column.cards),
+                _isHovered ? AddCardButton() : SizedBox()
+              ],
+            ),
           ),
         ),
       ),
