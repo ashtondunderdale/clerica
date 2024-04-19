@@ -36,3 +36,5 @@ const double kanbanCardHeight = 90;
 const double kanbanCardWidth = kanbanColumnWidth - 16;
 
 const double smallTextFontSize = 13;
+
+const double actionBarHeight = 100;

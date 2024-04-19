@@ -8,13 +8,28 @@ import '../models/kanban_card_model.dart';
 class KanbanService {
   static const _storageKey = 'kanbanData';
 
-  void addNewCard(String title, String columnTitle) {
+  List<KanbanCardModel> getAllCards() {
+    List<KanbanCardModel> cards = [];
+
+    for (var column in kanbanColumns) {
+      for (var card in column.cards) {
+        cards.add(card);
+      }
+    }
+
+    return cards;
+  }
+
+  void addNewCard(String title, String columnTitle) { 
     var column = kanbanColumns.firstWhere((col) => col.title == columnTitle);
     
     column.cards.add(KanbanCardModel(
       title: title, 
-      column: columnTitle
+      column: columnTitle,
+      id: generateCardId()
     ));
+
+    totalCardCount++;
   }
 
   void removeCard(KanbanCardModel card) {
@@ -32,7 +47,8 @@ class KanbanService {
 
     kanbanData = cards.map((card) => KanbanCardModel(
       title: card['title'],
-      column: card['column'] ?? "TODO",
+      column: card['column'],
+      id: card['id']
     )).toList();
 
     bool cardExists = false;
@@ -62,7 +78,16 @@ class KanbanService {
 
     return cards.map((card) => KanbanCardModel(
       title: card['title'],
-      column: card['column'] ?? "TODO",
+      column: card['column'],
+      id: card['id']
     )).toList();
+  }
+
+  String generateCardId() {
+    // first ID: K00000, then K00001...
+    int currentCardDigitLength = totalCardCount.toString().length;
+    int zeroesToAdd = 5 - currentCardDigitLength;
+
+    return "ID${"0" * zeroesToAdd}$totalCardCount";
   }
 }

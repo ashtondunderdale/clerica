@@ -13,6 +13,8 @@ List<String> addCardMessages = [
   "describe your task",
 ];
 
+int totalCardCount = 0;
+
 List<KanbanColumnModel> kanbanColumns = kanbanColumnTitles.map((title) => KanbanColumnModel(
   title: title, itemCount: 0, cards: []
 )).toList();

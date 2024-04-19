@@ -60,14 +60,21 @@ class _KanbanCardState extends State<KanbanCard> {
     ),
     child: Padding(
       padding: const EdgeInsets.all(primaryPaddingValue),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SizedBox(
-            width: kanbanCardWidth - 40,
-            child: _buildText(widget.card.title)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: kanbanCardWidth - 40,
+                child: _buildText(widget.card.title)),
+              Spacer(),
+              _isHovered ? _buildBinIcon() : SizedBox(),
+            ],
+          ),
           Spacer(),
-          _isHovered ? _buildBinIcon() : SizedBox(),
+          _isHovered ? _buildText(widget.card.id) : SizedBox()
         ],
       ),
     ),
