@@ -15,24 +15,29 @@ class _CardSearchBarState extends State<CardSearchBar> {
   final TextEditingController searchController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => Container(
-    width: 200,
-    height: actionBarHeight,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(borderRadiusValue),
-    ),
-    child: _buildSearchBox(),
+  Widget build(BuildContext context) => SizedBox(
+    width: 500,
+    height: 100,
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        _buildSearchBox(),
+      ],
+    )
   );
 
-  Widget _buildSearchBox() => SizedBox(
-    height: 40,
+  Widget _buildSearchBox() => Padding(
+    padding: const EdgeInsets.all(primaryPaddingValue*2),
     child: Container(
-      width: 200,
+      width: 300,
+      height: 30,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadiusValue),
-        color: lightGrey,
+        color: white,
+        border: Border.all(color: mediumGrey)
       ),
-      child: TextField(
+      child:TextField(
         onChanged: (value) {
           widget.onSearch(value);
         },
@@ -43,7 +48,8 @@ class _CardSearchBarState extends State<CardSearchBar> {
           fontSize: smallTextFontSize,
         ),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: primaryPaddingValue),
+          isDense: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: primaryPaddingValue, vertical: 8.0), // Adjust vertical padding
           hintText: "Search...",
           border: InputBorder.none,
         ),
