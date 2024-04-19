@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
-import '../bloc/board_bloc.dart';
-import '../bloc/board_event.dart';
 import '../data.dart';
 import '../widget/kanban_colum.dart';
 
@@ -26,14 +23,15 @@ class _KanbanState extends State<Kanban> {
           column: column, 
           onCardMoved: (card, column){
             final previousColumn = kanbanColumns.firstWhere((column) => column.title == card.column);
-            
-            BlocProvider.of<BoardBloc>(context).add(
-              BoardCardMovedEvent(card, column, previousColumn),
-            );
+            card.column = column.title;
 
-            setState(() {
-              
-            });
+            previousColumn.cards.remove(card);
+            column.cards.add(card);
+
+            column.itemCount = column.cards.length;
+            previousColumn.itemCount = previousColumn.cards.length;
+            
+            setState(() {});
           }
         )).toList(),
       ),
