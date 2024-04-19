@@ -26,7 +26,6 @@ const Color veryDarkGrey = Color.fromARGB(255, 91, 91, 91);
 
 
 /// other constants
-/// 
 const double borderRadiusValue = 4;
 const double primaryPaddingValue = 8;
 const double secondaryPaddingValue = 4;
