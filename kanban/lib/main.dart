@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'board/views/kanban.dart';
+
 
 void main() => runApp(const App());
 

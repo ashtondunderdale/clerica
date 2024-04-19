@@ -1,0 +1,12 @@
+{
+    "cards" : [
+        {
+            "Title":"card1",
+            "Column":"TODO"
+        },
+        {
+            "Title":"card2",
+            "Column":"IN PROGRESS"
+        }
+    ]
+}
