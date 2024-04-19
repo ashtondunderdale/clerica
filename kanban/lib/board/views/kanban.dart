@@ -23,11 +23,11 @@ class _KanbanState extends State<Kanban> {
   @override
   void initState() {
     super.initState();
-    originalCards = _kanban.getAllCards();
     initialize();
   }
 
   Future initialize() async {
+    originalCards = _kanban.getAllCards();
     var cards = await _kanban.loadKanbanData();
 
     for (var card in cards) {
@@ -43,36 +43,37 @@ class _KanbanState extends State<Kanban> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: white,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CardSearchBar(
-              onSearch: (query) {
-                updateCardVisibility(query);
-              },
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height - actionBarHeight,
-                child: Row(
-                  children: kanbanColumns.map((column) => KanbanColumn(
-                    column: column,
-                    onCardMoved: (card, column) {
-                      updateKanban(card, column);
-                    },
-                  )).toList(),
-                ),
-              ),
-            ),
-          ],
+    backgroundColor: white,
+    body: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CardSearchBar(
+          onSearch: (query) {
+            updateCardVisibility(query);
+          },
         ),
-      );
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - actionBarHeight,
+            child: Row(
+              children: kanbanColumns.map((column) => KanbanColumn(
+                column: column,
+                onCardMoved: (card, column) {
+                  updateKanban(card, column);
+                },
+              )).toList(),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 
   void updateKanban(KanbanCardModel card, KanbanColumnModel column) {
-    final previousColumn =
-        kanbanColumns.firstWhere((column) => column.title == card.column);
+    final previousColumn = kanbanColumns
+      .firstWhere((column) => column.title == card.column);
+
     card.column = column.title;
 
     previousColumn.cards.remove(card);
@@ -96,7 +97,7 @@ class _KanbanState extends State<Kanban> {
     }
 
     for (var card in originalCards) {
-      card.isVisible = card.title.contains(query) ? true : false;
+      card.isVisible = card.title.toLowerCase().contains(query.toLowerCase()) ? true : false;
     }
 
     setState(() {});
