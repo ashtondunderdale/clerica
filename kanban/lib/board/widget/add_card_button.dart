@@ -107,6 +107,7 @@ class _AddCardButtonState extends State<AddCardButton> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: primaryPaddingValue),
               child: TextField(
+                maxLength: maxTaskChars,
                 cursorColor: darkGrey,
                 style:  TextStyle(
                   color: darkGrey, 

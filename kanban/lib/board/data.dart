@@ -11,6 +11,7 @@ List<String> kanbanColumnTitles = [
 List<String> addCardMessages = [
   "what needs to be done?",
   "describe your task",
+  "what's up next?"
 ];
 
 int totalCardCount = 0;

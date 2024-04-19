@@ -37,7 +37,7 @@ class _CardSearchBarState extends State<CardSearchBar> {
         color: white,
         border: Border.all(color: mediumGrey)
       ),
-      child:TextField(
+      child: TextField(
         onChanged: (value) {
           widget.onSearch(value);
         },

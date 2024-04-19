@@ -107,8 +107,9 @@ class _KanbanCardState extends State<KanbanCard> {
           },
           child: SizedBox(
             width: kanbanCardWidth - 40,
-            height: 8,
+            height: 16,
             child: TextField(
+              maxLength: maxTaskChars,
               cursorColor: darkGrey,
               style:  TextStyle(
                 color: darkGrey, 
@@ -117,6 +118,7 @@ class _KanbanCardState extends State<KanbanCard> {
               controller: controller,
               decoration: InputDecoration(
                 border: InputBorder.none,
+                counter: SizedBox.shrink()
               ),
               autofocus: true,
             ),
@@ -140,10 +142,13 @@ class _KanbanCardState extends State<KanbanCard> {
                     onTap: () {
                       setState(() => _isEditingTitle = true);
                     },
-                    child: Icon(
-                      Icons.edit,
-                      color: darkGrey,
-                      size: 13,
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Icon(
+                        Icons.edit,
+                        color: darkGrey,
+                        size: 13,
+                      ),
                     ),
                   ),
                 )

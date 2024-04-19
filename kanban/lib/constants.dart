@@ -37,3 +37,4 @@ const double kanbanCardWidth = kanbanColumnWidth - 16;
 const double smallTextFontSize = 13;
 
 const double actionBarHeight = 100;
+const int maxTaskChars = 24;
