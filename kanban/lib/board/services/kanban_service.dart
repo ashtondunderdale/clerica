@@ -27,7 +27,8 @@ class KanbanService {
       title: title, 
       column: columnTitle,
       id: generateCardId(),
-      isVisible: true
+      isVisible: true,
+      categories: []
     );
     
     column.cards.add(card);
@@ -100,6 +101,7 @@ class KanbanService {
           column: card['column'] ?? "null",
           id: card['id'] ?? "null",
           isVisible: true,
+          categories: card['categories'] ?? []
         ));
       }
 
