@@ -1,6 +1,7 @@
-enum Categories {
+enum CardType {
   maths,
-  programming
+  programming,
+  none
 }
 
 class KanbanCardModel {
@@ -8,14 +9,14 @@ class KanbanCardModel {
   String column;
   String id;
   bool isVisible;
-  List<Categories> categories;
+  CardType cardType;
 
   KanbanCardModel({
     required this.title,
     required this.column,
     required this.id,
     required this.isVisible,
-    required this.categories
+    required this.cardType
   });
 
   Map<String, dynamic> toJson() =>
@@ -24,6 +25,6 @@ class KanbanCardModel {
     'column': column,
     'id': id,
     'isVisible': true,
-    'categories': categories
+    'cardType': cardType
   };
 }

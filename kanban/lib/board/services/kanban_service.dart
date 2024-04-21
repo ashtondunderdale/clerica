@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:html' as web;
 
 import 'package:kanban_application/board/data.dart';
-
 import '../models/kanban_card_model.dart';
 
 class KanbanService {
@@ -28,7 +27,7 @@ class KanbanService {
       column: columnTitle,
       id: generateCardId(),
       isVisible: true,
-      categories: []
+      cardType: CardType.none,
     );
     
     column.cards.add(card);
@@ -101,7 +100,7 @@ class KanbanService {
           column: card['column'] ?? "null",
           id: card['id'] ?? "null",
           isVisible: true,
-          categories: card['categories'] ?? []
+          cardType: card['cardType'] ?? CardType.none
         ));
       }
 

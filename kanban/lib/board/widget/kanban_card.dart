@@ -84,11 +84,36 @@ class _KanbanCardState extends State<KanbanCard> {
             ],
           ),
           Spacer(),
-          _isHovered ? _buildText(widget.card.id) : SizedBox()
+          Row(
+            children: [
+              _buildCardType(widget.card.cardType.name),
+              Spacer(),
+              _isHovered ? _buildText(widget.card.id) : SizedBox()
+            ],
+          )
         ],
       ),
     ),
   );
+
+  Widget _buildCardType(String cardType) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadiusValue*4),
+        border: Border.all(color: mediumGrey)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: secondaryPaddingValue, right: secondaryPaddingValue),
+        child: DefaultTextStyle(   
+          style: TextStyle(
+            color: darkGrey, 
+            fontSize: 11,
+          ),
+          child: Text(cardType),
+        ),
+      ),
+    );
+  }
 
   Widget _buildTitle(TextEditingController controller) => _isEditingTitle
     ? SizedBox(
