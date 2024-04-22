@@ -92,7 +92,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
   );
 
   Widget _buildText(String text) => Text(
-    text,
+    text.replaceAll('_', ' ').toUpperCase(),
     style: TextStyle(
       fontWeight: FontWeight.w500, 
       color: veryDarkGrey, 

@@ -28,10 +28,10 @@ class _CardSearchBarState extends State<CardSearchBar> {
   );
 
   Widget _buildSearchBox() => Padding(
-    padding: const EdgeInsets.all(primaryPaddingValue*2),
+    padding: const EdgeInsets.only(top: primaryPaddingValue*4, left: primaryPaddingValue*16),
     child: Container(
       width: 300,
-      height: 30,
+      height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadiusValue),
         color: white,
@@ -49,7 +49,7 @@ class _CardSearchBarState extends State<CardSearchBar> {
         ),
         decoration: InputDecoration(
           isDense: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: primaryPaddingValue, vertical: 8.0), // Adjust vertical padding
+          contentPadding: EdgeInsets.symmetric(horizontal: primaryPaddingValue, vertical: 14), 
           hintText: "Search...",
           border: InputBorder.none,
         ),

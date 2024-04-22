@@ -1,12 +1,14 @@
 import 'models/kanban_column_model.dart';
 
 
-List<String> kanbanColumnTitles = [
-  "FUTURE", 
-  "TODO",
-  "IN PROGRESS",
-  "DONE",
-];
+enum KanbanTitles {
+  future,
+  todo,
+  in_progress,
+  done,
+  deferred
+}
+
 
 List<String> addCardMessages = [
   "what needs to be done?",
@@ -16,6 +18,6 @@ List<String> addCardMessages = [
 
 int totalCardCount = 0;
 
-List<KanbanColumnModel> kanbanColumns = kanbanColumnTitles.map((title) => KanbanColumnModel(
-  title: title, itemCount: 0, cards: []
+List<KanbanColumnModel> kanbanColumns = KanbanTitles.values.map((title) => KanbanColumnModel(
+  title: title.name, itemCount: 0, cards: []
 )).toList();

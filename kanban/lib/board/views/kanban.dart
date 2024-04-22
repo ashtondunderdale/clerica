@@ -53,19 +53,16 @@ class _KanbanState extends State<Kanban> {
             updateCardVisibility(query);
           },
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height - actionBarHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: kanbanColumns.map((column) => KanbanColumn(
-                column: column,
-                onCardMoved: (card, column) {
-                  updateKanban(card, column);
-                },
-              )).toList(),
-            ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height - actionBarHeight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: kanbanColumns.map((column) => KanbanColumn(
+              column: column,
+              onCardMoved: (card, column) {
+                updateKanban(card, column);
+              },
+            )).toList(),
           ),
         ),
       ],
