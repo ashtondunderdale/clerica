@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:html' as web;
 
 import 'package:kanban_application/board/data.dart';
-import 'package:kanban_application/board/models/kanban_column_model.dart';
 import '../models/kanban_card_model.dart';
 
 class KanbanService {
@@ -20,33 +19,27 @@ class KanbanService {
     return cards;
   }
 
-  void removeAllCards() {       //TODO: FINISH THIS
-    for (var column in kanbanColumns) {
-      column.cards.clear();
-    }
-  }
-
-  void addCard(String title, KanbanColumnModel column) { 
+  void addCard(String title, String columnTitle) { 
+    var column = kanbanColumns.firstWhere((col) => col.title == columnTitle);
     
     var card = KanbanCardModel(
       title: title, 
-      column: column.title,
+      column: columnTitle,
       id: generateCardId(),
       isVisible: true,
       cardType: CardType.none,
     );
+    
+    column.cards.add(card);
+    storeKanbanCard(card);
 
     totalCardCount++;
-    column.cards.add(card);
-    
-    storeKanbanCard(card);
   }
 
   void removeCard(KanbanCardModel card) {
     var column = kanbanColumns.firstWhere((col) => col.title == card.column);
     column.cards.remove(card);
-
-    removeKanbanCard(card.id);
+    removeKanbanData(card.id);
   }
 
   String generateCardId() {
@@ -58,21 +51,24 @@ class KanbanService {
 
   //-------------------------LOCAL_STORAGE_STUFF_BELOW-------------------------//
 
-
   Future<void> storeKanbanCard(KanbanCardModel newCard) async {
-    var cardJson = _getStorageJson();
+    var jsonString = web.window.localStorage[_storageKey];
 
     List<Map<String, dynamic>> updatedCards = [];
-    final List<dynamic> cards = cardJson['cards'];
 
-    for (var card in cards) {
-      if (card['id'] == newCard.id) {
-        card['title'] = newCard.title;
-        card['column'] = newCard.column;
-        card['cardType'] = newCard.cardType.name;
-        updatedCards.add(card);
-      } else {
-        updatedCards.add(card);
+    if (jsonString != null && jsonString.isNotEmpty) {
+      final decodedData = json.decode(jsonString);
+      final List<dynamic> cards = decodedData['cards'];
+
+      for (var card in cards) {
+        if (card['id'] == newCard.id) {
+          card['title'] = newCard.title;
+          card['column'] = newCard.column;
+          card['cardType'] = newCard.cardType.name;
+          updatedCards.add(card);
+        } else {
+          updatedCards.add(card);
+        }
       }
     }
 
@@ -85,40 +81,56 @@ class KanbanService {
       });
     }
 
-    _setStorageJson(jsonEncode({'cards': updatedCards}));
+    web.window.localStorage[_storageKey] = json.encode({'cards': updatedCards});
   }
 
 
   Future<List<KanbanCardModel>> loadKanbanData() async {
-    dynamic cardJson = _getStorageJson();
+    String? jsonString = web.window.localStorage[_storageKey];
 
-    final List<dynamic> storedCards = cardJson['cards'];
-    final List<KanbanCardModel> cards = [];
-
-    for (var card in storedCards) {
-      cards.add(KanbanCardModel(
-        title: card['title'] ?? "null",
-        column: card['column'] ?? "null",
-        id: card['id'] ?? "null",
-        isVisible: true,
-        cardType: CardType.values.firstWhere((e) => e.name == card['cardType'])
-      ));
+    if (jsonString == null || jsonString.isEmpty) {
+      return [];
     }
 
-    return cards;
+    try {
+      final List<dynamic> storedCards = json.decode(jsonString)['cards'];
+      final List<KanbanCardModel> cards = [];
+
+      for (var card in storedCards) {
+        cards.add(KanbanCardModel(
+          title: card['title'] ?? "null",
+          column: card['column'] ?? "null",
+          id: card['id'] ?? "null",
+          isVisible: true,
+          cardType: CardType.values.firstWhere((e) => e.name == card['cardType'])
+        ));
+      }
+
+      return cards;
+    } catch (exception) {
+      print('Error loading data from storage: $exception');
+      return [];
+    }
   }
 
-  Future<void> removeKanbanCard(String cardId) async {
-    dynamic cardJson = _getStorageJson();
+Future<void> removeKanbanData(String cardId) async {
+  var jsonString = web.window.localStorage[_storageKey];
 
-    List<dynamic> cards = cardJson['cards'];
-    cardJson['cards'] = cards.where((card) => card['id'] != cardId).toList();
+  if (jsonString != null && jsonString.isNotEmpty) {
+    try {
+      Map<String, dynamic> decodedData = json.decode(jsonString);
+      List<dynamic> cards = decodedData['cards'];
+      List<dynamic> updatedCards = cards.where((card) => card['id'] != cardId).toList();
 
-    _setStorageJson(json.encode(cardJson));
+      decodedData['cards'] = updatedCards;
+
+      String updatedJsonString = json.encode(decodedData);
+
+      web.window.localStorage[_storageKey] = updatedJsonString;
+    } catch (exception) {
+      print('Error removing card from storage: $exception');
+    }
   }
+}
 
-
-  dynamic _getStorageJson() => jsonDecode(web.window.localStorage[_storageKey] ?? "null");
-
-  void _setStorageJson(String val) => web.window.localStorage[_storageKey] = val;
 }

@@ -82,7 +82,7 @@ class _AddCardButtonState extends State<AddCardButton> {
     focusNode: FocusNode(),
     onKeyEvent: (KeyEvent event) {
       if (event.logicalKey == LogicalKeyboardKey.enter) {
-        _kanban.addCard(controller.text, widget.column);      
+        _kanban.addCard(controller.text, widget.column.title);      
         widget.onCardAdded();
 
         setState(() {
