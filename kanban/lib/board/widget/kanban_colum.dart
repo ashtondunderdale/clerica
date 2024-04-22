@@ -9,10 +9,11 @@ import 'kanban_card.dart';
 
 
 class KanbanColumn extends StatefulWidget {
-  const KanbanColumn({Key? key, required this.column, required this.onCardMoved});
+  const KanbanColumn({Key? key, required this.column, required this.onCardMoved, required this.capitalText});
 
   final KanbanColumnModel column;
   final Function(KanbanCardModel, KanbanColumnModel) onCardMoved;
+  final bool capitalText;
 
   @override
   State<KanbanColumn> createState() => _KanbanColumnState();
@@ -92,7 +93,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
   );
 
   Widget _buildText(String text) => Text(
-    text.replaceAll('_', ' ').toUpperCase(),
+    widget.capitalText ? text.replaceAll('_', ' ').toUpperCase() : text.replaceAll('_', ' ').toLowerCase(),
     style: TextStyle(
       fontWeight: FontWeight.w500, 
       color: veryDarkGrey, 

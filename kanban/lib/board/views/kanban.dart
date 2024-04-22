@@ -3,6 +3,7 @@ import 'package:kanban_application/board/models/kanban_card_model.dart';
 import 'package:kanban_application/board/models/kanban_column_model.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 import 'package:kanban_application/board/widget/card_search_bar.dart';
+import 'package:kanban_application/board/widget/kanban_button.dart';
 import 'package:kanban_application/board/widget/remove_all_cards_button.dart';
 
 import '../../constants.dart';
@@ -20,6 +21,8 @@ class Kanban extends StatefulWidget {
 class _KanbanState extends State<Kanban> {
   KanbanService _kanban = KanbanService();
   List<KanbanCardModel> originalCards = [];
+
+  bool _capitalText = false;
 
   @override
   void initState() {
@@ -56,11 +59,26 @@ class _KanbanState extends State<Kanban> {
                 updateCardVisibility(query);
               },
             ),
-            RemoveAllCardsButton(
-              onRemovedCards: () {
+            KanbanButton(
+              icon: Icons.delete_forever, 
+              onPressed: () {
+                _kanban.removeAllCards();
                 updateColumnItemCount();
-              },
+              }, 
+              message: "remove all"
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: primaryPaddingValue*4),
+              child: KanbanButton(
+                icon: Icons.text_format, 
+                onPressed: () {
+                  setState(() {
+                    _capitalText = !_capitalText;
+                  });
+                }, 
+                message: "capital text"
+              ),
+            )
           ],
         ),
         SizedBox(
@@ -68,6 +86,7 @@ class _KanbanState extends State<Kanban> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: kanbanColumns.map((column) => KanbanColumn(
+              capitalText: _capitalText,
               column: column,
               onCardMoved: (card, column) {
                 updateKanban(card, column);
