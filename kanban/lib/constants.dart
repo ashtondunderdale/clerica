@@ -21,6 +21,10 @@ const Color darkGrey = Color.fromARGB(255, 165, 165, 165);
 /// mainly used for darker backgrounds and text
 const Color veryDarkGrey = Color.fromARGB(255, 91, 91, 91);
 
+const Color mathsColor = Colors.red;
+const Color programmingColor = Colors.green;
+const Color noneColor = Colors.grey;
+
 
 /// --------------------------------------------------------------------- ///
 

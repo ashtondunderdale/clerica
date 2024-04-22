@@ -23,6 +23,7 @@ class _KanbanCardState extends State<KanbanCard> {
   Color _backgroundColor = white;
   bool _isHovered = false;
   bool _isEditingTitle = false;
+  bool _isActive = false;
 
   @override
   void initState() {
@@ -43,7 +44,9 @@ class _KanbanCardState extends State<KanbanCard> {
             setState(() => _isHovered = true);
           },
           onExit: (_) {
-            setState(() => _isHovered = false);
+            setState(() {
+              _isHovered = false;
+            });
           },
           child: _buildCardBody()
         ),
@@ -52,7 +55,7 @@ class _KanbanCardState extends State<KanbanCard> {
   ) : SizedBox();
 
   Widget _buildCardBody() => AnimatedContainer(
-    duration: _isHovered ? Duration(milliseconds: 200) : Duration(milliseconds: 100),
+    duration: _isHovered || _isActive ? Duration(milliseconds: 200) : Duration(milliseconds: 100),
     width: kanbanCardWidth,
     height: kanbanCardHeight,
     decoration: BoxDecoration(
@@ -80,7 +83,7 @@ class _KanbanCardState extends State<KanbanCard> {
                 child: _buildTitle(_cardTitleController)
               ),
               Spacer(),
-              _isHovered ? _buildBinIcon() : SizedBox(),
+              _isHovered || _isActive ? _buildBinIcon() : SizedBox(),
             ],
           ),
           Spacer(),
@@ -88,13 +91,14 @@ class _KanbanCardState extends State<KanbanCard> {
             children: [
               _buildCardType(widget.card.cardType.name),
               Spacer(),
-              _isHovered ? _buildText(widget.card.id) : SizedBox()
+              _isHovered || _isActive ? _buildText(widget.card.id) : SizedBox()
             ],
           )
         ],
       ),
     ),
   );
+
 
   Widget _buildCardType(String cardType) {
     return Container(
@@ -106,7 +110,9 @@ class _KanbanCardState extends State<KanbanCard> {
         padding: const EdgeInsets.only(left: secondaryPaddingValue, right: secondaryPaddingValue),
         child: DefaultTextStyle(   
           style: TextStyle(
-            color: darkGrey, 
+            color: widget.card.cardType == CardType.maths ? mathsColor 
+              : widget.card.cardType == CardType.programming ? programmingColor 
+              : noneColor, 
             fontSize: 11,
           ),
           child: Text(cardType),
