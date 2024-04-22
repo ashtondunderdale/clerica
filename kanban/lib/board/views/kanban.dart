@@ -81,7 +81,7 @@ class _KanbanState extends State<Kanban> {
     column.itemCount = column.cards.length;
     previousColumn.itemCount = previousColumn.cards.length;
 
-    _kanban.saveKanbanData(card);
+    _kanban.storeKanbanCard(card);
 
     setState(() {});
   }

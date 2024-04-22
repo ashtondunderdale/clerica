@@ -106,9 +106,9 @@ class _KanbanCardState extends State<KanbanCard> {
       child: GestureDetector(
         onTap: () {
           var cardTypes = CardType.values.toList();
+          
           var matchingCardType = CardType.values.where((e) => e.name == widget.card.cardType.name).first;
           int i = cardTypes.indexOf(matchingCardType);
-          print(cardTypes[i]);
       
           setState(() {
             if (i >= 0 && i < cardTypes.length - 1) {   
@@ -118,7 +118,7 @@ class _KanbanCardState extends State<KanbanCard> {
             }
           });
       
-          _kanban.saveKanbanData(widget.card);
+          _kanban.storeKanbanCard(widget.card);
         },
         child: Container(
           height: 18,
@@ -156,7 +156,7 @@ class _KanbanCardState extends State<KanbanCard> {
                 _isEditingTitle = false;
                 widget.card.title = controller.text;
 
-                _kanban.saveKanbanData(widget.card);
+                _kanban.storeKanbanCard(widget.card);
               });
             }
           },
