@@ -60,6 +60,7 @@ class _KanbanState extends State<Kanban> {
               },
             ),
             KanbanButton(
+              buttonStateFlag: false,
               icon: Icons.delete_forever, 
               onPressed: () {
                 _kanban.removeAllCards();
@@ -70,6 +71,7 @@ class _KanbanState extends State<Kanban> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: primaryPaddingValue*4),
               child: KanbanButton(
+                buttonStateFlag: _capitalText,
                 icon: Icons.text_format, 
                 onPressed: () {
                   setState(() {
