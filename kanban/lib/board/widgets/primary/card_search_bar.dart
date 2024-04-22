@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class CardSearchBar extends StatefulWidget {
   const CardSearchBar({super.key, required this.onSearch});

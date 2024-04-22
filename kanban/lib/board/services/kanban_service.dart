@@ -6,6 +6,7 @@ import '../models/kanban_card_model.dart';
 
 class KanbanService {
   static const _storageKey = 'kanban';
+  static const _settingsKey = 'settings';
 
   List<KanbanCardModel> getAllCards() {
     List<KanbanCardModel> cards = [];
@@ -59,7 +60,25 @@ class KanbanService {
 
   //-------------------------LOCAL_STORAGE_STUFF_BELOW-------------------------//
 
-  Future<void> storeKanbanCard(KanbanCardModel newCard) async {
+  void storeKanbanSettings(Settings setting, bool value) {
+    var jsonString = web.window.localStorage[_settingsKey];
+
+    Map<String, dynamic> settingsMap = jsonString != null ? json.decode(jsonString) : {};
+    settingsMap[setting.name] = value;
+
+    web.window.localStorage[_settingsKey] = json.encode(settingsMap);
+  }
+
+  Map<String, dynamic>? loadKanbanSetting() {
+    var jsonString = web.window.localStorage[_settingsKey];
+    
+    if (jsonString == null) return null;
+
+    Map<String, dynamic> settingsMap = json.decode(jsonString);
+    return settingsMap;
+  }
+
+  Future storeKanbanCard(KanbanCardModel newCard) async {
     var jsonString = web.window.localStorage[_storageKey];
 
     List<Map<String, dynamic>> updatedCards = [];

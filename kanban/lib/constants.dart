@@ -22,7 +22,7 @@ const Color darkGrey = Color.fromARGB(255, 165, 165, 165);
 const Color veryDarkGrey = Color.fromARGB(255, 91, 91, 91);
 
 const Color mathsColor = Color.fromARGB(255, 244, 118, 108);
-const Color programmingColor = Color.fromARGB(255, 151, 222, 153);
+const Color programmingColor = Color.fromARGB(255, 138, 114, 218);
 const Color noneColor = Colors.grey;
 
 

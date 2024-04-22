@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 
-import '../../constants.dart';
-import '../models/kanban_card_model.dart';
+import '../../../constants.dart';
+import '../../models/kanban_card_model.dart';
 
 
 class KanbanCard extends StatefulWidget {

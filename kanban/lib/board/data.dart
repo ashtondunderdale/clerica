@@ -9,6 +9,10 @@ enum KanbanTitles {
   deferred
 }
 
+enum Settings {
+  capitalText
+}
+
 
 List<String> addCardMessages = [
   "what needs to be done?",

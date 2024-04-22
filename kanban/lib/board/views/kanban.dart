@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:kanban_application/board/models/kanban_card_model.dart';
 import 'package:kanban_application/board/models/kanban_column_model.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
-import 'package:kanban_application/board/widget/card_search_bar.dart';
-import 'package:kanban_application/board/widget/kanban_button.dart';
-import 'package:kanban_application/board/widget/remove_all_cards_button.dart';
+import 'package:kanban_application/board/widgets/primary/card_search_bar.dart';
+import 'package:kanban_application/board/widgets/kanban_button.dart';
 
 import '../../constants.dart';
 import '../data.dart';
-import '../widget/kanban_colum.dart';
+import '../widgets/primary/kanban_colum.dart';
 
 
 class Kanban extends StatefulWidget {
@@ -34,6 +33,8 @@ class _KanbanState extends State<Kanban> {
     originalCards = _kanban.getAllCards();
     var cards = await _kanban.loadKanbanData();
 
+    applySettings();
+
     for (var card in cards) {
       kanbanColumns.where((column) => column.title == card.column)
         .forEach((column) {
@@ -44,6 +45,17 @@ class _KanbanState extends State<Kanban> {
 
     totalCardCount = cards.length;
     setState(() {});
+  }
+
+  void applySettings() {
+    Map<String, dynamic>? settings = _kanban.loadKanbanSetting();
+
+    if (settings == null) {
+      return;
+    }
+
+    // you will have to add more settings here as needed
+    _capitalText = settings[Settings.capitalText.name];
   }
 
   @override
@@ -76,6 +88,7 @@ class _KanbanState extends State<Kanban> {
                 onPressed: () {
                   setState(() {
                     _capitalText = !_capitalText;
+                    _kanban.storeKanbanSettings(Settings.capitalText, _capitalText);
                   });
                 }, 
                 message: "capital text"
