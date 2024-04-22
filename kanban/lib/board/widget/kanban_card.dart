@@ -101,21 +101,42 @@ class _KanbanCardState extends State<KanbanCard> {
 
 
   Widget _buildCardType(String cardType) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadiusValue*4),
-        border: Border.all(color: mediumGrey)
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: secondaryPaddingValue, right: secondaryPaddingValue),
-        child: DefaultTextStyle(   
-          style: TextStyle(
-            color: widget.card.cardType == CardType.maths ? mathsColor 
-              : widget.card.cardType == CardType.programming ? programmingColor 
-              : noneColor, 
-            fontSize: 11,
+    return GestureDetector(
+      onTap: () {
+        var cardTypes = CardType.values.toList();
+        var matchingCardType = CardType.values.where((e) => e.name == widget.card.cardType.name).first;
+        int i = cardTypes.indexOf(matchingCardType);
+        print(cardTypes[i]);
+
+        setState(() {
+          if (i >= 0 && i < cardTypes.length - 1) {   
+            widget.card.cardType = cardTypes[i + 1];
+          } else {
+            widget.card.cardType = cardTypes.first;
+          }
+        });
+
+        _kanban.saveKanbanData(widget.card);
+      },
+      child: Container(
+        height: 18,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadiusValue*4),
+          border: Border.all(color: mediumGrey)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: secondaryPaddingValue, right: secondaryPaddingValue),
+          child: Center(
+            child: DefaultTextStyle(   
+              style: TextStyle(
+                color: widget.card.cardType == CardType.maths ? mathsColor 
+                  : widget.card.cardType == CardType.programming ? programmingColor 
+                  : noneColor, 
+                fontSize: 11,
+              ),
+              child: Text(cardType),
+            ),
           ),
-          child: Text(cardType),
         ),
       ),
     );
