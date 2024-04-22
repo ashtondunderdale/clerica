@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 
 import '../../../constants.dart';
+import '../../data.dart';
 import '../../models/kanban_card_model.dart';
 
 
@@ -133,7 +134,9 @@ class _KanbanCardState extends State<KanbanCard> {
                 style: TextStyle(
                   color: widget.card.cardType == CardType.maths ? mathsColor 
                     : widget.card.cardType == CardType.programming ? programmingColor 
-                    : noneColor, 
+                    : widget.card.cardType == CardType.general ? bugColor 
+                    : widget.card.cardType == CardType.life ? issueColor 
+                    : widget.card.cardType == CardType.health ? orderColor : mediumGrey, 
                   fontSize: 11,
                 ),
                 child: Text(cardType),

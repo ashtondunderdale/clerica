@@ -36,7 +36,7 @@ class KanbanService {
       column: columnTitle,
       id: generateCardId(),
       isVisible: true,
-      cardType: CardType.none,
+      cardType: CardType.general,
     );
     
     column.cards.add(card);

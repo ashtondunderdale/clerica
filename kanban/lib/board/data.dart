@@ -1,5 +1,12 @@
 import 'models/kanban_column_model.dart';
 
+enum CardType {
+  maths,
+  programming,
+  health,
+  life,
+  general
+}
 
 enum KanbanTitles {
   future,

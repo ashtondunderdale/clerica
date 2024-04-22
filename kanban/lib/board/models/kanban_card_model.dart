@@ -1,8 +1,4 @@
-enum CardType {
-  maths,
-  programming,
-  none
-}
+import '../data.dart';
 
 class KanbanCardModel {
   String title;

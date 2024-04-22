@@ -23,6 +23,10 @@ const Color veryDarkGrey = Color.fromARGB(255, 91, 91, 91);
 
 const Color mathsColor = Color.fromARGB(255, 244, 118, 108);
 const Color programmingColor = Color.fromARGB(255, 138, 114, 218);
+const Color bugColor = Color.fromARGB(255, 244, 118, 108);
+const Color issueColor = Color.fromARGB(255, 88, 149, 196);
+const Color orderColor = Color.fromARGB(255, 88, 196, 117);
+
 const Color noneColor = Colors.grey;
 
 
