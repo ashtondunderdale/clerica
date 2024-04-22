@@ -19,6 +19,14 @@ class KanbanService {
     return cards;
   }
 
+  void removeAllCards() {
+    for (var column in kanbanColumns) {
+      column.cards.clear();
+    }
+
+    web.window.localStorage[_storageKey] = "";
+  }
+
   void addCard(String title, String columnTitle) { 
     var column = kanbanColumns.firstWhere((col) => col.title == columnTitle);
     
@@ -113,10 +121,13 @@ class KanbanService {
     }
   }
 
-Future<void> removeKanbanData(String cardId) async {
-  var jsonString = web.window.localStorage[_storageKey];
+  Future<void> removeKanbanData(String cardId) async {
+    var jsonString = web.window.localStorage[_storageKey];
 
-  if (jsonString != null && jsonString.isNotEmpty) {
+    if (jsonString == null || jsonString.isEmpty) {
+      return;
+    }
+
     try {
       Map<String, dynamic> decodedData = json.decode(jsonString);
       List<dynamic> cards = decodedData['cards'];
@@ -131,6 +142,5 @@ Future<void> removeKanbanData(String cardId) async {
       print('Error removing card from storage: $exception');
     }
   }
-}
 
 }

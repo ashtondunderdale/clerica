@@ -3,6 +3,7 @@ import 'package:kanban_application/board/models/kanban_card_model.dart';
 import 'package:kanban_application/board/models/kanban_column_model.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 import 'package:kanban_application/board/widget/card_search_bar.dart';
+import 'package:kanban_application/board/widget/remove_all_cards_button.dart';
 
 import '../../constants.dart';
 import '../data.dart';
@@ -48,10 +49,19 @@ class _KanbanState extends State<Kanban> {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CardSearchBar(
-          onSearch: (query) {
-            updateCardVisibility(query);
-          },
+        Row(
+          children: [
+            CardSearchBar(
+              onSearch: (query) {
+                updateCardVisibility(query);
+              },
+            ),
+            RemoveAllCardsButton(
+              onRemovedCards: () {
+                updateColumnItemCount();
+              },
+            ),
+          ],
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height - actionBarHeight,
@@ -100,5 +110,13 @@ class _KanbanState extends State<Kanban> {
     }
 
     setState(() {});
+  }
+
+  void updateColumnItemCount() {
+    setState(() {
+      for (var column in kanbanColumns) {
+        column.itemCount = column.cards.length;
+      }
+    });
   }
 }
