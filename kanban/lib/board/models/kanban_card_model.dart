@@ -1,5 +1,3 @@
-import '../data.dart';
-
 class KanbanCardModel {
   String title;
   String column;

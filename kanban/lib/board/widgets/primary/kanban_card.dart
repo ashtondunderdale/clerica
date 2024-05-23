@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 
 import '../../../constants.dart';
-import '../../data.dart';
 import '../../models/kanban_card_model.dart';
 
 
