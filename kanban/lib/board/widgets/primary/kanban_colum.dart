@@ -26,8 +26,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
   bool _isHovered = false;
 
   @override
-  Widget build(BuildContext context) =>
-      _buildColumn(context, widget.column.title);
+  Widget build(BuildContext context) => _buildColumn(context, widget.column.title);
 
   Widget _buildColumn(BuildContext context, String title) => Padding(
     padding: const EdgeInsets.all(primaryPaddingValue),
@@ -43,19 +42,20 @@ class _KanbanColumnState extends State<KanbanColumn> {
         },
         child: Container(
           width: kanbanColumnWidth,
-          height: null,
           decoration: BoxDecoration(
-              color: lightGrey,
-              borderRadius: BorderRadius.circular(borderRadiusValue)),
+            color: lightGrey,
+            borderRadius: BorderRadius.circular(borderRadiusValue)
+          ),
           child: Padding(
             padding: const EdgeInsets.all(primaryPaddingValue),
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: primaryPaddingValue,
-                      right: primaryPaddingValue,
-                      bottom: primaryPaddingValue * 2),
+                    left: primaryPaddingValue,
+                    right: primaryPaddingValue,
+                    bottom: primaryPaddingValue * 2
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -74,8 +74,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
                         _isHovered ? AddCardButton(
                           column: widget.column,
                           onCardAdded: () {
-                            widget.column.itemCount =
-                                widget.column.cards.length;
+                            widget.column.itemCount = widget.column.cards.length;
                             setState(() {});
                           }) : SizedBox(),
                       ],

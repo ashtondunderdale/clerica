@@ -21,11 +21,6 @@ const Color darkGrey = Color.fromARGB(255, 165, 165, 165);
 /// mainly used for darker backgrounds and text
 const Color veryDarkGrey = Color.fromARGB(255, 91, 91, 91);
 
-const Color mathsColor = Color.fromARGB(255, 244, 118, 108);
-const Color programmingColor = Color.fromARGB(255, 138, 114, 218);
-const Color bugColor = Color.fromARGB(255, 244, 118, 108);
-const Color issueColor = Color.fromARGB(255, 88, 149, 196);
-const Color orderColor = Color.fromARGB(255, 88, 196, 117);
 
 const Color noneColor = Colors.grey;
 
@@ -46,3 +41,4 @@ const double smallTextFontSize = 13;
 
 const double actionBarHeight = 100;
 const int maxTaskChars = 24;
+const int maxColumnTitleChars = 18;

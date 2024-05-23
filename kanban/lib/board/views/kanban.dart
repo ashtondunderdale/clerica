@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kanban_application/board/models/kanban_card_model.dart';
 import 'package:kanban_application/board/models/kanban_column_model.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
+import 'package:kanban_application/board/widgets/add_column_button.dart';
 import 'package:kanban_application/board/widgets/primary/card_search_bar.dart';
 import 'package:kanban_application/board/widgets/kanban_button.dart';
 
@@ -31,12 +32,15 @@ class _KanbanState extends State<Kanban> {
 
   Future initialize() async {
     originalCards = _kanban.getAllCards();
-    var cards = await _kanban.loadKanbanData();
+    var cards = await _kanban.loadKanbanCards();
+
+    columns = await _kanban.loadKanbanColumns();
 
     applySettings();
 
     for (var card in cards) {
-      kanbanColumns.where((column) => column.title == card.column)
+      //kanbanColumns.where((column) => column.title == card.column)
+      columns.where((column) => column.title == card.column)
         .forEach((column) {
           column.cards.add(card);
           column.itemCount++;
@@ -96,17 +100,31 @@ class _KanbanState extends State<Kanban> {
             )
           ],
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height - actionBarHeight,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: kanbanColumns.map((column) => KanbanColumn(
-              capitalText: _capitalText,
-              column: column,
-              onCardMoved: (card, column) {
-                updateKanban(card, column);
-              },
-            )).toList(),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - actionBarHeight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var column in columns)
+                  KanbanColumn(
+                    capitalText: _capitalText,
+                    column: column,
+                    onCardMoved: (card, newColumn) {
+                      updateKanban(card, newColumn);
+                    },
+                  ),
+                AddColumnButton(
+                  onColumnAdded: () async {
+                    columns = await _kanban.loadKanbanColumns();
+
+                    setState(() {});
+                  }
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -114,7 +132,7 @@ class _KanbanState extends State<Kanban> {
   );
 
   void updateKanban(KanbanCardModel card, KanbanColumnModel column) {
-    final previousColumn = kanbanColumns
+    final previousColumn = columns
       .firstWhere((column) => column.title == card.column);
 
     card.column = column.title;
@@ -133,7 +151,7 @@ class _KanbanState extends State<Kanban> {
   void updateCardVisibility(String query) {
     originalCards = _kanban.getAllCards();
 
-    for (var column in kanbanColumns) {
+    for (var column in columns) {
       for (var card in column.cards) {
         card.isVisible = false;
       }
@@ -148,7 +166,7 @@ class _KanbanState extends State<Kanban> {
 
   void updateColumnItemCount() {
     setState(() {
-      for (var column in kanbanColumns) {
+      for (var column in columns) {
         column.itemCount = column.cards.length;
       }
     });
