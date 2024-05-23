@@ -185,7 +185,7 @@ class KanbanService {
 
     try {
       final List<dynamic> storedColumns = json.decode(jsonString)['columns'];
-      
+
       final List<KanbanColumnModel> columns = storedColumns
         .map<KanbanColumnModel>((column) => KanbanColumnModel.fromJson(column))
         .toList();
@@ -227,9 +227,18 @@ class KanbanService {
     }
 
     var columns = List<Map<String, dynamic>>.from(json.decode(jsonString)['columns']);
-
     columns.removeWhere((column) => column['title'] == columnTitle);
 
     web.window.localStorage[_columnsKey] = json.encode({'columns': columns});
+
+
+    var cardsJsonString = web.window.localStorage[_cardsKey];
+
+    if (cardsJsonString != null && cardsJsonString.isNotEmpty) {
+      var cards = List<Map<String, dynamic>>.from(json.decode(cardsJsonString)['cards']);
+      cards.removeWhere((card) => card['column'] == columnTitle);
+
+      web.window.localStorage[_cardsKey] = json.encode({'cards': cards});
+    }
   }
 }
