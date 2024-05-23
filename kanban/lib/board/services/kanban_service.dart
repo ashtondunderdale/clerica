@@ -40,9 +40,9 @@ class KanbanService {
   }
 
   void removeCard(KanbanCardModel card) {
-    //var column = kanbanColumns.firstWhere((col) => col.title == card.column);
-    // column.cards.remove(card);
-    // removeKanbanCard(card.id);
+    var column = columns.firstWhere((col) => col.title == card.column);
+    column.cards.remove(card);
+    removeKanbanCard(card.id);
   }
 
   String generateCardId() {
@@ -131,11 +131,11 @@ class KanbanService {
   }
 
   void removeAllCards() {
-    // for (var column in kanbanColumns) {
-    //   column.cards.clear();
-    // }
+    for (var column in columns) {
+      column.cards.clear();
+    }
 
-    // web.window.localStorage[_cardsKey] = "";
+    web.window.localStorage[_cardsKey] = "";
   }
 
   Future<void> removeKanbanCard(String cardId) async {
@@ -185,9 +185,10 @@ class KanbanService {
 
     try {
       final List<dynamic> storedColumns = json.decode(jsonString)['columns'];
+      
       final List<KanbanColumnModel> columns = storedColumns
-          .map<KanbanColumnModel>((column) => KanbanColumnModel.fromJson(column))
-          .toList();
+        .map<KanbanColumnModel>((column) => KanbanColumnModel.fromJson(column))
+        .toList();
 
       return columns;
     } catch (exception) {
@@ -203,12 +204,31 @@ class KanbanService {
 
     List<Map<String, dynamic>> columns = [];
 
-    print(jsonString);
     if (jsonString != null && jsonString.isNotEmpty) {
       columns = List<Map<String, dynamic>>.from(json.decode(jsonString)['columns']);
+      
+      for (var column in columns) {
+        if (column['title'] == newColumnTitle) {
+          return;
+        }
+      }
     }
 
     columns.add(newColumn.toJson());
+
+    web.window.localStorage[_columnsKey] = json.encode({'columns': columns});
+  }
+
+  Future<void> removeKanbanColumn(String columnTitle) async {
+    var jsonString = web.window.localStorage[_columnsKey];
+
+    if (jsonString == null || jsonString.isEmpty) {
+      return;
+    }
+
+    var columns = List<Map<String, dynamic>>.from(json.decode(jsonString)['columns']);
+
+    columns.removeWhere((column) => column['title'] == columnTitle);
 
     web.window.localStorage[_columnsKey] = json.encode({'columns': columns});
   }

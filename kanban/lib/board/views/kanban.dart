@@ -8,7 +8,7 @@ import 'package:kanban_application/board/widgets/kanban_button.dart';
 
 import '../../constants.dart';
 import '../data.dart';
-import '../widgets/primary/kanban_colum.dart';
+import '../widgets/primary/kanban_column.dart';
 
 
 class Kanban extends StatefulWidget {
@@ -39,7 +39,6 @@ class _KanbanState extends State<Kanban> {
     applySettings();
 
     for (var card in cards) {
-      //kanbanColumns.where((column) => column.title == card.column)
       columns.where((column) => column.title == card.column)
         .forEach((column) {
           column.cards.add(card);
@@ -114,12 +113,33 @@ class _KanbanState extends State<Kanban> {
                     column: column,
                     onCardMoved: (card, newColumn) {
                       updateKanban(card, newColumn);
+                    }, 
+                    onColumnRemoved: () async { 
+                      columns = await _kanban.loadKanbanColumns();
+                      var cards = await _kanban.loadKanbanCards();
+
+                      for (var card in cards) {
+                        columns.where((column) => column.title == card.column)
+                          .forEach((column) {
+                            column.cards.add(card);
+                            column.itemCount++;
+                          });
+                      }
+                      setState(() {});
                     },
                   ),
                 AddColumnButton(
                   onColumnAdded: () async {
                     columns = await _kanban.loadKanbanColumns();
-
+                      var cards = await _kanban.loadKanbanCards();
+                      
+                      for (var card in cards) {
+                        columns.where((column) => column.title == card.column)
+                          .forEach((column) {
+                            column.cards.add(card);
+                            column.itemCount++;
+                          });
+                      }
                     setState(() {});
                   }
                 ),

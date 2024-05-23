@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:kanban_application/board/services/kanban_service.dart';
 import 'package:kanban_application/board/widgets/add_card_button.dart';
 
 import '../../../constants.dart';
@@ -12,18 +12,25 @@ class KanbanColumn extends StatefulWidget {
       {Key? key,
       required this.column,
       required this.onCardMoved,
-      required this.capitalText});
+      required this.capitalText, 
+      required this.onColumnRemoved
+    });
 
   final KanbanColumnModel column;
   final Function(KanbanCardModel, KanbanColumnModel) onCardMoved;
   final bool capitalText;
+
+  final VoidCallback onColumnRemoved;
 
   @override
   State<KanbanColumn> createState() => _KanbanColumnState();
 }
 
 class _KanbanColumnState extends State<KanbanColumn> {
+  final _kanban = KanbanService();
+
   bool _isHovered = false;
+  bool _isColumnTopHovered = false;
 
   @override
   Widget build(BuildContext context) => _buildColumn(context, widget.column.title);
@@ -56,13 +63,22 @@ class _KanbanColumnState extends State<KanbanColumn> {
                     right: primaryPaddingValue,
                     bottom: primaryPaddingValue * 2
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildText(title),
-                      Spacer(),
-                      _buildAnimatedItemCount(widget.column.itemCount),
-                    ],
+                  child: MouseRegion(
+                    onEnter: (_) {
+                      setState(() => _isColumnTopHovered = true);
+                    },
+                    onExit: (_) {
+                      setState(() => _isColumnTopHovered = false);
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildText(title),
+                        Spacer(),
+                        _isColumnTopHovered ? _buildDeleteColumnIcon() : SizedBox(),
+                        _buildAnimatedItemCount(widget.column.itemCount),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
@@ -111,32 +127,50 @@ class _KanbanColumnState extends State<KanbanColumn> {
     ),
   );
 
-Widget _buildAnimatedItemCount(int itemCount) {
-  return AnimatedSwitcher(
-    duration: const Duration(milliseconds: 250),
-    transitionBuilder: (Widget child, Animation<double> animation) {
-      return SlideTransition(
-        position: Tween<Offset>(
-          begin: itemCount > 0 ? const Offset(0.0, 0.5) : const Offset(0.0, -0.5),
-          end: Offset.zero,
-        ).animate(CurvedAnimation(parent: animation, curve: Curves.ease)),
-        child: FadeTransition(
-          opacity: Tween<double>(begin: 0, end: 1).animate(animation),
-          child: child,
+  Widget _buildAnimatedItemCount(int itemCount) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 250),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: itemCount > 0 ? const Offset(0.0, 0.5) : const Offset(0.0, -0.5),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(parent: animation, curve: Curves.ease)),
+          child: FadeTransition(
+            opacity: Tween<double>(begin: 0, end: 1).animate(animation),
+            child: child,
+          ),
+        );
+      },
+      child: Text(
+        itemCount.toString(),
+        key: ValueKey<int>(itemCount),
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          color: veryDarkGrey,
+          fontSize: smallTextFontSize,
         ),
-      );
-    },
-    child: Text(
-      itemCount.toString(),
-      key: ValueKey<int>(itemCount),
-      style: TextStyle(
-        fontWeight: FontWeight.w500,
-        color: veryDarkGrey,
-        fontSize: smallTextFontSize,
+      ),
+    );
+  }
+
+  Widget _buildDeleteColumnIcon() => MouseRegion(
+    cursor: SystemMouseCursors.click,
+    child: Padding(
+      padding: const EdgeInsets.only(right: primaryPaddingValue),
+      child: GestureDetector(
+        onTap: () async {
+          await _kanban.removeKanbanColumn(widget.column.title);
+          widget.onColumnRemoved();
+          
+          setState(() {});          
+        },
+        child: Icon(
+          Icons.delete,
+          color: darkGrey,
+          size: 16,
+        ),
       ),
     ),
   );
-}
-
-
 }

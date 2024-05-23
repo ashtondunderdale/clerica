@@ -36,13 +36,13 @@ class _AddColumnButtonState extends State<AddColumnButton> {
         onExit: (_) {
           setState(() => _isHovered = false);
         },
-        child:  _isClicked ? _buildAddCardContainer(_controller) : _buildAddColumnOption()
+        child:  _isClicked ? _buildAddColumnContainer(_controller) : _buildAddColumnOption()
       ),
     );
   }
 
     Widget _buildAddColumnOption() => Padding(
-    padding: const EdgeInsets.only(top: primaryPaddingValue),
+    padding: const EdgeInsets.only(top: primaryPaddingValue, left: primaryPaddingValue),
     child: Container(
       width: kanbanCardWidth - 4,
       height: 40,
@@ -73,13 +73,13 @@ class _AddColumnButtonState extends State<AddColumnButton> {
   );
 
 
-  Widget _buildAddCardContainer(TextEditingController controller) => KeyboardListener(
+  Widget _buildAddColumnContainer(TextEditingController controller) => KeyboardListener(
     focusNode: FocusNode(),
     onKeyEvent: (KeyEvent event) {
       if (event.logicalKey == LogicalKeyboardKey.enter) {
         _kanban.storeKanbanColumn(controller.text);           
         widget.onColumnAdded();
-        
+
         setState(() {
           _isClicked = false;
           controller.clear();
@@ -87,7 +87,7 @@ class _AddColumnButtonState extends State<AddColumnButton> {
       }
     },
     child: Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8, left: primaryPaddingValue),
       child: Container(
         width: kanbanCardWidth - 4,
         height: 54,
