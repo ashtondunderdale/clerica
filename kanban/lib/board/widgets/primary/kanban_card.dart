@@ -90,7 +90,7 @@ class _KanbanCardState extends State<KanbanCard> {
           Spacer(),
           Row(
             children: [
-              _buildCardType(widget.card.cardType.name),
+              //_buildCardType(widget.card.cardType.name),
               Spacer(),
               _isHovered || _isActive ? _buildText(widget.card.id) : SizedBox()
             ],
@@ -101,52 +101,52 @@ class _KanbanCardState extends State<KanbanCard> {
   );
 
 
-  Widget _buildCardType(String cardType) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {
-          var cardTypes = CardType.values.toList();
+  // Widget _buildCardType(String cardType) {
+  //   return MouseRegion(
+  //     cursor: SystemMouseCursors.click,
+  //     child: GestureDetector(
+  //       onTap: () {
+  //         var cardTypes = CardType.values.toList();
           
-          var matchingCardType = CardType.values.where((e) => e.name == widget.card.cardType.name).first;
-          int i = cardTypes.indexOf(matchingCardType);
+  //         var matchingCardType = CardType.values.where((e) => e.name == widget.card.cardType.name).first;
+  //         int i = cardTypes.indexOf(matchingCardType);
       
-          setState(() {
-            if (i >= 0 && i < cardTypes.length - 1) {   
-              widget.card.cardType = cardTypes[i + 1];
-            } else {
-              widget.card.cardType = cardTypes.first;
-            }
-          });
+  //         setState(() {
+  //           if (i >= 0 && i < cardTypes.length - 1) {   
+  //             widget.card.cardType = cardTypes[i + 1];
+  //           } else {
+  //             widget.card.cardType = cardTypes.first;
+  //           }
+  //         });
       
-          _kanban.storeKanbanCard(widget.card);
-        },
-        child: Container(
-          height: 18,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadiusValue*4),
-            border: Border.all(color: mediumGrey)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: secondaryPaddingValue, right: secondaryPaddingValue),
-            child: Center(
-              child: DefaultTextStyle(   
-                style: TextStyle(
-                  color: widget.card.cardType == CardType.maths ? mathsColor 
-                    : widget.card.cardType == CardType.programming ? programmingColor 
-                    : widget.card.cardType == CardType.general ? bugColor 
-                    : widget.card.cardType == CardType.life ? issueColor 
-                    : widget.card.cardType == CardType.health ? orderColor : mediumGrey, 
-                  fontSize: 11,
-                ),
-                child: Text(cardType),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  //         _kanban.storeKanbanCard(widget.card);
+  //       },
+  //       child: Container(
+  //         height: 18,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(borderRadiusValue*4),
+  //           border: Border.all(color: mediumGrey)
+  //         ),
+  //         child: Padding(
+  //           padding: const EdgeInsets.only(left: secondaryPaddingValue, right: secondaryPaddingValue),
+  //           child: Center(
+  //             child: DefaultTextStyle(   
+  //               style: TextStyle(
+  //                 color: widget.card.cardType == CardType.maths ? mathsColor 
+  //                   : widget.card.cardType == CardType.programming ? programmingColor 
+  //                   : widget.card.cardType == CardType.general ? bugColor 
+  //                   : widget.card.cardType == CardType.life ? issueColor 
+  //                   : widget.card.cardType == CardType.health ? orderColor : mediumGrey, 
+  //                 fontSize: 11,
+  //               ),
+  //               child: Text(cardType),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildTitle(TextEditingController controller) => _isEditingTitle
     ? SizedBox(

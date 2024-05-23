@@ -36,7 +36,6 @@ class KanbanService {
       column: columnTitle,
       id: generateCardId(),
       isVisible: true,
-      cardType: CardType.general,
     );
     
     column.cards.add(card);
@@ -91,7 +90,6 @@ class KanbanService {
         if (card['id'] == newCard.id) {
           card['title'] = newCard.title;
           card['column'] = newCard.column;
-          card['cardType'] = newCard.cardType.name;
           updatedCards.add(card);
         } else {
           updatedCards.add(card);
@@ -104,7 +102,6 @@ class KanbanService {
         'title': newCard.title,
         'column': newCard.column,
         'id': newCard.id,
-        'cardType': newCard.cardType.name
       });
     }
 
@@ -129,7 +126,6 @@ class KanbanService {
           column: card['column'] ?? "null",
           id: card['id'] ?? "null",
           isVisible: true,
-          cardType: CardType.values.firstWhere((e) => e.name == card['cardType'])
         ));
       }
 

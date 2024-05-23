@@ -5,22 +5,11 @@ class KanbanCardModel {
   String column;
   String id;
   bool isVisible;
-  CardType cardType;
 
   KanbanCardModel({
     required this.title,
     required this.column,
     required this.id,
-    required this.isVisible,
-    required this.cardType
+    required this.isVisible
   });
-
-  Map<String, dynamic> toJson() =>
-  {
-    'title': title,
-    'column': column,
-    'id': id,
-    'isVisible': true,
-    'cardType': cardType
-  };
 }
