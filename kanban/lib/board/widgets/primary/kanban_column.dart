@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kanban_application/board/services/kanban_service.dart';
 import 'package:kanban_application/board/widgets/add_card_button.dart';
 
@@ -28,9 +29,17 @@ class KanbanColumn extends StatefulWidget {
 
 class _KanbanColumnState extends State<KanbanColumn> {
   final _kanban = KanbanService();
+  final _controller = TextEditingController();
 
   bool _isHovered = false;
   bool _isColumnTopHovered = false;
+  bool _isEditingColumnTitle = false;
+
+  @override
+  void initState() {
+    _controller.text = widget.column.title;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => _buildColumn(context, widget.column.title);
@@ -73,7 +82,10 @@ class _KanbanColumnState extends State<KanbanColumn> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildText(title),
+                        SizedBox(
+                          width: kanbanCardWidth - 70,
+                          child: _buildTitle(_controller)
+                        ),
                         Spacer(),
                         _isColumnTopHovered ? _buildDeleteColumnIcon() : SizedBox(),
                         _buildAnimatedItemCount(widget.column.itemCount),
@@ -162,7 +174,7 @@ class _KanbanColumnState extends State<KanbanColumn> {
         onTap: () async {
           await _kanban.removeKanbanColumn(widget.column.title);
           widget.onColumnRemoved();
-          
+
           setState(() {});          
         },
         child: Icon(
@@ -173,4 +185,73 @@ class _KanbanColumnState extends State<KanbanColumn> {
       ),
     ),
   );
+
+  Widget _buildTitle(TextEditingController controller) => _isEditingColumnTitle
+    ? SizedBox(
+        width: kanbanCardWidth - 40,
+        child: KeyboardListener(
+          focusNode: FocusNode(),
+          onKeyEvent: (event) {
+            if (event.logicalKey == LogicalKeyboardKey.enter) {
+              setState(() {
+                _isEditingColumnTitle = false;
+                _kanban.removeKanbanColumn(widget.column.title);
+
+                widget.column.title = controller.text;
+                _kanban.storeKanbanColumn(widget.column.title);
+              });
+            }
+          },
+          child: SizedBox(
+            width: kanbanCardWidth - 40,
+            height: 16,
+            child: TextField(
+              maxLength: maxColumnTitleChars,
+              cursorColor: darkGrey,
+              style:  TextStyle(
+                color: darkGrey, 
+                fontSize: smallTextFontSize
+              ),
+              controller: controller,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                counter: SizedBox.shrink()
+              ),
+              autofocus: true,
+            ),
+          ),
+        ),
+      )
+    : Row(
+        children: [
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(secondaryPaddingValue),
+              child: _buildText(
+                widget.column.title,
+              ),
+            ),
+          ),
+          _isHovered
+              ? Padding(
+                  padding: const EdgeInsets.all(secondaryPaddingValue),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isEditingColumnTitle = true;
+                      });
+                    },
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Icon(
+                        Icons.edit,
+                        color: darkGrey,
+                        size: 13,
+                      ),
+                    ),
+                  ),
+                )
+              : SizedBox(),
+        ],
+      );
 }

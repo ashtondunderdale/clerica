@@ -41,4 +41,4 @@ const double smallTextFontSize = 13;
 
 const double actionBarHeight = 100;
 const int maxTaskChars = 24;
-const int maxColumnTitleChars = 18;
+const int maxColumnTitleChars = 12;

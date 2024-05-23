@@ -89,7 +89,6 @@ class _KanbanCardState extends State<KanbanCard> {
           Spacer(),
           Row(
             children: [
-              //_buildCardType(widget.card.cardType.name),
               Spacer(),
               _isHovered || _isActive ? _buildText(widget.card.id) : SizedBox()
             ],
